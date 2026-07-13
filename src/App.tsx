@@ -8,6 +8,8 @@ const AboutPage = lazy(() => import("./features/about/pages/AboutPage"));
 const ServicesPage = lazy(() => import("./features/services/pages/ServicesPage"));
 const ContactPage = lazy(() => import("./features/contact/pages/ContactPage"));
 const PrivacyPolicyPage = lazy(() => import("./features/legal/pages/PrivacyPolicyPage"));
+const BlogPage = lazy(() => import("@/features/blog/pages/BlogPage"));
+const BlogPostPage = lazy(() => import("@/features/blog/pages/BlogPostPage"));
 
 // Dummy component for home page for now, as it's not in Phase 1/2 scope
 const HomePlaceholder = () => (
@@ -23,12 +25,6 @@ const CasesPlaceholder = () => (
   </div>
 );
 
-const BlogPlaceholder = () => (
-  <div className="flex min-h-[50vh] items-center justify-center">
-    <h1 className="text-2xl font-bold">Blog Page (Phase 3)</h1>
-  </div>
-);
-
 function App() {
   return (
     <BrowserRouter>
@@ -40,7 +36,8 @@ function App() {
             <Route path="/servicos" element={<ServicesPage />} />
             <Route path="/contato" element={<ContactPage />} />
             <Route path="/cases" element={<CasesPlaceholder />} />
-            <Route path="/blog" element={<BlogPlaceholder />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/politica-de-privacidade" element={<PrivacyPolicyPage />} />
           </Route>
         </Routes>

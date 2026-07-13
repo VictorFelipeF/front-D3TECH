@@ -1,0 +1,55 @@
+import { useState, useEffect } from "react";
+import { getBlogPosts } from "../api/getBlogPosts";
+import { BlogPostCard } from "../components/BlogPostCard";
+import { FeaturedPostCard } from "../components/FeaturedPostCard";
+import { getFeaturedPost } from "../api/getFeaturedPost";
+import { LoadMoreButton } from "@/shared/components/LoadMoreButton";
+import type { BlogPost } from "../types";
+
+export default function BlogPage() {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [featured, setFeatured] = useState<BlogPost | null>(null);
+
+  useEffect(() => {
+  getFeaturedPost().then(setFeatured);
+  loadPage(1);
+}, []);
+
+  async function loadPage(p: number) {
+    setLoading(true);
+    try {
+      const { posts: newPosts, hasMore } = await getBlogPosts(p);
+      setPosts((prev) => (p === 1 ? newPosts : [...prev, ...newPosts]));
+      setHasMore(hasMore);
+      setPage(p);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+
+  return (
+    <div className="container mx-auto px-4 py-16">
+      {featured && <FeaturedPostCard post={featured} />}
+
+      <div className="grid md:grid-cols-3 gap-6 mt-10">
+        {posts.map((post) => (
+          <BlogPostCard key={post.id} post={post} />
+        ))}
+      </div>
+
+      {hasMore && (
+        <div className="flex justify-center mt-8">
+          <LoadMoreButton
+            onClick={() => loadPage(page + 1)}
+            isLoading={loading}
+            label="Ver mais..."
+          />
+        </div>
+      )}
+    </div>
+  );
+}
