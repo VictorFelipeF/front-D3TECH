@@ -8,8 +8,9 @@ const AboutPage = lazy(() => import("./features/about/pages/AboutPage"));
 const ServicesPage = lazy(() => import("./features/services/pages/ServicesPage"));
 const ContactPage = lazy(() => import("./features/contact/pages/ContactPage"));
 const PrivacyPolicyPage = lazy(() => import("./features/legal/pages/PrivacyPolicyPage"));
-const BlogPage = lazy(() => import("@/features/blog/pages/BlogPage"));
-const BlogPostPage = lazy(() => import("@/features/blog/pages/BlogPostPage"));
+const BlogPage = lazy(() => import("./features/blog/pages/BlogPage"));
+const BlogPostPage = lazy(() => import("./features/blog/pages/BlogPostPage"));
+const AdminBlogPage = lazy(() => import("@/features/blog/pages/AdminBlogPage"));
 
 // Dummy component for home page for now, as it's not in Phase 1/2 scope
 const HomePlaceholder = () => (
@@ -38,6 +39,7 @@ function App() {
             <Route path="/cases" element={<CasesPlaceholder />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
+            <Route path="/admin" element={<AdminBlogPage />} />
             <Route path="/politica-de-privacidade" element={<PrivacyPolicyPage />} />
           </Route>
         </Routes>

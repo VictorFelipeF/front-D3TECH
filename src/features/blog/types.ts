@@ -7,4 +7,5 @@ export interface BlogPost {
   author: string;
   publishedAt: string;
   tag: string;
+  status: "published" | "draft";
 }
