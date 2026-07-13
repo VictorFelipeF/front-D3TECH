@@ -8,4 +8,5 @@ export interface BlogPost {
   publishedAt: string;
   tag: string;
   status: "published" | "draft";
+  featured: boolean;
 }

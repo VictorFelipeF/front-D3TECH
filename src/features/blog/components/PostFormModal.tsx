@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import type { BlogPost } from "../types";
 
 interface Props {
@@ -22,6 +23,7 @@ const emptyForm = {
   publishedAt: new Date().toISOString(),
   slug: "",
   status: "draft" as const,
+  featured: false,
 };
 
 export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
@@ -90,6 +92,16 @@ export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
           />
         </div>
 
+        <div className="flex items-center gap-2">
+          <Checkbox
+            id="featured"
+            checked={form.featured}
+            onCheckedChange={(checked) =>
+              setForm((prev) => ({ ...prev, featured: !!checked }))
+            }
+          />
+          <Label htmlFor="featured">Definir como post em destaque</Label>
+      </div>
         <div className="flex justify-end gap-2 pt-2">
           <Button variant="secondary" onClick={() => handleSubmit("draft")}>
             Salvar Rascunho

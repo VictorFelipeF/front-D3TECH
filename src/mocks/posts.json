@@ -7,7 +7,9 @@
     "content": "<p>Conteúdo completo do post aqui...</p>",
     "author": "Autor",
     "publishedAt": "2026-05-10",
-    "tag": "Tag"
+    "tag": "Tag",
+    "status": "published",
+    "featured": true
   },
   {
     "id": "2",
@@ -17,7 +19,9 @@
     "content": "<p>Conteúdo</p>",
     "author": "Autor",
     "publishedAt": "2026-04-22",
-    "tag": "Tag"
+    "tag": "Tag",
+    "status": "published",
+    "featured": false
   },
   {
     "id": "3",
@@ -27,7 +31,9 @@
     "content": "<p>Conteúdo</p>",
     "author": "Autor",
     "publishedAt": "2026-04-22",
-    "tag": "Tag"
+    "tag": "Tag",
+    "status": "published",
+    "featured": false
   },
   {
     "id": "4",
@@ -37,7 +43,9 @@
     "content": "<p>Conteúdo</p>",
     "author": "Autor",
     "publishedAt": "2026-04-22",
-    "tag": "Tag"
+    "tag": "Tag",
+    "status": "published",
+    "featured": false
   },
   {
     "id": "5",
@@ -47,7 +55,9 @@
     "content": "<p>Conteúdo</p>",
     "author": "Autor",
     "publishedAt": "2026-04-22",
-    "tag": "Tag"
+    "tag": "Tag",
+    "status": "published",
+    "featured": false
   },
   {
     "id": "6",
@@ -57,7 +67,9 @@
     "content": "<p>Conteúdo</p>",
     "author": "Autor",
     "publishedAt": "2026-04-22",
-    "tag": "Tag"
+    "tag": "Tag",
+    "status": "published",
+    "featured": false
   },
   {
     "id": "7",
@@ -67,16 +79,8 @@
     "content": "<p>Conteúdo</p>",
     "author": "Autor",
     "publishedAt": "2026-04-22",
-    "tag": "Tag"
-  },
-  {
-    "id": "8",
-    "slug": "post-8",
-    "title": "Título",
-    "excerpt": "Resumo",
-    "content": "<p>Conteúdo</p>",
-    "author": "Autor",
-    "publishedAt": "2026-04-22",
-    "tag": "Tag"
+    "tag": "Tag",
+    "status": "published",
+    "featured": false
   }
 ]

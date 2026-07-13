@@ -1,6 +1,7 @@
 import type { BlogPost } from "../types";
-import mockPosts from "@/mocks/posts.json";
+import { getStore } from "@/mocks/blogStore";
 
-export async function getFeaturedPost(): Promise<BlogPost> {
-  return mockPosts[0] as BlogPost;
+export async function getFeaturedPost(): Promise<BlogPost | null> {
+  const published = getStore().filter((p) => p.status === "published");
+  return published.find((p) => p.featured) ?? null;
 }

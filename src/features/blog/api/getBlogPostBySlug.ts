@@ -1,8 +1,8 @@
 import type { BlogPost } from "../types";
-import mockPosts from "@/mocks/posts.json";
+import { getStore } from "@/mocks/blogStore";
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost> {
-  const post = mockPosts.find((p) => p.slug === slug);
+  const post = getStore().find((p) => p.slug === slug && p.status === "published");
   if (!post) throw new Error("Post não encontrado");
-  return post as BlogPost;
+  return post;
 }

@@ -1,16 +1,20 @@
 import type { BlogPost } from "../types";
-import mockPosts from "@/mocks/posts.json";
-
-const gridPosts = mockPosts.slice(1);
+import { getStore } from "@/mocks/blogStore";
 
 export async function getBlogPosts(
   page = 1,
   perPage = 6
 ): Promise<{ posts: BlogPost[]; hasMore: boolean }> {
+  const published = getStore().filter((p) => p.status === "published");
+  
+  // exclui o post marcado como destaque, não importa a posição
+  const gridPosts = published.filter((p) => !p.featured);
+
   const start = (page - 1) * perPage;
   const end = start + perPage;
-  const posts = gridPosts.slice(start, end) as BlogPost[];
-  const hasMore = end < gridPosts.length;
 
-  return { posts, hasMore };
+  return {
+    posts: gridPosts.slice(start, end),
+    hasMore: end < gridPosts.length,
+  };
 }
