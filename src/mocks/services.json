@@ -1,0 +1,12 @@
+[
+  { "id": "1", "name": "Desenvolvimento de sites institucionais", "shortDescription": "Sites profissionais que apresentam sua empresa e geram credibilidade.", "icon": "Globe" },
+  { "id": "2", "name": "Desenvolvimento de landing pages", "shortDescription": "Páginas focadas em conversão para campanhas e lançamentos.", "icon": "LayoutTemplate" },
+  { "id": "3", "name": "Desenvolvimento de sistemas web", "shortDescription": "Sistemas sob medida para as necessidades do seu negócio.", "icon": "Code2" },
+  { "id": "4", "name": "Manutenção e melhoria de sistemas existentes", "shortDescription": "Evolução e correção de sistemas que sua empresa já utiliza.", "icon": "Wrench" },
+  { "id": "5", "name": "Automação de processos", "shortDescription": "Redução de tarefas manuais e repetitivas do dia a dia.", "icon": "Workflow" },
+  { "id": "6", "name": "Dashboards e Business Intelligence", "shortDescription": "Visualização de dados para decisões mais rápidas e seguras.", "icon": "BarChart3" },
+  { "id": "7", "name": "Consultoria tecnológica", "shortDescription": "Orientação técnica para escolher o caminho certo antes de investir.", "icon": "Lightbulb" },
+  { "id": "8", "name": "Protótipos e MVPs", "shortDescription": "Validação rápida de ideias antes do investimento completo.", "icon": "Rocket" },
+  { "id": "9", "name": "Integrações com APIs", "shortDescription": "Conexão entre sistemas, plataformas e serviços externos.", "icon": "Plug" },
+  { "id": "10", "name": "Sistemas administrativos internos", "shortDescription": "Ferramentas internas para organizar a gestão da sua empresa.", "icon": "ClipboardList" }
+]
