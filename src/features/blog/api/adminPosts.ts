@@ -40,3 +40,14 @@ export async function updatePost(id: string, data: Partial<BlogPost>): Promise<B
 export async function deletePost(id: string): Promise<void> {
   setStore(getStore().filter((p) => p.id !== id));
 }
+
+export async function getPostsSummary(): Promise<{
+  published: number;
+  draft: number;
+}> {
+  const all = getStore();
+  return {
+    published: all.filter((p) => p.status === "published").length,
+    draft: all.filter((p) => p.status === "draft").length,
+  };
+}

@@ -1,10 +1,10 @@
-// src/features/blog/pages/AdminBlogPage.tsx
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { AdminPostRow } from "../components/AdminPostRow";
 import { PostFormModal } from "../components/PostFormModal";
 import { Pagination } from "@/shared/components/Pagination";
 import { getAllPosts, createPost, updatePost, deletePost } from "../api/adminPosts";
+import { useSearchParams } from "react-router-dom";
 import type { BlogPost } from "../types";
 
 export default function AdminBlogPage() {
@@ -13,11 +13,18 @@ export default function AdminBlogPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     loadPosts(page);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
+
+  useEffect(() => {
+    if (searchParams.get("new") === "true") {
+      openNewPost();
+      setSearchParams({}, { replace: true }); // limpa a query pra não reabrir em refresh
+    }
+  }, [searchParams]);
 
   async function loadPosts(p: number) {
     const { posts, totalPages } = await getAllPosts(p);
