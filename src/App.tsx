@@ -15,6 +15,7 @@ const BlogPostPage = lazy(() => import("./features/blog/pages/BlogPostPage"));
 const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
 const AdminHomePage = lazy(() => import("@/features/auth/pages/AdminHomePage"));
 const AdminBlogPage = lazy(() => import("@/features/blog/pages/AdminBlogPage"));
+const AdminCasesPage = lazy(() => import("@/features/cases/pages/AdminCasesPage"));
 
 // Dummy component for home page for now, as it's not in Phase 1/2 scope
 const HomePlaceholder = () => (
@@ -54,6 +55,7 @@ function App() {
             <Route element={<AdminLayout />}>
               <Route path="/admin/home" element={<AdminHomePage />} />
               <Route path="/admin/blog" element={<AdminBlogPage />} />
+              <Route path="/admin/cases" element={<AdminCasesPage />} />
             </Route>
           </Route>
         </Routes>

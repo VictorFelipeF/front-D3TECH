@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -29,10 +29,10 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-60px)] bg-gradient-to-br from-d3-navy via-d3-purple to-d3-purple-dark flex items-center justify-center px-4 py-16">
+    <div className="min-h-[calc(100vh-64px)] bg-gradient-to-br from-d3-navy via-d3-purple to-d3-purple-dark flex items-center justify-center px-4 py-16">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-sm"
+        className="w-full max-w-sm bg-white/5 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl p-8"
       >
         <h1 className="text-3xl font-bold text-center text-white mb-1">
           Entrar
@@ -45,14 +45,17 @@ export default function LoginPage() {
           <Label htmlFor="email" className="text-white/90">
             Email
           </Label>
-          <Input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="bg-white"
-            required
-          />
+          <div className="relative">
+            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="bg-white pl-9"
+              required
+            />
+          </div>
         </div>
 
         <div className="mb-2">
@@ -60,12 +63,13 @@ export default function LoginPage() {
             Senha
           </Label>
           <div className="relative">
+            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
               id="password"
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="bg-white pr-10"
+              className="bg-white pl-9 pr-10"
               required
             />
             <button
@@ -84,7 +88,7 @@ export default function LoginPage() {
         </div>
 
         <div className="text-right mb-4">
-          <Link to="/admin/esqueci-senha" className="text-xs text-white/70 hover:underline">
+          <Link to="/admin/esqueci-senha" className="text-xs text-white/90 hover:underline">
             Esqueci minha senha
           </Link>
         </div>
@@ -102,8 +106,8 @@ export default function LoginPage() {
         </Button>
 
         <div className="border-t border-white/20 mt-6 pt-6 text-center">
-          <p className="text-sm text-white/70 mb-1">Não tem uma conta?</p>
-          <Link to="/admin/solicitar-acesso" className="text-xs text-white/70 font-medium hover:underline">
+          <p className="text-xs text-white/70 mb-1">Não tem uma conta?</p>
+          <Link to="/admin/solicitar-acesso" className="text-xs text-white font-medium hover:underline">
             Solicitar Acesso
           </Link>
         </div>
