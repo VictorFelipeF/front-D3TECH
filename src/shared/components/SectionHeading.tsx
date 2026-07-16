@@ -5,6 +5,7 @@ type SectionHeadingProps = {
   title: string;
   subtitle?: string;
   align?: "left" | "center";
+  tone?: "default" | "light";
 };
 
 export function SectionHeading({
@@ -12,6 +13,7 @@ export function SectionHeading({
   title,
   subtitle,
   align = "left",
+  tone = "default",
 }: SectionHeadingProps) {
   return (
     <div
@@ -25,11 +27,17 @@ export function SectionHeading({
           {eyebrow}
         </span>
       )}
-      <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl lg:text-4xl">
+      <h2 className={cn(
+        "text-2xl font-bold tracking-tight md:text-3xl lg:text-4xl",
+        tone === "light" ? "text-white" : "text-foreground"
+      )}>
         {title}
       </h2>
       {subtitle && (
-        <p className="max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+        <p className={cn(
+          "max-w-2xl text-base leading-relaxed md:text-lg",
+          tone === "light" ? "text-white/70" : "text-muted-foreground"
+        )}>
           {subtitle}
         </p>
       )}
