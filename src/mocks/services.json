@@ -1,12 +1,92 @@
 [
-  { "id": "1", "name": "Desenvolvimento de sites institucionais", "shortDescription": "Sites profissionais que apresentam sua empresa e geram credibilidade.", "icon": "Globe" },
-  { "id": "2", "name": "Desenvolvimento de landing pages", "shortDescription": "Páginas focadas em conversão para campanhas e lançamentos.", "icon": "LayoutTemplate" },
-  { "id": "3", "name": "Desenvolvimento de sistemas web", "shortDescription": "Sistemas sob medida para as necessidades do seu negócio.", "icon": "Code2" },
-  { "id": "4", "name": "Manutenção e melhoria de sistemas existentes", "shortDescription": "Evolução e correção de sistemas que sua empresa já utiliza.", "icon": "Wrench" },
-  { "id": "5", "name": "Automação de processos", "shortDescription": "Redução de tarefas manuais e repetitivas do dia a dia.", "icon": "Workflow" },
-  { "id": "6", "name": "Dashboards e Business Intelligence", "shortDescription": "Visualização de dados para decisões mais rápidas e seguras.", "icon": "BarChart3" },
-  { "id": "7", "name": "Consultoria tecnológica", "shortDescription": "Orientação técnica para escolher o caminho certo antes de investir.", "icon": "Lightbulb" },
-  { "id": "8", "name": "Protótipos e MVPs", "shortDescription": "Validação rápida de ideias antes do investimento completo.", "icon": "Rocket" },
-  { "id": "9", "name": "Integrações com APIs", "shortDescription": "Conexão entre sistemas, plataformas e serviços externos.", "icon": "Plug" },
-  { "id": "10", "name": "Sistemas administrativos internos", "shortDescription": "Ferramentas internas para organizar a gestão da sua empresa.", "icon": "ClipboardList" }
+  {
+    "id": "1",
+    "name": "Desenvolvimento de sites institucionais",
+    "shortDescription": "Sites profissionais que apresentam sua empresa e geram credibilidade.",
+    "longDescription": "Construímos sites institucionais modernos, rápidos e responsivos que transmitem credibilidade e traduzem a essência da sua marca para o ambiente digital.",
+    "category": "Desenvolvimento",
+    "icon": "Globe",
+    "deliverables": ["Site responsivo", "Gestão de conteúdo (CMS)", "Otimização de SEO"]
+  },
+  {
+    "id": "2",
+    "name": "Desenvolvimento de landing pages",
+    "shortDescription": "Páginas focadas em conversão para campanhas e lançamentos.",
+    "longDescription": "Landing pages desenhadas para converter visitantes em leads, com foco em performance, copywriting persuasivo e mensuração de resultados.",
+    "category": "Desenvolvimento",
+    "icon": "LayoutTemplate",
+    "deliverables": ["Página de conversão", "Integração com analytics", "A/B testing"]
+  },
+  {
+    "id": "3",
+    "name": "Desenvolvimento de sistemas web",
+    "shortDescription": "Sistemas sob medida para as necessidades do seu negócio.",
+    "longDescription": "Sistemas web customizados que automatizam fluxos, centralizam dados e escalam junto com o seu negócio, com arquitetura moderna e segura.",
+    "category": "Desenvolvimento",
+    "icon": "Code2",
+    "deliverables": ["Arquitetura escalável", "Painel administrativo", "API documentada"]
+  },
+  {
+    "id": "4",
+    "name": "Manutenção e melhoria de sistemas existentes",
+    "shortDescription": "Evolução e correção de sistemas que sua empresa já utiliza.",
+    "longDescription": "Damos continuidade a sistemas legados, corrigindo falhas, modernizando a base técnica e adicionando funcionalidades sem perder o que já funciona.",
+    "category": "Desenvolvimento",
+    "icon": "Wrench",
+    "deliverables": ["Auditoria de código", "Correção de bugs", "Novas features"]
+  },
+  {
+    "id": "5",
+    "name": "Automação de processos",
+    "shortDescription": "Redução de tarefas manuais e repetitivas do dia a dia.",
+    "longDescription": "Mapeamos processos repetitivos e criamos automações que liberam tempo da equipe, reduzem erros operacionais e aumentam a previsibilidade.",
+    "category": "Automação",
+    "icon": "Workflow",
+    "deliverables": ["Mapeamento de processos", "Automação personalizada", "Relatórios automáticos"]
+  },
+  {
+    "id": "6",
+    "name": "Dashboards e Business Intelligence",
+    "shortDescription": "Visualização de dados para decisões mais rápidas e seguras.",
+    "longDescription": "Dashboards interativos que consolidam dados de diferentes fontes em tempo real, permitindo decisões baseadas em evidências e não em achismos.",
+    "category": "Automação",
+    "icon": "BarChart3",
+    "deliverables": ["Painéis interativos", "Integração de fontes", "Métricas em tempo real"]
+  },
+  {
+    "id": "7",
+    "name": "Consultoria tecnológica",
+    "shortDescription": "Orientação técnica para escolher o caminho certo antes de investir.",
+    "longDescription": "Ajudamos sua empresa a tomar decisões tecnológicas com clareza, avaliando stack, arquitetura e viabilidade antes de qualquer investimento.",
+    "category": "Consultoria",
+    "icon": "Lightbulb",
+    "deliverables": ["Diagnóstico técnico", "Roadmap de tecnologia", "Avaliação de viabilidade"]
+  },
+  {
+    "id": "8",
+    "name": "Protótipos e MVPs",
+    "shortDescription": "Validação rápida de ideias antes do investimento completo.",
+    "longDescription": "Construímos protótipos e MVPs que permitem validar hipóteses com usuários reais em semanas, reduzindo risco antes do investimento completo.",
+    "category": "Consultoria",
+    "icon": "Rocket",
+    "deliverables": ["Protótipo navegável", "MVP funcional", "Plano de validação"]
+  },
+  {
+    "id": "9",
+    "name": "Integrações com APIs",
+    "shortDescription": "Conexão entre sistemas, plataformas e serviços externos.",
+    "longDescription": "Integramos sistemas distintos via APIs para eliminar retrabalho, sincronizar dados e criar fluxos contínuos entre as ferramentas que você já usa.",
+    "category": "Desenvolvimento",
+    "icon": "Plug",
+    "deliverables": ["Integração sob medida", "Sincronização de dados", "Monitoramento de falhas"]
+  },
+  {
+    "id": "10",
+    "name": "Sistemas administrativos internos",
+    "shortDescription": "Ferramentas internas para organizar a gestão da sua empresa.",
+    "longDescription": "Desenvolvemos sistemas internos que organizam a operação, centralizam informações e dão visibilidade para a gestão tomar decisões melhores.",
+    "category": "Desenvolvimento",
+    "icon": "ClipboardList",
+    "deliverables": ["Painel de gestão", "Controle de acessos", "Relatórios gerenciais"]
+  }
 ]
