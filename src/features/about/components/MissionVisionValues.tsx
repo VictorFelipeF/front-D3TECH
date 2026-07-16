@@ -1,10 +1,12 @@
 import { BaseCard } from "@/shared/components/BaseCard";
+import { SectionHeading } from "@/shared/components/SectionHeading";
 import { Target, Eye, Heart } from "lucide-react";
 
 export function MissionVisionValues() {
   return (
-    <section className="border-y border-border/50 bg-muted/30 py-20 md:py-28">
+    <section className="border-y border-border/50 bg-d3-navy/100 py-20 md:py-28">
       <div className="container mx-auto px-4">
+       <SectionHeading align="center" tone="light" title="O que nos move" subtitle="Os pilares que guiam nossas ações e decisões" />
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {/* TODO: conteúdo institucional real pendente */}
           <BaseCard

@@ -31,15 +31,12 @@ export function HeroAbout() {
           Transformando conhecimento acadêmico em soluções tecnológicas reais.
         </h1>
         <Button
+          size="lg"
           onClick={scrollToDiferenciais}
-          className="bg-d3-purple text-white shadow-md shadow-d3-purple/25 hover:bg-d3-purple-light hover:shadow-lg hover:shadow-d3-purple/30 hover:-translate-y-px active:translate-y-0"
+          className="h-12 gap-2 px-8 text-base bg-d3-purple text-white shadow-md shadow-d3-purple/25 hover:bg-d3-purple-light hover:shadow-lg hover:shadow-d3-purple/30 hover:-translate-y-px active:translate-y-0"
         >
           Conheça nossos diferenciais
         </Button>
-        {/* TODO: conteúdo institucional real pendente */}
-        <p className="mx-auto max-w-2xl text-lg leading-relaxed text-white/70 md:text-xl">
-          {/* TODO: conteúdo institucional real pendente */}
-        </p>
       </div>
     </section>
   );
