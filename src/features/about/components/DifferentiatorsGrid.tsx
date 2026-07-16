@@ -4,7 +4,7 @@ import { GraduationCap, Wallet, Lightbulb, PenTool } from "lucide-react";
 
 export function DifferentiatorsGrid() {
   return (
-    <section className="container mx-auto px-4 py-20 md:py-28">
+    <section id="diferenciais" className="container mx-auto px-4 py-20 md:py-28">
       <SectionHeading align="center" title="Por que escolher a D3TEC?" />
 
       <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
