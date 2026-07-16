@@ -36,10 +36,6 @@ export function HeroAbout() {
         >
           Conheça nossos diferenciais
         </Button>
-        {/* TODO: conteúdo institucional real pendente */}
-        <p className="mx-auto max-w-2xl text-lg leading-relaxed text-white/70 md:text-xl">
-          {/* TODO: conteúdo institucional real pendente */}
-        </p>
       </div>
     </section>
   );
