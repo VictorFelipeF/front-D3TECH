@@ -1,10 +1,17 @@
 import { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ProfileModal } from "@/features/auth/components/ProfileModal";
+import { getCurrentUser, updateCurrentUser } from "@/features/auth/authStore";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const location = useLocation();
+
+  const isAdminArea = location.pathname.startsWith("/admin") && location.pathname !== "/admin";
+  const user = isAdminArea ? getCurrentUser() : null;
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
   const closeMenu = () => setIsOpen(false);
@@ -16,11 +23,15 @@ export function Header() {
     { to: "/blog", label: "Blog" },
   ];
 
+  function handleSaveProfile(data: { username: string; avatarUrl: string }) {
+    updateCurrentUser(data);
+  }
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-d3-navy/95 text-white backdrop-blur-md shadow-lg shadow-d3-navy-dark/20">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link
-          to="/"
+          to={isAdminArea ? "/admin/home" : "/"}
           onClick={closeMenu}
           className="text-xl font-bold tracking-tight transition-colors hover:text-d3-purple-light"
         >
@@ -44,12 +55,27 @@ export function Header() {
               {link.label}
             </NavLink>
           ))}
-          <Link
-            to="/contato"
-            className="inline-flex h-9 items-center justify-center rounded-lg bg-d3-purple px-5 py-2 text-sm font-semibold text-white shadow-md shadow-d3-purple/25 transition-all duration-200 hover:bg-d3-purple-light hover:shadow-lg hover:shadow-d3-purple/30 hover:-translate-y-px active:translate-y-0"
-          >
-            Fale conosco
-          </Link>
+
+          {isAdminArea && user ? (
+            <button
+              onClick={() => setProfileOpen(true)}
+              className="h-9 w-9 rounded-full bg-d3-purple/30 overflow-hidden flex items-center justify-center border border-white/20"
+              aria-label="Abrir perfil"
+            >
+              {user.avatarUrl ? (
+                <img src={user.avatarUrl} alt="" className="h-full w-full object-cover" />
+              ) : (
+                <span className="text-sm">👤</span>
+              )}
+            </button>
+          ) : (
+            <Link
+              to="/contato"
+              className="inline-flex h-9 items-center justify-center rounded-lg bg-d3-purple px-5 py-2 text-sm font-semibold text-white shadow-md shadow-d3-purple/25 transition-all duration-200 hover:bg-d3-purple-light hover:shadow-lg hover:shadow-d3-purple/30 hover:-translate-y-px active:translate-y-0"
+            >
+              Fale conosco
+            </Link>
+          )}
         </nav>
 
         {/* Mobile Nav Toggle */}
@@ -87,15 +113,44 @@ export function Header() {
                 {link.label}
               </NavLink>
             ))}
-            <Link
-              to="/contato"
-              onClick={closeMenu}
-              className="mt-3 inline-flex h-11 w-full items-center justify-center rounded-lg bg-d3-purple px-4 py-2 text-sm font-semibold text-white shadow-md shadow-d3-purple/25 transition-all duration-200 hover:bg-d3-purple-light"
-            >
-              Fale conosco
-            </Link>
+
+            {isAdminArea && user ? (
+              <button
+                onClick={() => {
+                  setProfileOpen(true);
+                  closeMenu();
+                }}
+                className="mt-3 flex items-center gap-2 rounded-lg px-4 py-3 text-base font-medium text-white/70 hover:bg-white/5 hover:text-white"
+              >
+                <span className="h-6 w-6 rounded-full bg-d3-purple/30 overflow-hidden flex items-center justify-center">
+                  {user.avatarUrl ? (
+                    <img src={user.avatarUrl} alt="" className="h-full w-full object-cover" />
+                  ) : (
+                    "👤"
+                  )}
+                </span>
+                Meu perfil
+              </button>
+            ) : (
+              <Link
+                to="/contato"
+                onClick={closeMenu}
+                className="mt-3 inline-flex h-11 w-full items-center justify-center rounded-lg bg-d3-purple px-4 py-2 text-sm font-semibold text-white shadow-md shadow-d3-purple/25 transition-all duration-200 hover:bg-d3-purple-light"
+              >
+                Fale conosco
+              </Link>
+            )}
           </nav>
         </div>
+      )}
+
+      {isAdminArea && user && (
+        <ProfileModal
+          isOpen={profileOpen}
+          onClose={() => setProfileOpen(false)}
+          onSave={handleSaveProfile}
+          currentUser={user}
+        />
       )}
     </header>
   );

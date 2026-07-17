@@ -1,99 +1,97 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { AdminPostRow } from "../components/AdminPostRow";
-import { PostFormModal } from "../components/PostFormModal";
+import { AdminCaseRow } from "../components/AdminCaseRow";
+import { CaseFormModal } from "../components/CaseFormModal";
 import { Pagination } from "@/shared/components/Pagination";
 import { SearchInput } from "@/shared/components/SearchInput";
-import { getAllPosts, createPost, updatePost, deletePost } from "../api/adminPosts";
-import type { BlogPost } from "../types";
+import { getAllCases, createCase, updateCase, deleteCase } from "../api/adminCases";
+import type { CaseStudy } from "../types";
 
-export default function AdminBlogPage() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
+export default function AdminCasesPage() {
+  const [cases, setCases] = useState<CaseStudy[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-  const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
+  const [editingCase, setEditingCase] = useState<CaseStudy | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    loadPosts(page, search);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    loadCases(page, search);
   }, [page, search]);
 
   useEffect(() => {
     if (searchParams.get("new") === "true") {
-      openNewPost();
+      openNewCase();
       setSearchParams({}, { replace: true });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
-  async function loadPosts(p: number, term: string) {
-    const { posts, totalPages } = await getAllPosts(p, 5, term);
-    setPosts(posts);
+  async function loadCases(p: number, term: string) {
+    const { cases, totalPages } = await getAllCases(p, 5, term);
+    setCases(cases);
     setTotalPages(totalPages);
   }
 
   function handleSearchChange(value: string) {
     setSearch(value);
-    setPage(1); // volta pra primeira página ao buscar
+    setPage(1);
   }
 
-  function openNewPost() {
-    setEditingPost(null);
+  function openNewCase() {
+    setEditingCase(null);
     setModalOpen(true);
   }
 
-  function openEditPost(post: BlogPost) {
-    setEditingPost(post);
+  function openEditCase(item: CaseStudy) {
+    setEditingCase(item);
     setModalOpen(true);
   }
 
   async function handleSave(
-    data: Omit<BlogPost, "id">,
+    data: Omit<CaseStudy, "id">,
     _status: "draft" | "published"
   ) {
-    if (editingPost) {
-      await updatePost(editingPost.id, data);
+    if (editingCase) {
+      await updateCase(editingCase.id, data);
     } else {
-      await createPost(data);
+      await createCase(data);
     }
-    await loadPosts(page, search);
+    await loadCases(page, search);
   }
 
   async function handleDelete(id: string) {
-    await deletePost(id);
-    await loadPosts(page, search);
+    await deleteCase(id);
+    await loadCases(page, search);
   }
 
   return (
     <div className="container mx-auto px-4 py-16">
       <div className="flex items-center justify-between mb-6 gap-4">
-        <h1 className="text-xl font-bold">Publicações</h1>
-        <Button onClick={openNewPost}>+ Novo Post</Button>
+        <h1 className="text-xl font-bold">Cases de Sucesso</h1>
+        <Button onClick={openNewCase}>+ Novo Case</Button>
       </div>
 
       <div className="mb-4">
         <SearchInput
           value={search}
           onChange={handleSearchChange}
-          placeholder="Buscar por título..."
+          placeholder="Buscar por título ou cliente..."
         />
       </div>
 
       <div className="space-y-2">
-        {posts.length === 0 ? (
+        {cases.length === 0 ? (
           <p className="text-sm text-muted-foreground py-8 text-center">
-            Nenhum post encontrado.
+            Nenhum case encontrado.
           </p>
         ) : (
-          posts.map((post) => (
-            <AdminPostRow
-              key={post.id}
-              post={post}
-              onEdit={openEditPost}
+          cases.map((item) => (
+            <AdminCaseRow
+              key={item.id}
+              caseItem={item}
+              onEdit={openEditCase}
               onDelete={handleDelete}
             />
           ))
@@ -102,11 +100,11 @@ export default function AdminBlogPage() {
 
       <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
 
-      <PostFormModal
+      <CaseFormModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         onSave={handleSave}
-        initialData={editingPost}
+        initialData={editingCase}
       />
     </div>
   );
