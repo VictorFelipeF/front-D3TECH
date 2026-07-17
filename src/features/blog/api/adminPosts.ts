@@ -3,9 +3,16 @@ import { getStore, setStore } from "@/mocks/blogStore";
 
 export async function getAllPosts(
   page = 1,
-  perPage = 5
+  perPage = 5,
+  search = ""
 ): Promise<{ posts: BlogPost[]; total: number; totalPages: number }> {
-  const all = getStore();
+  let all = getStore();
+
+  if (search.trim()) {
+    const term = search.trim().toLowerCase();
+    all = all.filter((p) => p.title.toLowerCase().includes(term));
+  }
+
   const start = (page - 1) * perPage;
   const end = start + perPage;
   return {

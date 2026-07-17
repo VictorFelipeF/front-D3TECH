@@ -3,9 +3,20 @@ import { getCasesStore, setCasesStore } from "@/mocks/casesStore";
 
 export async function getAllCases(
   page = 1,
-  perPage = 5
+  perPage = 5,
+  search = ""
 ): Promise<{ cases: CaseStudy[]; total: number; totalPages: number }> {
-  const all = getCasesStore();
+  let all = getCasesStore();
+
+  if (search.trim()) {
+    const term = search.trim().toLowerCase();
+    all = all.filter(
+      (c) =>
+        c.title.toLowerCase().includes(term) ||
+        c.client.toLowerCase().includes(term)
+    );
+  }
+
   const start = (page - 1) * perPage;
   const end = start + perPage;
   return {
