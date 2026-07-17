@@ -8,9 +8,6 @@ export type ServiceType = {
   name: string;
   shortDescription: string;
   icon: string;
-  category?: string;
-  longDescription?: string;
-  deliverables?: string[];
 };
 
 type ServiceCardProps = {
