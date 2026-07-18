@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { Modal } from "@/shared/components/Modal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { TextEditor } from "@/shared/components/TextEditor";
 import type { BlogPost } from "../types";
 
 interface Props {
@@ -83,12 +83,10 @@ export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
         </div>
 
         <div>
-          <Label htmlFor="content">Conteúdo</Label>
-          <Textarea
-            id="content"
-            rows={6}
+          <Label>Conteúdo</Label>
+          <TextEditor
             value={form.content}
-            onChange={(e) => handleChange("content", e.target.value)}
+            onChange={(html) => handleChange("content", html)}
           />
         </div>
 
