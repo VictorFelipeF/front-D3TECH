@@ -1,34 +1,26 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Pencil, Star } from "lucide-react";
+import { Pencil, FileText, Star, FileEdit } from "lucide-react";
 import { PostFormModal } from "@/features/blog/components/PostFormModal";
 import { CaseFormModal } from "@/features/cases/components/CaseFormModal";
 import { createPost, getPostsSummary } from "@/features/blog/api/adminPosts";
 import { createCase, getCasesSummary } from "@/features/cases/api/adminCases";
 import type { BlogPost } from "@/features/blog/types";
-import type {CaseStudy} from "@/features/cases/types"
+import type { CaseStudy } from "@/features/cases/types";
 
 export default function AdminHomePage() {
-  const navigate = useNavigate();
   const [blogModalOpen, setBlogModalOpen] = useState(false);
   const [caseModalOpen, setCaseModalOpen] = useState(false);
+  const [blogSummary, setBlogSummary] = useState({ published: 0, draft: 0 });
   const [casesSummary, setCasesSummary] = useState({ published: 0, draft: 0 });
-  const [summary, setSummary] = useState({ published: 0, draft: 0 });
 
-  
   useEffect(() => {
-    loadSummary();
-    loadCasesSummary();
+    loadSummaries();
   }, []);
 
-  async function loadSummary() {
-    const data = await getPostsSummary(); 
-    setSummary(data);
-  }
-  
-async function loadCasesSummary() {
-  const data = await getCasesSummary();
-  setCasesSummary(data);
+  async function loadSummaries() {
+    const [blog, cases] = await Promise.all([getPostsSummary(), getCasesSummary()]);
+    setBlogSummary(blog);
+    setCasesSummary(cases);
   }
 
   async function handleSaveBlogPost(
@@ -36,81 +28,71 @@ async function loadCasesSummary() {
     _status: "draft" | "published"
   ) {
     await createPost(data);
-    await loadSummary(); // atualiza os números na hora
+    await loadSummaries();
   }
 
   async function handleSaveCase(
-  data: Omit<CaseStudy, "id">,
-  _status: "draft" | "published"
-) {
-  await createCase(data);
-  await loadCasesSummary();
-}
+    data: Omit<CaseStudy, "id">,
+    _status: "draft" | "published"
+  ) {
+    await createCase(data);
+    await loadSummaries();
+  }
+
+  const stats = [
+    { label: "Posts publicados", value: blogSummary.published, icon: Pencil },
+    { label: "Posts em rascunho", value: blogSummary.draft, icon: FileEdit },
+    { label: "Cases publicados", value: casesSummary.published, icon: Star },
+    { label: "Cases em rascunho", value: casesSummary.draft, icon: FileText },
+  ];
 
   return (
-    <div className="min-h-[calc(100vh-64px)] bg-gradient-to-br from-d3-navy via-d3-purple to-d3-purple-dark px-4 py-16">
-      <div className="container mx-auto">
-        <h1 className="text-2xl font-bold text-white">Painel Administrativo</h1>
-        <p className="text-sm text-white/80 mb-8">
-          Gerencie o conteúdo da plataforma
-        </p>
+    <div className="px-10 py-12 max-w-6xl">
+      <h1 className="text-2xl font-semibold text-white">Dashboard</h1>
+      <p className="text-sm text-white/60 mt-1 mb-8">
+        Visão geral do conteúdo administrativo
+      </p>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Card Blog */}
-          <div className="bg-white rounded-lg p-6">
-            <div className="flex items-center gap-2 mb-1">
-              <Pencil className="w-5 h-5 text-d3-purple" />
-              <h2 className="font-semibold text-lg">Blog</h2>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        {stats.map((stat) => (
+          <div
+            key={stat.label}
+            className="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-5"
+          >
+            <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center mb-4">
+              <stat.icon className="w-5 h-5 text-white" />
             </div>
-            <p className="text-sm text-muted-foreground mb-6">
-              Publicações e rascunhos
-            </p>
-            <p className="text-xs text-muted-foreground mb-4">
-              {summary.published} publicações · {summary.draft} rascunhos
-            </p>
-            <div className="flex gap-3">
-              <button
-                onClick={() => setBlogModalOpen(true)}
-                className="bg-d3-purple text-white text-sm rounded-md px-4 py-2"
-              >
-                Novo Post
-              </button>
-              <button
-                onClick={() => navigate("/admin/blog")}
-                className="bg-slate-600 text-white text-sm rounded-md px-4 py-2"
-              >
-                Ver Publicações
-              </button>
-            </div>
+            <p className="text-xs text-white/60 mb-1">{stat.label}</p>
+            <p className="text-2xl font-semibold text-white">{stat.value}</p>
           </div>
+        ))}
+      </div>
 
-          {/* Card Cases — contagens ainda fixas até a feature existir */}
-          <div className="bg-white rounded-lg p-6">
-            <div className="flex items-center gap-2 mb-1">
-              <Star className="w-5 h-5 text-d3-purple" />
-              <h2 className="font-semibold text-lg">Cases de Sucesso</h2>
-            </div>
-            <p className="text-sm text-muted-foreground mb-6">
-              Projetos e resultados
+      <div className="grid md:grid-cols-2 gap-4">
+          <div className="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-7">
+            <h2 className="font-semibold text-white mb-1">Blog</h2>
+            <p className="text-sm text-white/60 mb-5">
+              Gerencie publicações e rascunhos
             </p>
-            <p className="text-xs text-muted-foreground mb-4">
-              {casesSummary.published} publicações · {casesSummary.draft} rascunhos
-            </p>
-            <div className="flex gap-3">
-              <button
-                onClick={() => setCaseModalOpen(true)}
-                className="bg-d3-purple text-white text-sm rounded-md px-4 py-2"
+            <button
+              onClick={() => setBlogModalOpen(true)}
+              className="bg-white text-d3-purple hover:bg-white/90 transition-colors text-sm font-medium rounded-lg px-4 py-2.5"
             >
-              Novo Post
+              + Novo post
             </button>
-              <button
-                onClick={() => navigate("/admin/cases")}
-                className="bg-slate-600 text-white text-sm rounded-md px-4 py-2"
-              >
-                Ver Publicações
-              </button>
-            </div>
           </div>
+
+        <div className="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-7">
+          <h2 className="font-semibold text-white mb-1">Cases de sucesso</h2>
+          <p className="text-sm text-white/60 mb-5">
+            Gerencie projetos e resultados
+          </p>
+          <button
+            onClick={() => setCaseModalOpen(true)}
+            className="bg-white text-d3-purple hover:bg-white/90 transition-colors text-sm font-medium rounded-lg px-4 py-2.5"
+          >
+            + Novo case
+          </button>
         </div>
       </div>
 

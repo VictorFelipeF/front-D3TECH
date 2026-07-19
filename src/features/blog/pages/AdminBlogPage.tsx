@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { AdminPostRow } from "../components/AdminPostRow";
 import { PostFormModal } from "../components/PostFormModal";
 import { Pagination } from "@/shared/components/Pagination";
@@ -38,7 +37,7 @@ export default function AdminBlogPage() {
 
   function handleSearchChange(value: string) {
     setSearch(value);
-    setPage(1); // volta pra primeira página ao buscar
+    setPage(1);
   }
 
   function openNewPost() {
@@ -69,13 +68,18 @@ export default function AdminBlogPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-16">
-      <div className="flex items-center justify-between mb-6 gap-4">
-        <h1 className="text-xl font-bold">Publicações</h1>
-        <Button onClick={openNewPost}>+ Novo Post</Button>
+    <div className="px-10 py-12 max-w-6xl">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-semibold text-white">Publicações</h1>
+        <button
+          onClick={openNewPost}
+          className="bg-white text-d3-purple hover:bg-white/90 transition-colors text-sm font-medium rounded-lg px-4 py-2.5"
+        >
+          + Novo post
+        </button>
       </div>
 
-      <div className="mb-4">
+      <div className="mb-5">
         <SearchInput
           value={search}
           onChange={handleSearchChange}
@@ -83,9 +87,9 @@ export default function AdminBlogPage() {
         />
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-2.5">
         {posts.length === 0 ? (
-          <p className="text-sm text-muted-foreground py-8 text-center">
+          <p className="text-sm text-white/60 py-10 text-center">
             Nenhum post encontrado.
           </p>
         ) : (

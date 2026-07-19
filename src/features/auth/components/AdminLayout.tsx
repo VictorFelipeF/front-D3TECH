@@ -1,15 +1,13 @@
 import { Outlet } from "react-router-dom";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { AdminSidebar } from "./AdminSidebar";
 
 export function AdminLayout() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-1">
+    <div className="flex min-h-screen bg-gradient-to-br from-d3-navy to-d3-purple-dark">
+      <AdminSidebar />
+      <main className="flex-1 overflow-x-hidden">
         <Outlet />
       </main>
-      <Footer />
     </div>
   );
 }
