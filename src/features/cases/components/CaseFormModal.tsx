@@ -1,10 +1,11 @@
-// src/features/cases/components/CaseFormModal.tsx
 import { useState, useEffect } from "react";
 import { Modal } from "@/shared/components/Modal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { TextEditor } from "@/shared/components/TextEditor";
+import { TagSelect } from "@/shared/components/TagSelect";
+import { getCaseTags, addCaseTag, renameCaseTag, deleteCaseTag } from "@/mocks/tagsStore";
 import type { CaseStudy } from "../types";
 
 interface Props {
@@ -27,13 +28,23 @@ const emptyForm = {
 
 export function CaseFormModal({ isOpen, onClose, onSave, initialData }: Props) {
   const [form, setForm] = useState(emptyForm);
+  const [tagOptions, setTagOptions] = useState<string[]>([]);
 
   useEffect(() => {
     setForm(initialData ?? emptyForm);
   }, [initialData, isOpen]);
 
+  useEffect(() => {
+    setTagOptions(getCaseTags());
+  }, [isOpen]);
+
   function handleChange(field: string, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
+  }
+
+  function handleAddNewTag(tag: string) {
+    addCaseTag(tag);
+    setTagOptions(getCaseTags());
   }
 
   function handleSubmit(status: "draft" | "published") {
@@ -66,7 +77,22 @@ export function CaseFormModal({ isOpen, onClose, onSave, initialData }: Props) {
 
         <div>
           <Label htmlFor="tag">Tag</Label>
-          <Input id="tag" value={form.tag} onChange={(e) => handleChange("tag", e.target.value)} />
+          <TagSelect
+            value={form.tag}
+            onChange={(tag) => handleChange("tag", tag)}
+            options={tagOptions}
+            onAddNewTag={handleAddNewTag}
+            onRenameTag={(oldName, newName) => {
+              renameCaseTag(oldName, newName);
+              setTagOptions(getCaseTags());
+              if (form.tag === oldName) handleChange("tag", newName);
+            }}
+            onDeleteTag={(name) => {
+              deleteCaseTag(name);
+              setTagOptions(getCaseTags());
+              if (form.tag === name) handleChange("tag", "");
+            }}
+          />
         </div>
 
         <div>

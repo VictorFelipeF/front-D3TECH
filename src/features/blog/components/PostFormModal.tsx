@@ -5,6 +5,8 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TextEditor } from "@/shared/components/TextEditor";
+import { TagSelect } from "@/shared/components/TagSelect";
+import { getBlogTags, addBlogTag, renameBlogTag, deleteBlogTag } from "@/mocks/tagsStore";
 import type { BlogPost } from "../types";
 
 interface Props {
@@ -28,13 +30,23 @@ const emptyForm = {
 
 export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
   const [form, setForm] = useState(emptyForm);
+  const [tagOptions, setTagOptions] = useState<string[]>([]);
 
   useEffect(() => {
     setForm(initialData ?? emptyForm);
   }, [initialData, isOpen]);
 
+  useEffect(() => {
+    setTagOptions(getBlogTags());
+  }, [isOpen]);
+
   function handleChange(field: string, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
+  }
+
+  function handleAddNewTag(tag: string) {
+    addBlogTag(tag);
+    setTagOptions(getBlogTags());
   }
 
   function handleSubmit(status: "draft" | "published") {
@@ -66,10 +78,21 @@ export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
 
         <div>
           <Label htmlFor="tag">Tag</Label>
-          <Input
-            id="tag"
+          <TagSelect
             value={form.tag}
-            onChange={(e) => handleChange("tag", e.target.value)}
+            onChange={(tag) => handleChange("tag", tag)}
+            options={tagOptions}
+            onAddNewTag={handleAddNewTag}
+            onRenameTag={(oldName, newName) => {
+              renameBlogTag(oldName, newName);
+              setTagOptions(getBlogTags());
+              if (form.tag === oldName) handleChange("tag", newName);
+            }}
+            onDeleteTag={(name) => {
+              deleteBlogTag(name);
+              setTagOptions(getBlogTags());
+              if (form.tag === name) handleChange("tag", "");
+            }}
           />
         </div>
 
@@ -99,7 +122,8 @@ export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
             }
           />
           <Label htmlFor="featured">Definir como post em destaque</Label>
-      </div>
+        </div>
+
         <div className="flex justify-end gap-2 pt-2">
           <Button variant="secondary" onClick={() => handleSubmit("draft")}>
             Salvar Rascunho
