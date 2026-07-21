@@ -8,4 +8,5 @@ export interface CaseStudy {
   tag: string;
   publishedAt: string;
   status: "published" | "draft";
+  coverUrl: string;
 }

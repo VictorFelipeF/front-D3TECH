@@ -11,6 +11,7 @@ const initialCases: CaseStudy[] = [
     tag: "Sistema Web",
     publishedAt: "2026-05-10",
     status: "published" as CaseStudy['status'],
+    coverUrl: "",
   },
   {
     id: "2",
@@ -22,6 +23,7 @@ const initialCases: CaseStudy[] = [
     tag: "Mobile",
     publishedAt: "2026-04-28",
     status: "draft" as CaseStudy['status'],
+    coverUrl: "",
   },
 ];
 
