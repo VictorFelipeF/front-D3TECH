@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getPublishedCases } from "../api/getCases";
 import { CasesHero } from "../components/CasesHero";
+import { CasesCTA } from "../components/CasesCTA";
 import { CaseCard } from "../components/CaseCard";
 import { SectionHeading } from "@/shared/components/SectionHeading";
 import type { CaseStudy } from "../types";
@@ -41,6 +42,8 @@ export default function CasesPage() {
           </div>
         )}
       </div>
+
+      <CasesCTA />
     </div>
   );
 }
