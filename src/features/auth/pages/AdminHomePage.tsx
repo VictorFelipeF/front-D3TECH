@@ -57,7 +57,7 @@ export default function AdminHomePage() {
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="bg-d3-purple rounded-2xl p-5"
+            className="bg-d3-purple rounded-2xl p-5 shadow-[0_8px_25px_rgba(60,30,100,0.25)] hover:shadow-[0_12px_30px_rgba(60,30,100,0.4)] transition-shadow"
           >
             <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center mb-4">
               <stat.icon className="w-5 h-5 text-white" />
@@ -69,20 +69,20 @@ export default function AdminHomePage() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-4">
-          <div className="bg-d3-purple rounded-2xl p-7">
-            <h2 className="font-semibold text-white mb-1">Blog</h2>
-            <p className="text-sm text-white/80 mb-5">
-              Gerencie publicações e rascunhos
-            </p>
-            <button
-              onClick={() => setBlogModalOpen(true)}
-              className="bg-white text-d3-purple hover:bg-white/90 transition-colors text-sm font-medium rounded-lg px-4 py-2.5"
-            >
-              + Novo post
-            </button>
-          </div>
+        <div className="bg-d3-purple rounded-2xl p-7 border border-gray-200 shadow-[0_8px_25px_rgba(60,30,100,0.25)] hover:shadow-[0_12px_30px_rgba(60,30,100,0.4)] transition-shadow">
+          <h2 className="font-semibold text-white mb-1">Blog</h2>
+          <p className="text-sm text-white/80 mb-5">
+            Gerencie publicações e rascunhos
+          </p>
+          <button
+            onClick={() => setBlogModalOpen(true)}
+            className="bg-white text-d3-purple hover:bg-white/90 transition-colors text-sm font-medium rounded-lg px-4 py-2.5"
+          >
+            + Novo post
+          </button>
+        </div>
 
-        <div className="bg-d3-purple rounded-2xl p-7">
+        <div className="bg-d3-purple rounded-2xl p-7 border border-gray-200 shadow-[0_8px_25px_rgba(60,30,100,0.25)] hover:shadow-[0_12px_30px_rgba(60,30,100,0.4)] transition-shadow">
           <h2 className="font-semibold text-white mb-1">Cases de sucesso</h2>
           <p className="text-sm text-white/80 mb-5">
             Gerencie projetos e resultados
