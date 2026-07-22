@@ -35,9 +35,9 @@ export default function CasesPage() {
             Ainda não há cases publicados.
           </p>
         ) : (
-          <div className="grid md:grid-cols-3 gap-6">
-            {cases.map((item) => (
-              <CaseCard key={item.id} caseItem={item} />
+          <div className="flex flex-col gap-10 mt-12">
+            {cases.map((item, i) => (
+              <CaseCard key={item.id} caseItem={item} index={i} />
             ))}
           </div>
         )}

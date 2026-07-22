@@ -1,11 +1,22 @@
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 import type { CaseStudy } from "../types";
 
-export function CaseCard({ caseItem }: { caseItem: CaseStudy }) {
+export function CaseCard({
+  caseItem,
+  index,
+}: {
+  caseItem: CaseStudy;
+  index: number;
+}) {
+  const isReversed = index % 2 === 1;
+
   return (
-    <Card className="overflow-hidden hover:-translate-y-1 transition-transform">
-      <div className="aspect-video bg-muted flex items-center justify-center overflow-hidden">
+    <article className="group flex flex-col gap-6 transition-transform hover:-translate-y-1 md:grid md:grid-cols-2 md:items-center md:gap-10">
+      <div
+        className={`flex aspect-video w-full items-center justify-center overflow-hidden rounded-xl bg-muted ring-1 ring-foreground/10 ${
+          isReversed ? "md:order-2" : ""
+        }`}
+      >
         {caseItem.coverUrl ? (
           <img
             src={caseItem.coverUrl}
@@ -13,21 +24,26 @@ export function CaseCard({ caseItem }: { caseItem: CaseStudy }) {
             className="h-full w-full object-cover"
           />
         ) : (
-          /* placeholder quando não houver capa */
-          <span className="text-xs text-muted-foreground/60">Sem capa</span>
+          <span className="text-sm text-muted-foreground/60">Sem capa</span>
         )}
       </div>
-      <CardContent className="p-4">
-        <Badge className="bg-d3-purple text-white mb-2">{caseItem.tag}</Badge>
-        <h3 className="font-semibold text-lg">{caseItem.title}</h3>
-        <p className="text-xs text-muted-foreground mt-0.5">{caseItem.client}</p>
-        <p className="text-sm text-muted-foreground line-clamp-2 mt-2">
+
+      <div
+        className={`flex flex-col gap-3 ${isReversed ? "md:order-1" : ""}`}
+      >
+        <Badge className="w-fit bg-d3-purple text-white">
+          {caseItem.tag}
+        </Badge>
+        <h3 className="text-2xl font-bold tracking-tight text-d3-navy md:text-3xl">
+          {caseItem.title}
+        </h3>
+        <p className="text-sm font-medium text-muted-foreground">
+          {caseItem.client}
+        </p>
+        <p className="text-base leading-relaxed text-muted-foreground">
           {caseItem.excerpt}
         </p>
-        <span className="text-xs text-muted-foreground mt-3 inline-block">
-          {new Date(caseItem.publishedAt).toLocaleDateString("pt-BR")}
-        </span>
-      </CardContent>
-    </Card>
+      </div>
+    </article>
   );
 }
