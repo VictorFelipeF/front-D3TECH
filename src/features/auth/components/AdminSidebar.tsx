@@ -29,7 +29,7 @@ export function AdminSidebar() {
   }
 
   return (
-    <aside className="w-64 shrink-0 bg-white/10 backdrop-blur-md border-r border-white/10 flex flex-col h-screen sticky top-0">
+    <aside className="w-64 shrink-0 bg-d3-navy border-r border-d3-purple/20 flex flex-col h-screen sticky top-0">
       <div className="px-6 py-7">
         <h1 className="font-bold text-lg text-white">D3TECH</h1>
         <p className="text-xs text-white/50 mt-0.5">Painel Administrativo</p>
@@ -43,7 +43,7 @@ export function AdminSidebar() {
             className={({ isActive }) =>
               `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
                 isActive
-                  ? "bg-white/15 text-white"
+                  ? "bg-d3-purple text-white"
                   : "text-white/60 hover:bg-white/10 hover:text-white"
               }`
             }

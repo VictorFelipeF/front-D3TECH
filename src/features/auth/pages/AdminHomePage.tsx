@@ -48,8 +48,8 @@ export default function AdminHomePage() {
 
   return (
     <div className="px-10 py-12 max-w-6xl">
-      <h1 className="text-2xl font-semibold text-white">Dashboard</h1>
-      <p className="text-sm text-white/60 mt-1 mb-8">
+      <h1 className="text-2xl font-semibold text-d3-navy">Dashboard</h1>
+      <p className="text-sm text-muted-foreground mt-1 mb-8">
         Visão geral do conteúdo administrativo
       </p>
 
@@ -57,21 +57,21 @@ export default function AdminHomePage() {
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-5"
+            className="bg-d3-purple rounded-2xl p-5"
           >
-            <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center mb-4">
+            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center mb-4">
               <stat.icon className="w-5 h-5 text-white" />
             </div>
-            <p className="text-xs text-white/60 mb-1">{stat.label}</p>
+            <p className="text-xs text-white/80 mb-1">{stat.label}</p>
             <p className="text-2xl font-semibold text-white">{stat.value}</p>
           </div>
         ))}
       </div>
 
       <div className="grid md:grid-cols-2 gap-4">
-          <div className="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-7">
+          <div className="bg-d3-purple rounded-2xl p-7">
             <h2 className="font-semibold text-white mb-1">Blog</h2>
-            <p className="text-sm text-white/60 mb-5">
+            <p className="text-sm text-white/80 mb-5">
               Gerencie publicações e rascunhos
             </p>
             <button
@@ -82,9 +82,9 @@ export default function AdminHomePage() {
             </button>
           </div>
 
-        <div className="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-7">
+        <div className="bg-d3-purple rounded-2xl p-7">
           <h2 className="font-semibold text-white mb-1">Cases de sucesso</h2>
-          <p className="text-sm text-white/60 mb-5">
+          <p className="text-sm text-white/80 mb-5">
             Gerencie projetos e resultados
           </p>
           <button

@@ -14,7 +14,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Props) {
       <button
         disabled={currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
-        className="w-8 h-8 flex items-center justify-center rounded-lg text-white/60 hover:bg-white/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+        className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:bg-d3-purple/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
       >
         <ChevronLeft className="w-4 h-4" />
       </button>
@@ -25,8 +25,8 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Props) {
           onClick={() => onPageChange(p)}
           className={`w-8 h-8 flex items-center justify-center rounded-lg text-sm font-medium transition-colors ${
             p === currentPage
-              ? "bg-white text-d3-purple"
-              : "text-white/60 hover:bg-white/10"
+              ? "bg-d3-purple text-white"
+              : "text-muted-foreground hover:bg-d3-purple/10"
           }`}
         >
           {p}
@@ -36,7 +36,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Props) {
       <button
         disabled={currentPage === totalPages}
         onClick={() => onPageChange(currentPage + 1)}
-        className="w-8 h-8 flex items-center justify-center rounded-lg text-white/60 hover:bg-white/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+        className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:bg-d3-purple/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
       >
         <ChevronRight className="w-4 h-4" />
       </button>

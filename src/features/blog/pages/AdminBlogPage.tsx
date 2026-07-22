@@ -70,10 +70,10 @@ export default function AdminBlogPage() {
   return (
     <div className="px-10 py-12 max-w-6xl">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-semibold text-white">Publicações</h1>
+        <h1 className="text-2xl font-semibold text-d3-navy">Publicações</h1>
         <button
           onClick={openNewPost}
-          className="bg-white text-d3-purple hover:bg-white/90 transition-colors text-sm font-medium rounded-lg px-4 py-2.5"
+          className="bg-white text-d3-purple border border-d3-purple hover:bg-d3-purple/5 transition-colors text-sm font-medium rounded-lg px-4 py-2.5"
         >
           + Novo post
         </button>
@@ -89,7 +89,7 @@ export default function AdminBlogPage() {
 
       <div className="space-y-2.5">
         {posts.length === 0 ? (
-          <p className="text-sm text-white/60 py-10 text-center">
+          <p className="text-sm text-muted-foreground py-10 text-center">
             Nenhum post encontrado.
           </p>
         ) : (
