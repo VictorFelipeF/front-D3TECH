@@ -1,22 +1,22 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import { PageLayout } from "./components/layout/PageLayout";
-import { PageLoader } from "./shared/components/PageLoader";
-import { AdminLayout } from "@/features/auth/components/AdminLayout";
-import { ProtectedRoute } from "@/features/auth/ProtectedRoute";
+import { PageLoader } from "./components/shared/PageLoader";
+import { AdminLayout } from "@/components/auth/AdminLayout";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 
 // Lazy loading the pages
-const AboutPage = lazy(() => import("./features/about/pages/AboutPage"));
-const ServicesPage = lazy(() => import("./features/services/pages/ServicesPage"));
-const ContactPage = lazy(() => import("./features/contact/pages/ContactPage"));
-const PrivacyPolicyPage = lazy(() => import("./features/legal/pages/PrivacyPolicyPage"));
-const BlogPage = lazy(() => import("./features/blog/pages/BlogPage"));
-const BlogPostPage = lazy(() => import("./features/blog/pages/BlogPostPage"));
-const CasesPage = lazy(() => import("@/features/cases/pages/CasesPage"));
-const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
-const AdminHomePage = lazy(() => import("@/features/auth/pages/AdminHomePage"));
-const AdminBlogPage = lazy(() => import("@/features/blog/pages/AdminBlogPage"));
-const AdminCasesPage = lazy(() => import("@/features/cases/pages/AdminCasesPage"));
+const AboutPage = lazy(() => import("./pages/about/AboutPage"));
+const ServicesPage = lazy(() => import("./pages/services/ServicesPage"));
+const ContactPage = lazy(() => import("./pages/contact/ContactPage"));
+const PrivacyPolicyPage = lazy(() => import("./pages/legal/PrivacyPolicyPage"));
+const BlogPage = lazy(() => import("./pages/blog/BlogPage"));
+const BlogPostPage = lazy(() => import("./pages/blog/BlogPostPage"));
+const CasesPage = lazy(() => import("@/pages/cases/CasesPage"));
+const LoginPage = lazy(() => import("@/pages/auth/LoginPage"));
+const AdminHomePage = lazy(() => import("@/pages/auth/AdminHomePage"));
+const AdminBlogPage = lazy(() => import("@/pages/blog/AdminBlogPage"));
+const AdminCasesPage = lazy(() => import("@/pages/cases/AdminCasesPage"));
 
 // Dummy component for home page for now, as it's not in Phase 1/2 scope
 const HomePlaceholder = () => (

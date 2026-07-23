@@ -1,5 +1,5 @@
 import initialPosts from "./posts.json";
-import type { BlogPost } from "@/features/blog/types";
+import type { BlogPost } from "@/types/blog";
 
 // simula um banco de dados
 // remover quando o backend for linkado

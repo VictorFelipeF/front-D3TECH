@@ -2,8 +2,8 @@ import { useState } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ProfileModal } from "@/features/auth/components/ProfileModal";
-import { getCurrentUser, updateCurrentUser } from "@/features/auth/authStore";
+import { ProfileModal } from "@/components/auth/ProfileModal";
+import { getCurrentUser, updateCurrentUser } from "@/stores/authStore";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
