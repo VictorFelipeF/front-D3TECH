@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type ChangeEvent } from "react";
 import { Modal } from "@/shared/components/Modal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,10 +24,11 @@ const emptyForm = {
   publishedAt: new Date().toISOString(),
   slug: "",
   status: "draft" as const,
+  coverUrl: "",
 };
 
 export function CaseFormModal({ isOpen, onClose, onSave, initialData }: Props) {
-  const [form, setForm] = useState(emptyForm);
+  const [form, setForm] = useState<Omit<CaseStudy, "id">>(emptyForm);
   const [tagOptions, setTagOptions] = useState<string[]>([]);
 
   useEffect(() => {
@@ -47,6 +48,14 @@ export function CaseFormModal({ isOpen, onClose, onSave, initialData }: Props) {
     setTagOptions(getCaseTags());
   }
 
+  function handleCoverChange(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) {
+      // TODO: fazer upload real do arquivo pro backend/storage quando linkado
+      handleChange("coverUrl", URL.createObjectURL(file));
+    }
+  }
+
   function handleSubmit(status: "draft" | "published") {
     const slug = form.title
       .toLowerCase()
@@ -61,8 +70,30 @@ export function CaseFormModal({ isOpen, onClose, onSave, initialData }: Props) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={initialData ? "Editar case" : "Novo case"}>
       <div className="space-y-3">
-        <div className="border-2 border-dashed rounded-md h-32 flex items-center justify-center text-sm text-muted-foreground">
-          Upload da imagem de capa
+        <div>
+          <Label>Imagem de capa</Label>
+          <div className="border-2 border-dashed rounded-md h-32 flex items-center justify-center overflow-hidden bg-muted/40 relative">
+            {form.coverUrl ? (
+              <img
+                src={form.coverUrl}
+                alt="Prévia da capa"
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <span className="text-sm text-muted-foreground">
+                Nenhuma imagem selecionada
+              </span>
+            )}
+          </div>
+          <label className="mt-2 inline-block text-sm text-d3-purple cursor-pointer">
+            {form.coverUrl ? "Trocar imagem" : "Selecionar imagem"}
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={handleCoverChange}
+            />
+          </label>
         </div>
 
         <div>

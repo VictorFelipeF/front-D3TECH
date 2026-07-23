@@ -12,6 +12,7 @@ const ContactPage = lazy(() => import("./features/contact/pages/ContactPage"));
 const PrivacyPolicyPage = lazy(() => import("./features/legal/pages/PrivacyPolicyPage"));
 const BlogPage = lazy(() => import("./features/blog/pages/BlogPage"));
 const BlogPostPage = lazy(() => import("./features/blog/pages/BlogPostPage"));
+const CasesPage = lazy(() => import("@/features/cases/pages/CasesPage"));
 const LoginPage = lazy(() => import("@/features/auth/pages/LoginPage"));
 const AdminHomePage = lazy(() => import("@/features/auth/pages/AdminHomePage"));
 const AdminBlogPage = lazy(() => import("@/features/blog/pages/AdminBlogPage"));
@@ -21,13 +22,6 @@ const AdminCasesPage = lazy(() => import("@/features/cases/pages/AdminCasesPage"
 const HomePlaceholder = () => (
   <div className="flex min-h-[50vh] items-center justify-center">
     <h1 className="text-2xl font-bold">Home Page (Phase 3)</h1>
-  </div>
-);
-
-// Dummy components for Cases
-const CasesPlaceholder = () => (
-  <div className="flex min-h-[50vh] items-center justify-center">
-    <h1 className="text-2xl font-bold">Cases Page (Phase 3)</h1>
   </div>
 );
 
@@ -41,7 +35,7 @@ function App() {
             <Route path="/sobre-nos" element={<AboutPage />} />
             <Route path="/servicos" element={<ServicesPage />} />
             <Route path="/contato" element={<ContactPage />} />
-            <Route path="/cases" element={<CasesPlaceholder />} />
+            <Route path="/cases" element={<CasesPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/politica-de-privacidade" element={<PrivacyPolicyPage />} />
