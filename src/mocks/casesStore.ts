@@ -1,4 +1,4 @@
-import type { CaseStudy } from "@/features/cases/types";
+import type { CaseStudy } from "@/types/cases";
 
 const initialCases: CaseStudy[] = [
   {
