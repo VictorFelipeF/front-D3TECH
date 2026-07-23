@@ -1,5 +1,4 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 interface Props {
   currentPage: number;
@@ -12,34 +11,35 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Props) {
 
   return (
     <div className="flex items-center justify-center gap-2 mt-6">
-      <Button
-        variant="outline"
-        size="icon"
+      <button
         disabled={currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
+        className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:bg-d3-purple/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
       >
         <ChevronLeft className="w-4 h-4" />
-      </Button>
+      </button>
 
       {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-        <Button
+        <button
           key={p}
-          variant={p === currentPage ? "default" : "outline"}
-          size="icon"
           onClick={() => onPageChange(p)}
+          className={`w-8 h-8 flex items-center justify-center rounded-lg text-sm font-medium transition-colors ${
+            p === currentPage
+              ? "bg-d3-purple text-white"
+              : "text-muted-foreground hover:bg-d3-purple/10"
+          }`}
         >
           {p}
-        </Button>
+        </button>
       ))}
 
-      <Button
-        variant="outline"
-        size="icon"
+      <button
         disabled={currentPage === totalPages}
         onClick={() => onPageChange(currentPage + 1)}
+        className="w-8 h-8 flex items-center justify-center rounded-lg text-muted-foreground hover:bg-d3-purple/10 disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
       >
         <ChevronRight className="w-4 h-4" />
-      </Button>
+      </button>
     </div>
   );
 }

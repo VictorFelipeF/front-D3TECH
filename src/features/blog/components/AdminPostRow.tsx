@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Pencil, Trash2, Check, X } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import type { BlogPost } from "../types";
 
 interface Props {
@@ -13,22 +12,22 @@ export function AdminPostRow({ post, onEdit, onDelete }: Props) {
   const [confirming, setConfirming] = useState(false);
 
   return (
-    <div className="flex items-center justify-between border rounded-md px-4 py-3">
+    <div className="flex items-center justify-between bg-muted/40 border border-d3-purple/10 rounded-xl px-4 py-3.5 hover:bg-d3-purple/5 transition-colors">
       <div className="flex items-center gap-3">
-        <Badge
-          className={
+        <span
+          className={`text-xs font-medium px-3 py-1 rounded-full ${
             post.status === "published"
-              ? "bg-green-500 text-white"
-              : "bg-yellow-400 text-black"
-          }
+              ? "bg-emerald-500/10 text-emerald-700"
+              : "bg-amber-500/10 text-amber-700"
+          }`}
         >
           {post.status === "published" ? "Publicado" : "Rascunho"}
-        </Badge>
-        <span className="font-medium">{post.title}</span>
+        </span>
+        <span className="text-sm font-medium text-d3-navy">{post.title}</span>
       </div>
 
       <div className="flex items-center gap-4">
-        <span className="text-sm text-muted-foreground">
+        <span className="text-xs text-muted-foreground">
           {new Date(post.publishedAt).toLocaleDateString("pt-BR")}
         </span>
 
@@ -36,7 +35,7 @@ export function AdminPostRow({ post, onEdit, onDelete }: Props) {
           <div className="flex items-center gap-2">
             <span className="text-xs text-muted-foreground">Excluir?</span>
             <button onClick={() => onDelete(post.id)} aria-label="Confirmar exclusão">
-              <Check className="w-4 h-4 text-red-500" />
+              <Check className="w-4 h-4 text-red-600" />
             </button>
             <button onClick={() => setConfirming(false)} aria-label="Cancelar">
               <X className="w-4 h-4 text-muted-foreground" />
@@ -45,10 +44,10 @@ export function AdminPostRow({ post, onEdit, onDelete }: Props) {
         ) : (
           <>
             <button onClick={() => onEdit(post)} aria-label="Editar">
-              <Pencil className="w-4 h-4 text-muted-foreground hover:text-d3-purple" />
+              <Pencil className="w-4 h-4 text-muted-foreground hover:text-d3-navy transition-colors" />
             </button>
             <button onClick={() => setConfirming(true)} aria-label="Excluir">
-              <Trash2 className="w-4 h-4 text-muted-foreground hover:text-red-500" />
+              <Trash2 className="w-4 h-4 text-muted-foreground hover:text-red-600 transition-colors" />
             </button>
           </>
         )}
