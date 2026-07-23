@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { AdminPostRow } from "@/components/blog/AdminPostRow";
-import { PostFormModal } from "@/components/blog/PostFormModal";
+import { AdminPostRow } from "@/pages/blog/components/AdminPostRow";
+import { PostFormModal } from "@/pages/blog/components/PostFormModal";
 import { Pagination } from "@/components/shared/Pagination";
 import { SearchInput } from "@/components/shared/SearchInput";
 import { getAllPosts, createPost, updatePost, deletePost } from "@/api/blog/adminPosts";

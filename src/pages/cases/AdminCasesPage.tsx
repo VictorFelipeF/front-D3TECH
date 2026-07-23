@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { AdminCaseRow } from "@/components/cases/AdminCaseRow";
-import { CaseFormModal } from "@/components/cases/CaseFormModal";
+import { AdminCaseRow } from "@/pages/cases/components/AdminCaseRow";
+import { CaseFormModal } from "@/pages/cases/components/CaseFormModal";
 import { Pagination } from "@/components/shared/Pagination";
 import { SearchInput } from "@/components/shared/SearchInput";
 import { getAllCases, createCase, updateCase, deleteCase } from "@/api/cases/adminCases";

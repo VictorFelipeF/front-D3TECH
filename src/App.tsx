@@ -2,8 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import { PageLayout } from "./components/layout/PageLayout";
 import { PageLoader } from "./components/shared/PageLoader";
-import { AdminLayout } from "@/components/auth/AdminLayout";
-import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import { AdminLayout } from "@/pages/auth/components/AdminLayout";
+import { ProtectedRoute } from "@/pages/auth/components/ProtectedRoute";
 
 // Lazy loading the pages
 const AboutPage = lazy(() => import("./pages/about/AboutPage"));
@@ -41,10 +41,8 @@ function App() {
             <Route path="/politica-de-privacidade" element={<PrivacyPolicyPage />} />
           </Route>
 
-          //Login do admin
           <Route path="/admin" element={<LoginPage />} />
 
-          // Rotas protegidas do admin
           <Route element={<ProtectedRoute />}>
             <Route element={<AdminLayout />}>
               <Route path="/admin/home" element={<AdminHomePage />} />

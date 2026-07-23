@@ -1,5 +1,5 @@
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { ContactForm } from "@/components/contact/ContactForm";
+import { ContactForm } from "@/pages/contact/components/ContactForm";
 import { Mail, Clock, Shield } from "lucide-react";
 
 export default function ContactPage() {

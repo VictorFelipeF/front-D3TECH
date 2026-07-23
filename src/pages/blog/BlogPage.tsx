@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getBlogPosts } from "@/api/blog/getBlogPosts";
-import { BlogPostCard } from "@/components/blog/BlogPostCard";
-import { FeaturedPostCard } from "@/components/blog/FeaturedPostCard";
+import { BlogPostCard } from "@/pages/blog/components/BlogPostCard";
+import { FeaturedPostCard } from "@/pages/blog/components/FeaturedPostCard";
 import { getFeaturedPost } from "@/api/blog/getFeaturedPost";
 import { LoadMoreButton } from "@/components/shared/LoadMoreButton";
 import type { BlogPost } from "@/types/blog";

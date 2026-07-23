@@ -4,7 +4,6 @@ import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { login } from "@/stores/authStore";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -18,8 +17,9 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
     setLoading(true);
+    // TODO: integrar com backend quando disponível
     try {
-      await login(email, password);
+      await new Promise((r) => setTimeout(r, 500));
       navigate("/admin/home");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erro ao entrar");

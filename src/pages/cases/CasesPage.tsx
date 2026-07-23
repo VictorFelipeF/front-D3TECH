@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { getPublishedCases } from "@/api/cases/getCases";
-import { CasesHero } from "@/components/cases/CasesHero";
-import { CasesCTA } from "@/components/cases/CasesCTA";
-import { CaseCard } from "@/components/cases/CaseCard";
+import { CasesHero } from "@/pages/cases/components/CasesHero";
+import { CasesCTA } from "@/pages/cases/components/CasesCTA";
+import { CaseCard } from "@/pages/cases/components/CaseCard";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import type { CaseStudy } from "@/types/cases";
 

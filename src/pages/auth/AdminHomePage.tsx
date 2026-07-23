@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Pencil, FileText, Star, FileEdit } from "lucide-react";
-import { PostFormModal } from "@/components/blog/PostFormModal";
-import { CaseFormModal } from "@/components/cases/CaseFormModal";
+import { PostFormModal } from "@/pages/blog/components/PostFormModal";
+import { CaseFormModal } from "@/pages/cases/components/CaseFormModal";
 import { createPost, getPostsSummary } from "@/api/blog/adminPosts";
 import { createCase, getCasesSummary } from "@/api/cases/adminCases";
 import type { BlogPost } from "@/types/blog";

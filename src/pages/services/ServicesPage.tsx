@@ -1,6 +1,6 @@
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { ServiceCard, type ServiceType } from "@/components/services/ServiceCard";
-import { HeroServices } from "@/components/services/HeroServices";
+import { ServiceCard, type ServiceType } from "@/pages/services/components/ServiceCard";
+import { HeroServices } from "@/pages/services/components/HeroServices";
 import servicesData from "@/mocks/services.json";
 
 export default function ServicesPage() {
