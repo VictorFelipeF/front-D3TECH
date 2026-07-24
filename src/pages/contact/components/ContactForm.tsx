@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { sendContactMessage } from "@/services/contact.service";
+import { useSendContact } from "@/hooks/useContact";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 
 const inputClass =
@@ -14,6 +14,7 @@ export function ContactForm() {
     "idle" | "submitting" | "success" | "error"
   >("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const sendContact = useSendContact();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,7 +22,6 @@ export function ContactForm() {
 
     const formData = new FormData(e.currentTarget);
 
-    // Honeypot check
     if (formData.get("website")) {
       return;
     }
@@ -32,7 +32,6 @@ export function ContactForm() {
     const message = formData.get("message") as string;
     const phone = formData.get("phone") as string;
     const company = formData.get("company") as string;
-    const location = formData.get("location") as string;
 
     if (!name || !email || !subject || !message) {
       setErrorMessage("Por favor, preencha todos os campos obrigatórios.");
@@ -48,7 +47,7 @@ export function ContactForm() {
     setStatus("submitting");
 
     try {
-      await sendContactMessage({
+      await sendContact.mutateAsync({
         nome: name,
         email,
         telefone: phone,

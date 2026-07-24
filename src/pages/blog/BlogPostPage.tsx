@@ -1,19 +1,14 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { getPostBySlug } from "@/services/posts.service";
 import { Badge } from "@/components/ui/badge";
+import { usePost } from "@/hooks/usePosts";
 import { PageLoader } from "@/components/shared/PageLoader";
-import type { PostBackend } from "@/services/posts.service";
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const [post, setPost] = useState<PostBackend | null>(null);
+  const { data: post, isLoading } = usePost(slug ?? "");
 
-  useEffect(() => {
-    if (slug) getPostBySlug(slug).then(setPost);
-  }, [slug]);
-
+  if (isLoading) return <PageLoader />;
   if (!post) return <PageLoader />;
 
   return (

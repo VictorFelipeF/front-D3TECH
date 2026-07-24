@@ -4,7 +4,7 @@ import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { login } from "@/services/auth.service";
+import { useLogin } from "@/hooks/useLogin";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -12,14 +12,13 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const loginMutation = useLogin();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
-    setLoading(true);
     try {
-      const res = await login({ email, password });
+      const res = await loginMutation.mutateAsync({ email, password });
       if (res.mfaRequired) {
         navigate("/admin/mfa", { state: { mfaToken: res.mfaToken } });
         return;
@@ -31,8 +30,6 @@ export default function LoginPage() {
       navigate("/admin/home");
     } catch (err: any) {
       setError(err?.response?.data?.message || err?.message || "Erro ao entrar");
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -108,9 +105,9 @@ export default function LoginPage() {
         <Button
           type="submit"
           className="w-full bg-d3-purple hover:bg-d3-purple-dark"
-          disabled={loading}
+          disabled={loginMutation.isPending}
         >
-          {loading ? "Entrando..." : "Entrar"}
+          {loginMutation.isPending ? "Entrando..." : "Entrar"}
         </Button>
 
         <div className="border-t border-white/20 mt-6 pt-6 text-center">

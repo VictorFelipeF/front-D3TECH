@@ -1,23 +1,11 @@
-import { useState, useEffect } from "react";
 import { BlogPostCard } from "@/pages/blog/components/BlogPostCard";
 import { FeaturedPostCard } from "@/pages/blog/components/FeaturedPostCard";
-import { getPublishedPosts } from "@/services/posts.service";
-import type { PostBackend } from "@/services/posts.service";
+import { usePublishedPosts } from "@/hooks/usePosts";
 
 export default function BlogPage() {
-  const [posts, setPosts] = useState<PostBackend[]>([]);
-  const [featured, setFeatured] = useState<PostBackend | null>(null);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    getPublishedPosts().then((all) => {
-      setPosts(all);
-      setFeatured(all.length > 0 ? all[0] : null);
-      setLoaded(true);
-    });
-  }, []);
-
-  const isEmpty = loaded && posts.length === 0;
+  const { data: posts = [], isLoading } = usePublishedPosts();
+  const featured = posts.length > 0 ? posts[0] : null;
+  const isEmpty = !isLoading && posts.length === 0;
 
   // Se não tiver posts publicados ou disponiveis, mostra essa mensagem
   return (
