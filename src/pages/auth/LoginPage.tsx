@@ -4,6 +4,7 @@ import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { login } from "@/services/auth.service";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -17,12 +18,19 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
     setLoading(true);
-    // TODO: integrar com backend quando disponível
     try {
-      await new Promise((r) => setTimeout(r, 500));
+      const res = await login({ email, password });
+      if (res.mfaRequired) {
+        navigate("/admin/mfa", { state: { mfaToken: res.mfaToken } });
+        return;
+      }
+      if (res.emailVerificationRequired) {
+        setError("Verifique seu email antes de fazer login");
+        return;
+      }
       navigate("/admin/home");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Erro ao entrar");
+    } catch (err: any) {
+      setError(err?.response?.data?.message || err?.message || "Erro ao entrar");
     } finally {
       setLoading(false);
     }

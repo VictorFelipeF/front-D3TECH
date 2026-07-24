@@ -1,40 +1,23 @@
 import { useState, useEffect } from "react";
-import { getBlogPosts } from "@/api/blog/getBlogPosts";
 import { BlogPostCard } from "@/pages/blog/components/BlogPostCard";
 import { FeaturedPostCard } from "@/pages/blog/components/FeaturedPostCard";
-import { getFeaturedPost } from "@/api/blog/getFeaturedPost";
-import { LoadMoreButton } from "@/components/shared/LoadMoreButton";
-import type { BlogPost } from "@/types/blog";
+import { getPublishedPosts } from "@/services/posts.service";
+import type { PostBackend } from "@/services/posts.service";
 
 export default function BlogPage() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [featured, setFeatured] = useState<BlogPost | null>(null);
+  const [posts, setPosts] = useState<PostBackend[]>([]);
+  const [featured, setFeatured] = useState<PostBackend | null>(null);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    Promise.all([getFeaturedPost(), loadPage(1)]).then(([f]) => {
-      setFeatured(f);
+    getPublishedPosts().then((all) => {
+      setPosts(all);
+      setFeatured(all.length > 0 ? all[0] : null);
       setLoaded(true);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function loadPage(p: number) {
-    setLoading(true);
-    try {
-      const { posts: newPosts, hasMore } = await getBlogPosts(p);
-      setPosts((prev) => (p === 1 ? newPosts : [...prev, ...newPosts]));
-      setHasMore(hasMore);
-      setPage(p);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  const isEmpty = loaded && !featured && posts.length === 0;
+  const isEmpty = loaded && posts.length === 0;
 
   // Se não tiver posts publicados ou disponiveis, mostra essa mensagem
   return (

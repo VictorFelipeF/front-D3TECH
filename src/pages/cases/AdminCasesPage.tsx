@@ -4,17 +4,18 @@ import { AdminCaseRow } from "@/pages/cases/components/AdminCaseRow";
 import { CaseFormModal } from "@/pages/cases/components/CaseFormModal";
 import { Pagination } from "@/components/shared/Pagination";
 import { SearchInput } from "@/components/shared/SearchInput";
-import { getAllCases, createCase, updateCase, deleteCase } from "@/api/cases/adminCases";
-import type { CaseStudy } from "@/types/cases";
+import { getPublishedCases } from "@/services/cases.service";
+import type { CaseBackend } from "@/services/cases.service";
 
 export default function AdminCasesPage() {
-  const [cases, setCases] = useState<CaseStudy[]>([]);
+  const [cases, setCases] = useState<CaseBackend[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
-  const [editingCase, setEditingCase] = useState<CaseStudy | null>(null);
+  const [editingCase, setEditingCase] = useState<CaseBackend | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const PAGE_SIZE = 5;
 
   useEffect(() => {
     loadCases(page, search);
@@ -30,9 +31,14 @@ export default function AdminCasesPage() {
   }, [searchParams]);
 
   async function loadCases(p: number, term: string) {
-    const { cases, totalPages } = await getAllCases(p, 5, term);
-    setCases(cases);
-    setTotalPages(totalPages);
+    const all = await getPublishedCases();
+    const filtered = term
+      ? all.filter((c) => c.nomeProjeto.toLowerCase().includes(term.toLowerCase()) || c.cliente.toLowerCase().includes(term.toLowerCase()))
+      : all;
+    const total = Math.ceil(filtered.length / PAGE_SIZE);
+    const paginated = filtered.slice((p - 1) * PAGE_SIZE, p * PAGE_SIZE);
+    setCases(paginated);
+    setTotalPages(total || 1);
   }
 
   function handleSearchChange(value: string) {
@@ -45,25 +51,21 @@ export default function AdminCasesPage() {
     setModalOpen(true);
   }
 
-  function openEditCase(item: CaseStudy) {
+  function openEditCase(item: CaseBackend) {
     setEditingCase(item);
     setModalOpen(true);
   }
 
   async function handleSave(
-    data: Omit<CaseStudy, "id">,
+    _data: unknown,
     _status: "draft" | "published"
   ) {
-    if (editingCase) {
-      await updateCase(editingCase.id, data);
-    } else {
-      await createCase(data);
-    }
+    // TODO: implementar CRUD de cases no backend
     await loadCases(page, search);
   }
 
-  async function handleDelete(id: string) {
-    await deleteCase(id);
+  async function handleDelete(_id: number) {
+    // TODO: implementar CRUD de cases no backend
     await loadCases(page, search);
   }
 

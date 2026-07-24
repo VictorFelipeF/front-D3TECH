@@ -1,17 +1,17 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getBlogPostBySlug } from "@/api/blog/getBlogPostBySlug";
+import { getPostBySlug } from "@/services/posts.service";
 import { Badge } from "@/components/ui/badge";
-import type { BlogPost } from "@/types/blog";
 import { PageLoader } from "@/components/shared/PageLoader";
+import type { PostBackend } from "@/services/posts.service";
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const [post, setPost] = useState<BlogPost | null>(null);
+  const [post, setPost] = useState<PostBackend | null>(null);
 
   useEffect(() => {
-    if (slug) getBlogPostBySlug(slug).then(setPost);
+    if (slug) getPostBySlug(slug).then(setPost);
   }, [slug]);
 
   if (!post) return <PageLoader />;
@@ -27,17 +27,17 @@ export default function BlogPostPage() {
 
       <div className="aspect-video bg-muted rounded-lg mb-4" />
 
-      <Badge className="bg-d3-purple text-white mb-2">{post.tag}</Badge>
-      <h1 className="text-2xl font-bold">{post.title}</h1>
+      <Badge className="bg-d3-purple text-white mb-2">{post.categoria}</Badge>
+      <h1 className="text-2xl font-bold">{post.titulo}</h1>
       <div className="flex items-center gap-2 text-xs text-muted-foreground mt-2 mb-6">
-        <span>{post.author}</span>
+        <span>{post.autor}</span>
         <span>•</span>
-        <span>{new Date(post.publishedAt).toLocaleDateString("pt-BR")}</span>
+        <span>{post.dataPublicacao ? new Date(post.dataPublicacao).toLocaleDateString("pt-BR") : ""}</span>
       </div>
 
       <div
         className="border rounded-md p-6 min-h-[200px]"
-        dangerouslySetInnerHTML={{ __html: post.content }}
+        dangerouslySetInnerHTML={{ __html: post.conteudo }}
       />
     </article>
   );

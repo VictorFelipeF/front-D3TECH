@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Pencil, Trash2, Check, X } from "lucide-react";
-import type { BlogPost } from "@/types/blog";
+import type { PostBackend } from "@/services/posts.service";
 
 interface Props {
-  post: BlogPost;
-  onEdit: (post: BlogPost) => void;
-  onDelete: (id: string) => void;
+  post: PostBackend;
+  onEdit: (post: PostBackend) => void;
+  onDelete: (id: number) => void;
 }
 
 export function AdminPostRow({ post, onEdit, onDelete }: Props) {
@@ -16,19 +16,19 @@ export function AdminPostRow({ post, onEdit, onDelete }: Props) {
       <div className="flex items-center gap-3">
         <span
           className={`text-xs font-medium px-3 py-1 rounded-full ${
-            post.status === "published"
+            post.status === "PUBLICADO"
               ? "bg-emerald-500/10 text-emerald-700"
               : "bg-amber-500/10 text-amber-700"
           }`}
         >
-          {post.status === "published" ? "Publicado" : "Rascunho"}
+          {post.status === "PUBLICADO" ? "Publicado" : "Rascunho"}
         </span>
-        <span className="text-sm font-medium text-d3-navy">{post.title}</span>
+        <span className="text-sm font-medium text-d3-navy">{post.titulo}</span>
       </div>
 
       <div className="flex items-center gap-4">
         <span className="text-xs text-muted-foreground">
-          {new Date(post.publishedAt).toLocaleDateString("pt-BR")}
+          {post.dataPublicacao ? new Date(post.dataPublicacao).toLocaleDateString("pt-BR") : ""}
         </span>
 
         {confirming ? (

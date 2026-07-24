@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { sendContactMessage } from "@/api/contact/sendContactMessage";
+import { sendContactMessage } from "@/services/contact.service";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 
 const inputClass =
@@ -49,13 +49,12 @@ export function ContactForm() {
 
     try {
       await sendContactMessage({
-        name,
+        nome: name,
         email,
-        phone,
-        company,
-        location,
-        subject,
-        message,
+        telefone: phone,
+        empresa: company,
+        assunto: subject,
+        mensagem: message,
       });
       setStatus("success");
     } catch {

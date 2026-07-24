@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import { Pencil, FileText, Star, FileEdit } from "lucide-react";
 import { PostFormModal } from "@/pages/blog/components/PostFormModal";
 import { CaseFormModal } from "@/pages/cases/components/CaseFormModal";
-import { createPost, getPostsSummary } from "@/api/blog/adminPosts";
-import { createCase, getCasesSummary } from "@/api/cases/adminCases";
-import type { BlogPost } from "@/types/blog";
+import { createPost } from "@/services/posts.service";
+import type { PostBackend, PostPayload } from "@/services/posts.service";
 import type { CaseStudy } from "@/types/cases";
 
 export default function AdminHomePage() {
@@ -18,13 +17,16 @@ export default function AdminHomePage() {
   }, []);
 
   async function loadSummaries() {
-    const [blog, cases] = await Promise.all([getPostsSummary(), getCasesSummary()]);
-    setBlogSummary(blog);
-    setCasesSummary(cases);
+    const [posts] = await Promise.all([
+      import("@/services/posts.service").then((m) => m.getPublishedPosts()),
+    ]);
+    const published = posts.filter((p) => p.status === "PUBLICADO").length;
+    const draft = posts.filter((p) => p.status === "RASCUNHO").length;
+    setBlogSummary({ published, draft });
   }
 
   async function handleSaveBlogPost(
-    data: Omit<BlogPost, "id">,
+    data: PostPayload,
     _status: "draft" | "published"
   ) {
     await createPost(data);
@@ -35,7 +37,8 @@ export default function AdminHomePage() {
     data: Omit<CaseStudy, "id">,
     _status: "draft" | "published"
   ) {
-    await createCase(data);
+    // TODO: implementar criação de cases no backend
+    console.log("Criar case:", data);
     await loadSummaries();
   }
 

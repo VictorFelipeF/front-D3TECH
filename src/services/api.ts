@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8080/api/v1";
 
 export const http = axios.create({ baseURL: API_BASE_URL });
 
@@ -65,7 +65,7 @@ http.interceptors.response.use(
       return http(original);
     } catch {
       clearTokens();
-      window.location.href = "/login";
+      window.location.href = "/admin";
       return Promise.reject(error);
     } finally {
       isRefreshing = false;

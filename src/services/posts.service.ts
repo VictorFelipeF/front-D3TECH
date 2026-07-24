@@ -45,6 +45,11 @@ export async function getPostBySlug(slug: string) {
 }
 
 /* Admin */
+export async function getAllPosts() {
+  const res = await http.get<PostBackend[]>("/admin/posts");
+  return res.data;
+}
+
 export async function createPost(data: PostPayload) {
   const res = await http.post<PostBackend>("/admin/posts", asPayload(data));
   return res.data;

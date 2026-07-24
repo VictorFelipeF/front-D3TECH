@@ -3,60 +3,37 @@ import { Modal } from "@/components/shared/Modal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { TextEditor } from "@/components/shared/TextEditor";
-import { TagSelect } from "@/components/shared/TagSelect";
-import { getBlogTags, addBlogTag, renameBlogTag, deleteBlogTag } from "@/mocks/tagsStore";
-import type { BlogPost } from "@/types/blog";
+import type { PostPayload } from "@/services/posts.service";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (data: Omit<BlogPost, "id">, status: "draft" | "published") => void;
-  initialData?: BlogPost | null;
+  onSave: (data: PostPayload, status: "draft" | "published") => void;
+  initialData?: PostPayload | null;
 }
 
-const emptyForm: Omit<BlogPost, "id"> = {
-  title: "",
-  tag: "",
-  excerpt: "",
-  content: "",
-  author: "Equipe D3TECH",
-  publishedAt: new Date().toISOString(),
-  slug: "",
-  status: "draft",
-  featured: false,
+const emptyForm: PostPayload = {
+  titulo: "",
+  autor: "Equipe D3TECH",
+  resumo: "",
+  conteudo: "",
+  categoria: "",
 };
 
 export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
-  const [form, setForm] = useState<Omit<BlogPost, "id">>(emptyForm);
-  const [tagOptions, setTagOptions] = useState<string[]>([]);
+  const [form, setForm] = useState<PostPayload>(emptyForm);
 
   useEffect(() => {
     setForm(initialData ?? emptyForm);
   }, [initialData, isOpen]);
 
-  useEffect(() => {
-    setTagOptions(getBlogTags());
-  }, [isOpen]);
-
-  function handleChange(field: string, value: string) {
+  function handleChange(field: keyof PostPayload, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
-  function handleAddNewTag(tag: string) {
-    addBlogTag(tag);
-    setTagOptions(getBlogTags());
-  }
-
   function handleSubmit(status: "draft" | "published") {
-    const slug = form.title
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/\s+/g, "-");
-
-    onSave({ ...form, slug, status }, status);
+    onSave(form, status);
     onClose();
   }
 
@@ -68,60 +45,38 @@ export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
         </div>
 
         <div>
-          <Label htmlFor="title">Título</Label>
+          <Label htmlFor="titulo">Título</Label>
           <Input
-            id="title"
-            value={form.title}
-            onChange={(e) => handleChange("title", e.target.value)}
+            id="titulo"
+            value={form.titulo}
+            onChange={(e) => handleChange("titulo", e.target.value)}
           />
         </div>
 
         <div>
-          <Label htmlFor="tag">Tag</Label>
-          <TagSelect
-            value={form.tag}
-            onChange={(tag) => handleChange("tag", tag)}
-            options={tagOptions}
-            onAddNewTag={handleAddNewTag}
-            onRenameTag={(oldName, newName) => {
-              renameBlogTag(oldName, newName);
-              setTagOptions(getBlogTags());
-              if (form.tag === oldName) handleChange("tag", newName);
-            }}
-            onDeleteTag={(name) => {
-              deleteBlogTag(name);
-              setTagOptions(getBlogTags());
-              if (form.tag === name) handleChange("tag", "");
-            }}
+          <Label htmlFor="categoria">Categoria</Label>
+          <Input
+            id="categoria"
+            value={form.categoria ?? ""}
+            onChange={(e) => handleChange("categoria", e.target.value)}
           />
         </div>
 
         <div>
-          <Label htmlFor="excerpt">Resumo</Label>
+          <Label htmlFor="resumo">Resumo</Label>
           <Input
-            id="excerpt"
-            value={form.excerpt}
-            onChange={(e) => handleChange("excerpt", e.target.value)}
+            id="resumo"
+            value={form.resumo}
+            onChange={(e) => handleChange("resumo", e.target.value)}
           />
         </div>
 
         <div>
           <Label>Conteúdo</Label>
           <TextEditor
-            value={form.content}
-            onChange={(html) => handleChange("content", html)}
+            value={form.conteudo}
+            onChange={(html) => handleChange("conteudo", html)}
           />
-        </div>
-
-        <div className="flex items-center gap-2">
-          <Checkbox
-            id="featured"
-            checked={form.featured}
-            onCheckedChange={(checked) =>
-              setForm((prev) => ({ ...prev, featured: !!checked }))
-            }
-          />
-          <Label htmlFor="featured">Definir como post em destaque</Label>
         </div>
 
         <div className="flex justify-end gap-2 pt-2">
