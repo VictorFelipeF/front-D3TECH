@@ -18,6 +18,7 @@ import {
   AlignJustify,
   LinkIcon,
 } from "lucide-react";
+import { useEffect } from "react";
 
 interface Props {
   value: string;
@@ -37,6 +38,12 @@ export function TextEditor({ value, onChange }: Props) {
       onChange(editor.getHTML());
     },
   });
+
+  useEffect(() => {
+    if (editor && editor.getHTML() !== value) {
+      editor.commands.setContent(value);
+    }
+  }, [value, editor]);
 
   if (!editor) return null;
 

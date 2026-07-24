@@ -9,10 +9,10 @@ import {
   type PostPayload,
 } from "@/services/posts.service";
 
-export function usePublishedPosts() {
+export function usePublishedPosts(page = 0, size = 9) {
   return useQuery({
-    queryKey: ["posts", "published"],
-    queryFn: getPublishedPosts,
+    queryKey: ["posts", "published", page],
+    queryFn: () => getPublishedPosts(page, size),
   });
 }
 
@@ -24,10 +24,10 @@ export function usePost(slug: string) {
   });
 }
 
-export function useAllPosts() {
+export function useAllPosts(page = 0, size = 10) {
   return useQuery({
-    queryKey: ["posts", "all"],
-    queryFn: getAllPosts,
+    queryKey: ["posts", "all", page],
+    queryFn: () => getAllPosts(page, size),
   });
 }
 

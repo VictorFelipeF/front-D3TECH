@@ -25,6 +25,14 @@ export type PostPayload = {
   exibirAoPublico: boolean;
 };
 
+export type Page<T> = {
+  content: T[];
+  totalPages: number;
+  totalElements: number;
+  number: number;
+  size: number;
+};
+
 const toPayload = (p: PostPayload) => ({
   titulo: p.titulo,
   autor: p.autor,
@@ -36,8 +44,8 @@ const toPayload = (p: PostPayload) => ({
 });
 
 /* Public */
-export async function getPublishedPosts() {
-  const res = await http.get<PostBackend[]>("/posts");
+export async function getPublishedPosts(page = 0, size = 9) {
+  const res = await http.get<Page<PostBackend>>("/posts", { params: { page, size } });
   return res.data;
 }
 
@@ -47,8 +55,8 @@ export async function getPostBySlug(slug: string) {
 }
 
 /* Admin */
-export async function getAllPosts() {
-  const res = await http.get<PostBackend[]>("/admin/posts");
+export async function getAllPosts(page = 0, size = 10) {
+  const res = await http.get<Page<PostBackend>>("/admin/posts", { params: { page, size } });
   return res.data;
 }
 

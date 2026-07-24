@@ -81,14 +81,14 @@ export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
           <div className="flex items-center gap-2 mb-2">
             <Heading className="w-4 h-4 text-d3-purple" />
             <Label htmlFor="titulo" className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-              Titulo
+Título
             </Label>
           </div>
           <Input
             id="titulo"
             value={form.titulo}
             onChange={(e) => handleChange("titulo", e.target.value)}
-            placeholder="Digite o titulo do post"
+            placeholder="Digite o título do post"
             className="h-11"
           />
         </div>
@@ -114,7 +114,7 @@ export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
           <div className="flex items-center gap-2 mb-2">
             <Eye className="w-4 h-4 text-d3-purple" />
             <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-              Publicacao
+              Publicação
             </span>
           </div>
           <div className="flex items-center gap-2 border border-gray-200 rounded-none px-4 h-11 bg-gray-50/50">
@@ -124,7 +124,7 @@ export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
               onCheckedChange={(checked) => handleChange("exibirAoPublico", !!checked)}
             />
             <Label htmlFor="exibirAoPublico" className="text-sm cursor-pointer text-d3-navy">
-              Exibir ao publico
+Exibir ao público
             </Label>
           </div>
         </div>
@@ -134,7 +134,7 @@ export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
           <div className="flex items-center gap-2 mb-2">
             <FileText className="w-4 h-4 text-d3-purple" />
             <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-              Descricao
+Descrição
             </span>
           </div>
           <TextEditor
@@ -145,10 +145,10 @@ export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
       </div>
 
       <div className="flex justify-end gap-3 pt-5 mt-5 border-t border-gray-100">
-        <Button variant="secondary" onClick={onClose} className="text-gray-500">
-          Cancelar
-        </Button>
-        <Button onClick={handleSubmit} className="bg-d3-purple hover:bg-d3-purple-dark text-white gap-2">
+          <Button variant="secondary" onClick={onClose} className="text-gray-500 rounded-none">
+            Cancelar
+          </Button>
+          <Button onClick={handleSubmit} className="bg-d3-purple hover:bg-d3-purple-dark text-white gap-2 rounded-none">
           <Save className="w-4 h-4" />
           Salvar
         </Button>

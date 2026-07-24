@@ -134,10 +134,10 @@ export function CaseFormModal({ isOpen, onClose, onSave, initialData }: Props) {
       </div>
 
       <div className="flex justify-end gap-3 pt-5 mt-5 border-t border-gray-100">
-        <Button variant="secondary" onClick={() => handleSubmit("draft")} className="text-gray-500">
-          Salvar Rascunho
-        </Button>
-        <Button onClick={() => handleSubmit("published")} className="bg-d3-purple hover:bg-d3-purple-dark text-white gap-2">
+          <Button variant="secondary" onClick={() => handleSubmit("draft")} className="text-gray-500 rounded-none">
+            Salvar Rascunho
+          </Button>
+          <Button onClick={() => handleSubmit("published")} className="bg-d3-purple hover:bg-d3-purple-dark text-white gap-2 rounded-none">
           <Save className="w-4 h-4" />
           Publicar
         </Button>
