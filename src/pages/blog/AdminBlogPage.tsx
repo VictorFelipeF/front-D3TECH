@@ -55,10 +55,7 @@ export default function AdminBlogPage() {
     setModalOpen(true);
   }
 
-  async function handleSave(
-    data: PostPayload,
-    _status: "draft" | "published"
-  ) {
+  async function handleSave(data: PostPayload) {
     if (editingPost) {
       await updatePost(editingPost.id, data);
     } else {

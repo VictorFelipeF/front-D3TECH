@@ -6,10 +6,10 @@ export type PostBackend = {
   slug: string;
   autor: string;
   imagemCapa: string;
-  resumo: string;
-  conteudo: string;
-  categoria: string;
-  status: "RASCUNHO" | "PUBLICADO";
+  descricao: string;
+  categoria: { id: number; nome: string; slug: string } | null;
+  tags: { id: number; nome: string }[];
+  exibirAoPublico: boolean;
   dataPublicacao: string | null;
   createdAt: string;
   updatedAt: string;
@@ -19,18 +19,20 @@ export type PostPayload = {
   titulo: string;
   autor: string;
   imagemCapa?: string;
-  resumo: string;
-  conteudo: string;
-  categoria?: string;
+  descricao: string;
+  categoriaId?: number | null;
+  tagIds?: number[];
+  exibirAoPublico: boolean;
 };
 
-const asPayload = (p: PostPayload) => ({
+const toPayload = (p: PostPayload) => ({
   titulo: p.titulo,
   autor: p.autor,
   imagemCapa: p.imagemCapa ?? "",
-  resumo: p.resumo,
-  conteudo: p.conteudo,
-  categoria: p.categoria ?? "",
+  descricao: p.descricao,
+  categoriaId: p.categoriaId ?? null,
+  tagIds: p.tagIds ?? [],
+  exibirAoPublico: p.exibirAoPublico,
 });
 
 /* Public */
@@ -51,22 +53,12 @@ export async function getAllPosts() {
 }
 
 export async function createPost(data: PostPayload) {
-  const res = await http.post<PostBackend>("/admin/posts", asPayload(data));
+  const res = await http.post<PostBackend>("/admin/posts", toPayload(data));
   return res.data;
 }
 
 export async function updatePost(id: number, data: PostPayload) {
-  const res = await http.put<PostBackend>(`/admin/posts/${id}`, asPayload(data));
-  return res.data;
-}
-
-export async function publishPost(id: number) {
-  const res = await http.patch<PostBackend>(`/admin/posts/${id}/publish`);
-  return res.data;
-}
-
-export async function unpublishPost(id: number) {
-  const res = await http.patch<PostBackend>(`/admin/posts/${id}/unpublish`);
+  const res = await http.put<PostBackend>(`/admin/posts/${id}`, toPayload(data));
   return res.data;
 }
 

@@ -6,8 +6,6 @@ import {
   createPost,
   updatePost,
   deletePost,
-  publishPost,
-  unpublishPost,
   type PostPayload,
 } from "@/services/posts.service";
 
@@ -53,22 +51,6 @@ export function useDeletePost() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: (id: number) => deletePost(id),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["posts"] }),
-  });
-}
-
-export function usePublishPost() {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: (id: number) => publishPost(id),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["posts"] }),
-  });
-}
-
-export function useUnpublishPost() {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: (id: number) => unpublishPost(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["posts"] }),
   });
 }

@@ -16,12 +16,12 @@ export function AdminPostRow({ post, onEdit, onDelete }: Props) {
       <div className="flex items-center gap-3">
         <span
           className={`text-xs font-medium px-3 py-1 rounded-full ${
-            post.status === "PUBLICADO"
+            post.exibirAoPublico
               ? "bg-emerald-500/10 text-emerald-700"
               : "bg-amber-500/10 text-amber-700"
           }`}
         >
-          {post.status === "PUBLICADO" ? "Publicado" : "Rascunho"}
+          {post.exibirAoPublico ? "Publicado" : "Rascunho"}
         </span>
         <span className="text-sm font-medium text-d3-navy">{post.titulo}</span>
       </div>

@@ -15,25 +15,47 @@ export default function BlogPostPage() {
     <article className="container mx-auto px-4 py-16 max-w-3xl">
       <button
         onClick={() => navigate("/blog")}
-        className="text-sm text-d3-purple mb-4 block ml-auto"
+        className="text-sm text-d3-purple mb-6 block hover:underline"
       >
-        ← Voltar
+        &larr; Voltar
       </button>
 
-      <div className="aspect-video bg-muted rounded-lg mb-4" />
+      {post.imagemCapa && (
+        <img
+          src={post.imagemCapa}
+          alt={post.titulo}
+          className="w-full rounded-lg mb-6 object-cover aspect-video"
+        />
+      )}
 
-      <Badge className="bg-d3-purple text-white mb-2">{post.categoria}</Badge>
-      <h1 className="text-2xl font-bold">{post.titulo}</h1>
-      <div className="flex items-center gap-2 text-xs text-muted-foreground mt-2 mb-6">
+      {post.categoria && (
+        <Badge className="bg-d3-purple text-white mb-3">{post.categoria.nome}</Badge>
+      )}
+
+      <h1 className="text-3xl font-bold text-d3-navy mb-2">{post.titulo}</h1>
+
+      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
         <span>{post.autor}</span>
-        <span>•</span>
-        <span>{post.dataPublicacao ? new Date(post.dataPublicacao).toLocaleDateString("pt-BR") : ""}</span>
+        <span>&bull;</span>
+        <span>
+          {post.dataPublicacao
+            ? new Date(post.dataPublicacao).toLocaleDateString("pt-BR")
+            : ""}
+        </span>
       </div>
 
       <div
-        className="border rounded-md p-6 min-h-[200px]"
-        dangerouslySetInnerHTML={{ __html: post.conteudo }}
+        className="prose max-w-none"
+        dangerouslySetInnerHTML={{ __html: post.descricao }}
       />
+
+      {post.tags.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-8 pt-6 border-t">
+          {post.tags.map((tag) => (
+            <Badge key={tag.id} variant="secondary">{tag.nome}</Badge>
+          ))}
+        </div>
+      )}
     </article>
   );
 }

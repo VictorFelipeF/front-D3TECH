@@ -7,12 +7,11 @@ export default function BlogPage() {
   const featured = posts.length > 0 ? posts[0] : null;
   const isEmpty = !isLoading && posts.length === 0;
 
-  // Se não tiver posts publicados ou disponiveis, mostra essa mensagem
   return (
     <div className="container mx-auto px-4 py-16">
       {isEmpty ? (
         <p className="text-center text-muted-foreground py-16">
-          Ainda não há posts publicados.
+          Ainda nao ha posts publicados.
         </p>
       ) : (
         <>
@@ -23,16 +22,6 @@ export default function BlogPage() {
               <BlogPostCard key={post.id} post={post} />
             ))}
           </div>
-
-          {hasMore && (
-            <div className="flex justify-center mt-8">
-              <LoadMoreButton
-                onClick={() => loadPage(page + 1)}
-                isLoading={loading}
-                label="Ver mais..."
-              />
-            </div>
-          )}
         </>
       )}
     </div>
