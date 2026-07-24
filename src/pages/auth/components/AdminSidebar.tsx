@@ -15,22 +15,22 @@ export function AdminSidebar() {
   }
 
   return (
-    <aside className="w-64 shrink-0 bg-d3-navy border-r border-d3-purple/20 flex flex-col h-screen sticky top-0">
-      <div className="px-6 py-7">
-        <h1 className="font-bold text-lg text-white">D3TECH</h1>
-        <p className="text-xs text-white/50 mt-0.5">Painel Administrativo</p>
+    <aside className="w-64 shrink-0 bg-d3-navy border-r border-white/5 flex flex-col h-screen sticky top-0">
+      <div className="px-6 py-7 border-b border-white/5">
+        <h1 className="font-bold text-lg text-white tracking-tight">D3TECH</h1>
+        <p className="text-[11px] text-white/30 mt-0.5">Painel Administrativo</p>
       </div>
 
-      <nav className="flex-1 px-4 space-y-1">
+      <nav className="flex-1 px-4 py-4 space-y-1">
         {navItems.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
+              `flex items-center gap-3 px-3 py-2.5 rounded-none text-sm font-medium transition-all ${
                 isActive
-                  ? "bg-d3-purple text-white"
-                  : "text-white/60 hover:bg-white/10 hover:text-white"
+                  ? "bg-gradient-to-r from-d3-purple to-d3-purple-dark text-white shadow-md shadow-d3-purple/30"
+                  : "text-white/40 hover:bg-white/5 hover:text-white/80"
               }`
             }
           >
@@ -41,7 +41,7 @@ export function AdminSidebar() {
 
         <button
           onClick={handleViewSite}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-white/60 hover:bg-white/10 hover:text-white transition-all"
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-none text-sm font-medium text-white/40 hover:bg-white/5 hover:text-white/80 transition-all mt-4"
         >
           <ExternalLink className="w-4 h-4" />
           Ver site

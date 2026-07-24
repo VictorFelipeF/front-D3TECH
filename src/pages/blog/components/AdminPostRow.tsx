@@ -12,45 +12,74 @@ export function AdminPostRow({ post, onEdit, onDelete }: Props) {
   const [confirming, setConfirming] = useState(false);
 
   return (
-    <div className="flex items-center justify-between bg-muted/40 border border-d3-purple/10 rounded-xl px-4 py-3.5 hover:bg-d3-purple/5 transition-colors">
-      <div className="flex items-center gap-3">
+    <div className="group flex items-center justify-between bg-white border border-gray-100 rounded-none px-5 py-4 hover:border-d3-purple/30 hover:shadow-md hover:shadow-d3-purple/5 transition-all">
+      <div className="flex items-center gap-4">
         <span
-          className={`text-xs font-medium px-3 py-1 rounded-full ${
+          className={`text-[11px] font-semibold px-3 py-1 rounded-none ${
             post.exibirAoPublico
-              ? "bg-emerald-500/10 text-emerald-700"
-              : "bg-amber-500/10 text-amber-700"
+              ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+              : "bg-amber-50 text-amber-700 border border-amber-200"
           }`}
         >
           {post.exibirAoPublico ? "Publicado" : "Rascunho"}
         </span>
-        <span className="text-sm font-medium text-d3-navy">{post.titulo}</span>
+        <div>
+          <span className="text-sm font-semibold text-d3-navy block">
+            {post.titulo}
+          </span>
+          <span className="text-[11px] text-gray-400">
+            {post.categoria?.nome || "Sem categoria"}
+          </span>
+        </div>
       </div>
 
-      <div className="flex items-center gap-4">
-        <span className="text-xs text-muted-foreground">
-          {post.dataPublicacao ? new Date(post.dataPublicacao).toLocaleDateString("pt-BR") : ""}
+      <div className="flex items-center gap-5">
+        <span className="text-xs text-gray-400">
+          {post.dataPublicacao
+            ? new Date(post.dataPublicacao).toLocaleDateString("pt-BR")
+            : post.createdAt
+              ? new Date(post.createdAt).toLocaleDateString("pt-BR")
+              : ""}
         </span>
 
-        {confirming ? (
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground">Excluir?</span>
-            <button onClick={() => onDelete(post.id)} aria-label="Confirmar exclusão">
-              <Check className="w-4 h-4 text-red-600" />
-            </button>
-            <button onClick={() => setConfirming(false)} aria-label="Cancelar">
-              <X className="w-4 h-4 text-muted-foreground" />
-            </button>
-          </div>
-        ) : (
-          <>
-            <button onClick={() => onEdit(post)} aria-label="Editar">
-              <Pencil className="w-4 h-4 text-muted-foreground hover:text-d3-navy transition-colors" />
-            </button>
-            <button onClick={() => setConfirming(true)} aria-label="Excluir">
-              <Trash2 className="w-4 h-4 text-muted-foreground hover:text-red-600 transition-colors" />
-            </button>
-          </>
-        )}
+        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+          {confirming ? (
+            <>
+              <span className="text-xs text-gray-400 mr-1">Excluir?</span>
+              <button
+                onClick={() => onDelete(post.id)}
+                className="flex h-8 w-8 items-center justify-center rounded-none bg-red-50 text-red-600 hover:bg-red-100 transition-colors"
+                aria-label="Confirmar exclusao"
+              >
+                <Check className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => setConfirming(false)}
+                className="flex h-8 w-8 items-center justify-center rounded-none bg-gray-50 text-gray-400 hover:bg-gray-100 transition-colors"
+                aria-label="Cancelar"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={() => onEdit(post)}
+                className="flex h-8 w-8 items-center justify-center rounded-none text-gray-400 hover:text-d3-purple hover:bg-d3-purple/5 transition-colors"
+                aria-label="Editar"
+              >
+                <Pencil className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => setConfirming(true)}
+                className="flex h-8 w-8 items-center justify-center rounded-none text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+                aria-label="Excluir"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

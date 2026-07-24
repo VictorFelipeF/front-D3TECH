@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TextEditor } from "@/components/shared/TextEditor";
+import { ImageIcon, Heading, User, FileText, Eye, Save } from "lucide-react";
 import type { PostPayload } from "@/services/posts.service";
 
 interface Props {
@@ -41,55 +42,116 @@ export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={initialData ? "Editar post" : "Novo post"}>
-      <div className="space-y-4">
-        <div className="border-2 border-dashed rounded-md h-32 flex items-center justify-center text-sm text-muted-foreground">
-          Upload da imagem da capa
+    <Modal isOpen={isOpen} onClose={onClose} title={initialData ? "Editar post" : "Novo post"} width="2xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {/* Capa - full width */}
+        <div className="md:col-span-2">
+          <div className="flex items-center gap-2 mb-2">
+            <ImageIcon className="w-4 h-4 text-d3-purple" />
+            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Imagem de capa
+            </span>
+          </div>
+          <div className="relative border-2 border-dashed border-gray-200 hover:border-d3-purple/40 rounded-none h-44 flex flex-col items-center justify-center gap-3 text-sm text-gray-400 transition-colors cursor-pointer bg-gray-50/50 hover:bg-d3-purple/[0.03] group">
+            {form.imagemCapa ? (
+              <>
+                <img src={form.imagemCapa} alt="Capa" className="absolute inset-0 w-full h-full object-cover rounded-none" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                  <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity text-sm font-medium">
+                    Trocar imagem
+                  </span>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="w-12 h-12 rounded-none bg-d3-purple/10 flex items-center justify-center">
+                  <ImageIcon className="w-6 h-6 text-d3-purple" />
+                </div>
+                <div className="text-center">
+                  <p className="text-sm font-medium text-gray-600">Clique para fazer upload</p>
+                  <p className="text-xs text-gray-400 mt-0.5">PNG, JPG ou WebP</p>
+                </div>
+              </>
+            )}
+          </div>
         </div>
 
-        <div>
-          <Label htmlFor="titulo">Título</Label>
+        {/* Titulo */}
+        <div className="md:col-span-2">
+          <div className="flex items-center gap-2 mb-2">
+            <Heading className="w-4 h-4 text-d3-purple" />
+            <Label htmlFor="titulo" className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Titulo
+            </Label>
+          </div>
           <Input
             id="titulo"
             value={form.titulo}
             onChange={(e) => handleChange("titulo", e.target.value)}
+            placeholder="Digite o titulo do post"
+            className="h-11"
           />
         </div>
 
+        {/* Autor */}
         <div>
-          <Label htmlFor="autor">Autor</Label>
+          <div className="flex items-center gap-2 mb-2">
+            <User className="w-4 h-4 text-d3-purple" />
+            <Label htmlFor="autor" className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Autor
+            </Label>
+          </div>
           <Input
             id="autor"
             value={form.autor}
             onChange={(e) => handleChange("autor", e.target.value)}
+            className="h-11"
           />
         </div>
 
+        {/* Exibir ao publico */}
         <div>
-          <Label htmlFor="descricao">Descrição</Label>
+          <div className="flex items-center gap-2 mb-2">
+            <Eye className="w-4 h-4 text-d3-purple" />
+            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Publicacao
+            </span>
+          </div>
+          <div className="flex items-center gap-2 border border-gray-200 rounded-none px-4 h-11 bg-gray-50/50">
+            <Checkbox
+              id="exibirAoPublico"
+              checked={form.exibirAoPublico}
+              onCheckedChange={(checked) => handleChange("exibirAoPublico", !!checked)}
+            />
+            <Label htmlFor="exibirAoPublico" className="text-sm cursor-pointer text-d3-navy">
+              Exibir ao publico
+            </Label>
+          </div>
+        </div>
+
+        {/* Descricao - full width */}
+        <div className="md:col-span-2">
+          <div className="flex items-center gap-2 mb-2">
+            <FileText className="w-4 h-4 text-d3-purple" />
+            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Descricao
+            </span>
+          </div>
           <TextEditor
             value={form.descricao}
             onChange={(html) => handleChange("descricao", html)}
           />
         </div>
+      </div>
 
-        <div className="flex items-center gap-2">
-          <Checkbox
-            id="exibirAoPublico"
-            checked={form.exibirAoPublico}
-            onCheckedChange={(checked) => handleChange("exibirAoPublico", !!checked)}
-          />
-          <Label htmlFor="exibirAoPublico" className="text-sm cursor-pointer">
-            Exibir ao público
-          </Label>
-        </div>
-
-        <div className="flex justify-end gap-2 pt-2">
-          <Button variant="secondary" onClick={onClose}>
-            Cancelar
-          </Button>
-          <Button onClick={handleSubmit}>Salvar</Button>
-        </div>
+      <div className="flex justify-end gap-3 pt-5 mt-5 border-t border-gray-100">
+        <Button variant="secondary" onClick={onClose} className="text-gray-500">
+          Cancelar
+        </Button>
+        <Button onClick={handleSubmit} className="bg-d3-purple hover:bg-d3-purple-dark text-white gap-2">
+          <Save className="w-4 h-4" />
+          Salvar
+        </Button>
       </div>
     </Modal>
   );

@@ -14,7 +14,7 @@ export function SearchInput({ value, onChange, placeholder = "Buscar..." }: Prop
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full h-10 pl-9 pr-3 rounded-lg border border-d3-purple/20 bg-white text-sm text-d3-navy placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-d3-purple/30 focus:border-d3-purple/40 transition-all"
+        className="w-full h-10 pl-9 pr-3 rounded-none border border-d3-purple/20 bg-white text-sm text-d3-navy placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-d3-purple/30 focus:border-d3-purple/40 transition-all"
       />
     </div>
   );

@@ -40,7 +40,7 @@ export default function LoginPage() {
     <div className="min-h-[calc(100vh-64px)] bg-gradient-to-br from-d3-navy via-d3-purple to-d3-purple-dark flex items-center justify-center px-4 py-16">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-sm bg-white/5 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl p-8"
+        className="w-full max-w-sm bg-white/5 backdrop-blur-md border border-white/20 rounded-none shadow-xl p-8"
       >
         <h1 className="text-3xl font-bold text-center text-white mb-1">
           Entrar

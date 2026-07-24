@@ -72,10 +72,13 @@ export default function AdminBlogPage() {
   return (
     <div className="px-10 py-12 max-w-6xl">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-semibold text-d3-navy">Publicações</h1>
+        <div>
+          <h1 className="text-2xl font-bold text-d3-navy">Publicacoes</h1>
+          <p className="text-sm text-gray-400 mt-0.5">Gerencie os posts do blog</p>
+        </div>
         <button
           onClick={openNewPost}
-          className="bg-white text-d3-purple border border-d3-purple hover:bg-d3-purple/5 transition-colors text-sm font-medium rounded-lg px-4 py-2.5"
+          className="bg-d3-purple hover:bg-d3-purple-dark text-white transition-colors text-sm font-semibold rounded-none px-5 py-2.5 shadow-md shadow-d3-purple/20 hover:shadow-lg hover:shadow-d3-purple/30"
         >
           + Novo post
         </button>

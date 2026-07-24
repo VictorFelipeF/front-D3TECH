@@ -7,9 +7,18 @@ interface ModalProps {
   onClose: () => void;
   children: React.ReactNode;
   title?: string;
+  width?: "md" | "lg" | "xl" | "2xl" | "3xl";
 }
 
-export function Modal({ isOpen, onClose, children, title }: ModalProps) {
+export function Modal({ isOpen, onClose, children, title, width = "xl" }: ModalProps) {
+
+  const widthClass = {
+    md: "max-w-md",
+    lg: "max-w-lg",
+    xl: "max-w-xl",
+    "2xl": "max-w-2xl",
+    "3xl": "max-w-3xl",
+  }[width];
   useEffect(() => {
     function handleEsc(e: KeyboardEvent) {
       if (e.key === "Escape") onClose();
@@ -22,20 +31,24 @@ export function Modal({ isOpen, onClose, children, title }: ModalProps) {
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
       onClick={onClose}
     >
       <div
-        className="bg-background rounded-lg shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto"
+        className={`bg-white rounded-none shadow-2xl shadow-d3-purple/20 w-full ${widthClass} max-h-[90vh] overflow-y-auto`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-4 border-b">
-          <h2 className="font-semibold">{title}</h2>
-          <button onClick={onClose} aria-label="Fechar">
-            <X className="w-5 h-5 text-muted-foreground" />
+        <div className="flex items-center justify-between p-5 bg-gradient-to-r from-d3-navy to-d3-navy-dark rounded-t-none border-b border-d3-purple/20">
+          <h2 className="font-semibold text-lg text-white">{title}</h2>
+          <button
+            onClick={onClose}
+            aria-label="Fechar"
+            className="flex h-8 w-8 items-center justify-center rounded-none text-white/60 hover:text-white hover:bg-white/10 transition-all"
+          >
+            <X className="w-5 h-5" />
           </button>
         </div>
-        <div className="p-4">{children}</div>
+        <div className="p-5">{children}</div>
       </div>
     </div>,
     document.body
