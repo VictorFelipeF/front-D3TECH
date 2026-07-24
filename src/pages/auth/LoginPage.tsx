@@ -5,9 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useLogin } from "@/hooks/useLogin";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { fetchUser } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -27,6 +29,7 @@ export default function LoginPage() {
         setError("Verifique seu email antes de fazer login");
         return;
       }
+      await fetchUser();
       navigate("/admin/home");
     } catch (err: any) {
       setError(err?.response?.data?.message || err?.message || "Erro ao entrar");
