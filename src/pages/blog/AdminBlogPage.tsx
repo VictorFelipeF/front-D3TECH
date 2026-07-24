@@ -7,6 +7,7 @@ import { getAllPosts, createPost, updatePost, deletePost, type PostPayload } fro
 import type { PostBackend } from "@/services/posts.service";
 import { http } from "@/services/api";
 import { Pencil, Trash2, Plus, X, Check } from "lucide-react";
+import { ConfirmModal } from "@/components/shared/ConfirmModal";
 
 type CategoriaType = { id: number; nome: string; slug: string };
 
@@ -22,6 +23,7 @@ export default function AdminBlogPage() {
   const [novaCategoria, setNovaCategoria] = useState("");
   const [editandoCat, setEditandoCat] = useState<number | null>(null);
   const [editNomeCat, setEditNomeCat] = useState("");
+  const [deleteTarget, setDeleteTarget] = useState<PostBackend | null>(null);
 
   const carregarPosts = useCallback(async (p: number) => {
     setLoading(true);
@@ -56,8 +58,10 @@ export default function AdminBlogPage() {
     await carregarPosts(page);
   }
 
-  async function handleDelete(id: number) {
-    await deletePost(id);
+  async function confirmDelete() {
+    if (!deleteTarget) return;
+    await deletePost(deleteTarget.id);
+    setDeleteTarget(null);
     await carregarPosts(page);
   }
 
@@ -117,7 +121,7 @@ export default function AdminBlogPage() {
               key={post.id}
               post={post}
               onEdit={openEditPost}
-              onDelete={handleDelete}
+              onDelete={setDeleteTarget}
             />
           ))
         )}
@@ -212,6 +216,14 @@ export default function AdminBlogPage() {
         onClose={() => { setModalOpen(false); setEditingPost(null); }}
         onSave={handleSave}
         initialData={editingPost}
+      />
+
+      <ConfirmModal
+        isOpen={!!deleteTarget}
+        onClose={() => setDeleteTarget(null)}
+        onConfirm={confirmDelete}
+        title="Excluir post"
+        message={`Tem certeza que deseja excluir "${deleteTarget?.titulo}"? Esta ação não pode ser desfeita.`}
       />
     </div>
   );

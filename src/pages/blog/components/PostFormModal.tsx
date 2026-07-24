@@ -5,7 +5,8 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TextEditor } from "@/components/shared/TextEditor";
-import { ImageIcon, Heading, User, FileText, Eye, Save } from "lucide-react";
+import { ImageIcon, Heading, User, FileText, Eye, Save, Layers } from "lucide-react";
+import { http } from "@/services/api";
 import type { PostPayload } from "@/services/posts.service";
 
 interface Props {
@@ -25,11 +26,33 @@ const emptyForm: PostPayload = {
   tagIds: [],
 };
 
+type CategoriaType = { id: number; nome: string; slug: string };
+
 export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
   const [form, setForm] = useState<PostPayload>(emptyForm);
+  const [categorias, setCategorias] = useState<CategoriaType[]>([]);
 
   useEffect(() => {
-    setForm(initialData ?? emptyForm);
+    if (isOpen) {
+      http.get<CategoriaType[]>("/categorias").then(res => setCategorias(res.data)).catch(() => {});
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!initialData) {
+      setForm(emptyForm);
+      return;
+    }
+    const post = initialData as PostPayload & { categoria?: CategoriaType };
+    setForm({
+      titulo: post.titulo ?? "",
+      autor: post.autor ?? "Equipe D3TECH",
+      imagemCapa: post.imagemCapa ?? "",
+      descricao: post.descricao ?? "",
+      exibirAoPublico: post.exibirAoPublico ?? false,
+      categoriaId: post.categoria?.id ?? post.categoriaId ?? null,
+      tagIds: post.tagIds ?? [],
+    });
   }, [initialData, isOpen]);
 
   function handleChange(field: keyof PostPayload, value: string | boolean | number | null) {
@@ -109,7 +132,28 @@ Título
           />
         </div>
 
-        {/* Exibir ao publico */}
+        {/* Categoria */}
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <Layers className="w-4 h-4 text-d3-purple" />
+            <Label htmlFor="categoriaId" className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Categoria
+            </Label>
+          </div>
+          <select
+            id="categoriaId"
+            value={form.categoriaId ?? ""}
+            onChange={(e) => handleChange("categoriaId", e.target.value ? Number(e.target.value) : null)}
+            className="w-full h-11 border border-gray-200 rounded-none px-3 text-sm text-d3-navy bg-white focus:outline-none focus:ring-2 focus:ring-d3-purple/30 focus:border-d3-purple/40"
+          >
+            <option value="">Sem categoria</option>
+            {categorias.map((cat) => (
+              <option key={cat.id} value={cat.id}>{cat.nome}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Exibir ao público */}
         <div>
           <div className="flex items-center gap-2 mb-2">
             <Eye className="w-4 h-4 text-d3-purple" />
@@ -124,7 +168,7 @@ Título
               onCheckedChange={(checked) => handleChange("exibirAoPublico", !!checked)}
             />
             <Label htmlFor="exibirAoPublico" className="text-sm cursor-pointer text-d3-navy">
-Exibir ao público
+              Exibir ao público
             </Label>
           </div>
         </div>

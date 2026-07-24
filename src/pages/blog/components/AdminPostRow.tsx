@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Pencil, Trash2, Check, X } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import type { PostBackend } from "@/services/posts.service";
 
 interface Props {
   post: PostBackend;
   onEdit: (post: PostBackend) => void;
-  onDelete: (id: number) => void;
+  onDelete: (post: PostBackend) => void;
 }
 
 function fmtDate(d: string | null) {
@@ -14,7 +14,6 @@ function fmtDate(d: string | null) {
 }
 
 export function AdminPostRow({ post, onEdit, onDelete }: Props) {
-  const [confirming, setConfirming] = useState(false);
   const [expanded, setExpanded] = useState(true);
 
   return (
@@ -53,26 +52,12 @@ export function AdminPostRow({ post, onEdit, onDelete }: Props) {
         </div>
 
         <div className="flex items-center gap-1 shrink-0 ml-4">
-          {confirming ? (
-            <>
-              <span className="text-xs text-gray-400 mr-1">Excluir?</span>
-              <button onClick={() => onDelete(post.id)} className="flex h-8 w-8 items-center justify-center rounded-none bg-red-50 text-red-600 hover:bg-red-100 transition-colors" aria-label="Confirmar">
-                <Check className="w-4 h-4" />
-              </button>
-              <button onClick={() => setConfirming(false)} className="flex h-8 w-8 items-center justify-center rounded-none bg-gray-50 text-gray-400 hover:bg-gray-100 transition-colors" aria-label="Cancelar">
-                <X className="w-4 h-4" />
-              </button>
-            </>
-          ) : (
-            <>
-              <button onClick={() => onEdit(post)} className="flex h-8 w-8 items-center justify-center rounded-none text-gray-400 hover:text-d3-purple hover:bg-d3-purple/5 transition-colors" aria-label="Editar">
-                <Pencil className="w-4 h-4" />
-              </button>
-              <button onClick={() => setConfirming(true)} className="flex h-8 w-8 items-center justify-center rounded-none text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors" aria-label="Excluir">
-                <Trash2 className="w-4 h-4" />
-              </button>
-            </>
-          )}
+          <button onClick={() => onEdit(post)} className="flex h-8 w-8 items-center justify-center rounded-none text-gray-400 hover:text-d3-purple hover:bg-d3-purple/5 transition-colors" aria-label="Editar">
+            <Pencil className="w-4 h-4" />
+          </button>
+          <button onClick={() => onDelete(post)} className="flex h-8 w-8 items-center justify-center rounded-none text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors" aria-label="Excluir">
+            <Trash2 className="w-4 h-4" />
+          </button>
         </div>
       </div>
 
