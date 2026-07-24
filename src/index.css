@@ -129,8 +129,8 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 
   /* D3TEC brand colors */
-  --color-d3-navy: #0A0A0A;
-  --color-d3-navy-dark: #111111;
+  --color-d3-navy: #181B52;
+  --color-d3-navy-dark: #12143D;
   --color-d3-purple: #7C3AED;
   --color-d3-purple-light: #9b5cf6;
   --color-d3-purple-dark: #6d28d9;
