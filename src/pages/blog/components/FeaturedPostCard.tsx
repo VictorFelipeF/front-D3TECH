@@ -1,21 +1,28 @@
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
-import type { BlogPost } from "@/types/blog";
+import { fileUrl } from "@/services/api";
+import type { PostBackend } from "@/services/posts.service";
 
-export function FeaturedPostCard({ post }: { post: BlogPost }) {
+export function FeaturedPostCard({ post }: { post: PostBackend }) {
   return (
-    <div className="grid md:grid-cols-2 gap-0 rounded-lg overflow-hidden border bg-d3-purple/5">
-      <div className="aspect-video md:aspect-auto bg-muted flex items-center justify-center" />
+    <div className="grid md:grid-cols-2 gap-0 rounded-none overflow-hidden border bg-d3-purple/5">
+      {post.imagemCapa ? (
+        <img src={fileUrl(post.imagemCapa)} alt={post.titulo} className="aspect-video md:aspect-auto object-cover w-full h-full" />
+      ) : (
+        <div className="aspect-video md:aspect-auto bg-gray-100 flex items-center justify-center text-gray-400 text-xs" />
+      )}
       <div className="p-6 flex flex-col justify-center">
-            <Badge className="bg-d3-purple text-white w-fit mb-3">{post.tag}</Badge>
-            <h2 className="text-xl font-bold">{post.title}</h2>
+            <Badge className="bg-d3-purple text-white w-fit mb-3">{post.categoria?.nome}</Badge>
+            <h2 className="text-xl font-bold">{post.titulo}</h2>
         <div className="flex items-center justify-between text-xs text-muted-foreground mt-2">
-            <span>{post.author}</span>
-            <span>{new Date(post.publishedAt).toLocaleDateString("pt-BR")}</span>
+            <span>{post.autor}</span>
+            <span>{post.dataPublicacao ? new Date(post.dataPublicacao).toLocaleDateString("pt-BR") : ""}</span>
         </div>
-        <p className="text-sm text-muted-foreground mt-3">{post.excerpt}</p>
+        <p className="text-sm text-muted-foreground mt-3 line-clamp-3">
+          {post.descricao.replace(/<[^>]*>/g, "")}
+        </p>
         <span className="text-xs text-muted-foreground mt-2">
-          {new Date(post.publishedAt).toLocaleDateString("pt-BR")}
+          {post.dataPublicacao ? new Date(post.dataPublicacao).toLocaleDateString("pt-BR") : ""}
         </span>
         <Link
           to={`/blog/${post.slug}`}

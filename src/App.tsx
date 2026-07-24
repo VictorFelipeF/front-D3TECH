@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import { PageLayout } from "./components/layout/PageLayout";
 import { PageLoader } from "./components/shared/PageLoader";
@@ -42,6 +42,7 @@ function App() {
           </Route>
 
           <Route path="/admin" element={<LoginPage />} />
+          <Route path="/admin/login" element={<Navigate to="/admin" replace />} />
 
           <Route element={<ProtectedRoute />}>
             <Route element={<AdminLayout />}>

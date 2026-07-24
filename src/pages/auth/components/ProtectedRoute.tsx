@@ -1,6 +1,11 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { PageLoader } from "@/components/shared/PageLoader";
 
 export function ProtectedRoute() {
-  // TODO: implementar proteção de rota quando o backend for integrado
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) return <PageLoader />;
+  if (!isAuthenticated) return <Navigate to="/admin" replace />;
   return <Outlet />;
 }

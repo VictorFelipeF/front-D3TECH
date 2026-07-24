@@ -1,56 +1,76 @@
-import { useState } from "react";
-import { Pencil, Trash2, Check, X } from "lucide-react";
-import type { BlogPost } from "@/types/blog";
+import { Pencil, Trash2 } from "lucide-react";
+import { fileUrl } from "@/services/api";
+import type { PostBackend } from "@/services/posts.service";
 
 interface Props {
-  post: BlogPost;
-  onEdit: (post: BlogPost) => void;
-  onDelete: (id: string) => void;
+  post: PostBackend;
+  onEdit: (post: PostBackend) => void;
+  onDelete: (post: PostBackend) => void;
+}
+
+function fmtDate(d: string | null) {
+  if (!d) return "-";
+  return new Date(d).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" });
 }
 
 export function AdminPostRow({ post, onEdit, onDelete }: Props) {
-  const [confirming, setConfirming] = useState(false);
-
   return (
-    <div className="flex items-center justify-between bg-muted/40 border border-d3-purple/10 rounded-xl px-4 py-3.5 hover:bg-d3-purple/5 transition-colors">
-      <div className="flex items-center gap-3">
-        <span
-          className={`text-xs font-medium px-3 py-1 rounded-full ${
-            post.status === "published"
-              ? "bg-emerald-500/10 text-emerald-700"
-              : "bg-amber-500/10 text-amber-700"
-          }`}
-        >
-          {post.status === "published" ? "Publicado" : "Rascunho"}
-        </span>
-        <span className="text-sm font-medium text-d3-navy">{post.title}</span>
-      </div>
-
-      <div className="flex items-center gap-4">
-        <span className="text-xs text-muted-foreground">
-          {new Date(post.publishedAt).toLocaleDateString("pt-BR")}
-        </span>
-
-        {confirming ? (
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground">Excluir?</span>
-            <button onClick={() => onDelete(post.id)} aria-label="Confirmar exclusão">
-              <Check className="w-4 h-4 text-red-600" />
-            </button>
-            <button onClick={() => setConfirming(false)} aria-label="Cancelar">
-              <X className="w-4 h-4 text-muted-foreground" />
-            </button>
+    <div className="bg-white border border-gray-100 rounded-none hover:border-d3-purple/30 hover:shadow-sm transition-all">
+      <div className="flex items-start justify-between px-5 py-4">
+        <div className="flex gap-4 min-w-0 flex-1">
+          {post.imagemCapa && (
+            <img src={fileUrl(post.imagemCapa)} alt="" className="w-16 h-16 object-cover rounded-none shrink-0 border border-gray-100" />
+          )}
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-3 mb-1">
+              <span className="text-sm font-semibold text-d3-navy truncate">{post.titulo}</span>
+              <span
+                className={`text-[10px] font-semibold px-2 py-0.5 rounded-none shrink-0 ${
+                  post.exibirAoPublico
+                    ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                    : "bg-amber-50 text-amber-700 border border-amber-200"
+                }`}
+              >
+                {post.exibirAoPublico ? "Publicado" : "Rascunho"}
+              </span>
+            </div>
+            <p className="text-sm text-gray-500 line-clamp-2 mb-1">
+              {post.descricao.replace(/<[^>]*>/g, "")}
+            </p>
+            <div className="flex items-center gap-4 flex-wrap">
+              <span className="text-[11px] text-gray-400">{post.autor}</span>
+              <span className="text-[11px] text-gray-400">
+                {post.categoria?.nome || "Sem categoria"}
+              </span>
+              <span className="text-[11px] text-gray-300">
+                Criado {fmtDate(post.createdAt)}
+              </span>
+              {post.updatedAt && (
+                <span className="text-[11px] text-gray-300">
+                  Atualizado {fmtDate(post.updatedAt)}
+                </span>
+              )}
+              {post.tags.length > 0 && (
+                <div className="flex flex-wrap gap-1">
+                  {post.tags.map((tag) => (
+                    <span key={tag.id} className="text-[10px] bg-d3-purple/10 text-d3-purple font-medium px-2 py-0.5 rounded-none border border-d3-purple/20">
+                      {tag.nome}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-        ) : (
-          <>
-            <button onClick={() => onEdit(post)} aria-label="Editar">
-              <Pencil className="w-4 h-4 text-muted-foreground hover:text-d3-navy transition-colors" />
-            </button>
-            <button onClick={() => setConfirming(true)} aria-label="Excluir">
-              <Trash2 className="w-4 h-4 text-muted-foreground hover:text-red-600 transition-colors" />
-            </button>
-          </>
-        )}
+        </div>
+
+        <div className="flex items-center gap-1 shrink-0 ml-4">
+          <button onClick={() => onEdit(post)} className="flex h-8 w-8 items-center justify-center rounded-none text-gray-400 hover:text-d3-purple hover:bg-d3-purple/5 transition-colors" aria-label="Editar">
+            <Pencil className="w-4 h-4" />
+          </button>
+          <button onClick={() => onDelete(post)} className="flex h-8 w-8 items-center justify-center rounded-none text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors" aria-label="Excluir">
+            <Trash2 className="w-4 h-4" />
+          </button>
+        </div>
       </div>
     </div>
   );
