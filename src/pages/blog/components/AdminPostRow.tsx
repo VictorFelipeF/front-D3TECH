@@ -53,7 +53,7 @@ export function AdminPostRow({ post, onEdit, onDelete }: Props) {
               {post.tags.length > 0 && (
                 <div className="flex flex-wrap gap-1">
                   {post.tags.map((tag) => (
-                    <span key={tag.id} className="text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded-none">
+                    <span key={tag.id} className="text-[10px] bg-d3-purple/10 text-d3-purple font-medium px-2 py-0.5 rounded-none border border-d3-purple/20">
                       {tag.nome}
                     </span>
                   ))}

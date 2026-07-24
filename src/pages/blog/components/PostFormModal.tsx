@@ -5,10 +5,11 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TextEditor } from "@/components/shared/TextEditor";
-import { ImageIcon, Heading, User, FileText, Eye, Save, Layers, Upload, X } from "lucide-react";
+import { ImageIcon, Heading, User, FileText, Eye, Save, Layers, Upload, X, Tag } from "lucide-react";
 import { http } from "@/services/api";
 import { uploadImage } from "@/services/images.service";
 import { fileUrl } from "@/services/api";
+import { TagSelector } from "@/components/shared/TagSelector";
 import type { PostPayload } from "@/services/posts.service";
 
 interface Props {
@@ -29,16 +30,23 @@ const emptyForm: PostPayload = {
 };
 
 type CategoriaType = { id: number; nome: string; slug: string };
+type TagOption = { id: number; nome: string };
 
 export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState<PostPayload>(emptyForm);
   const [categorias, setCategorias] = useState<CategoriaType[]>([]);
   const [uploading, setUploading] = useState(false);
+  const [tags, setTags] = useState<TagOption[]>([]);
+
+  function loadTags() {
+    http.get<TagOption[]>("/admin/tags").then(res => setTags(res.data)).catch(() => {});
+  }
 
   useEffect(() => {
     if (isOpen) {
       http.get<CategoriaType[]>("/categorias").then(res => setCategorias(res.data)).catch(() => {});
+      loadTags();
     }
   }, [isOpen]);
 
@@ -47,7 +55,7 @@ export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
       setForm(emptyForm);
       return;
     }
-    const post = initialData as PostPayload & { categoria?: CategoriaType };
+    const post = initialData as PostPayload & { categoria?: CategoriaType; tags?: { id: number; nome: string }[] };
     setForm({
       titulo: post.titulo ?? "",
       autor: post.autor ?? "Equipe D3TECH",
@@ -55,11 +63,11 @@ export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
       descricao: post.descricao ?? "",
       exibirAoPublico: post.exibirAoPublico ?? false,
       categoriaId: post.categoria?.id ?? post.categoriaId ?? null,
-      tagIds: post.tagIds ?? [],
+      tagIds: post.tags?.map((t) => t.id) ?? post.tagIds ?? [],
     });
   }, [initialData, isOpen]);
 
-  function handleChange(field: keyof PostPayload, value: string | boolean | number | null) {
+  function handleChange(field: keyof PostPayload, value: unknown) {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
@@ -196,6 +204,22 @@ Título
               <option key={cat.id} value={cat.id}>{cat.nome}</option>
             ))}
           </select>
+        </div>
+
+        {/* Tags */}
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <Tag className="w-4 h-4 text-d3-purple" />
+            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Tags
+            </span>
+          </div>
+          <TagSelector
+            tags={tags}
+            selectedIds={form.tagIds ?? []}
+            onChange={(ids) => handleChange("tagIds", ids)}
+            onTagCreated={loadTags}
+          />
         </div>
 
         {/* Exibir ao público */}

@@ -1,76 +1,72 @@
-import { useState } from "react";
-import { Pencil, Trash2, Check, X } from "lucide-react";
-import type { CaseStudy } from "@/types/cases";
+import { Pencil, Trash2 } from "lucide-react";
+import { fileUrl } from "@/services/api";
+import type { CaseBackend } from "@/services/cases.service";
 
 interface Props {
-  caseItem: CaseStudy;
-  onEdit: (item: CaseStudy) => void;
-  onDelete: (id: string) => void;
+  caseItem: CaseBackend;
+  onEdit: (item: CaseBackend) => void;
+  onDelete: (item: CaseBackend) => void;
+}
+
+function fmtDate(d: string | null) {
+  if (!d) return "-";
+  return new Date(d).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" });
 }
 
 export function AdminCaseRow({ caseItem, onEdit, onDelete }: Props) {
-  const [confirming, setConfirming] = useState(false);
-
   return (
-    <div className="group flex items-center justify-between bg-white border border-gray-100 rounded-none px-5 py-4 hover:border-d3-purple/30 hover:shadow-md hover:shadow-d3-purple/5 transition-all">
-      <div className="flex items-center gap-4">
-        <span
-          className={`text-[11px] font-semibold px-3 py-1 rounded-none ${
-            caseItem.status === "published"
-              ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-              : "bg-amber-50 text-amber-700 border border-amber-200"
-          }`}
-        >
-          {caseItem.status === "published" ? "Publicado" : "Rascunho"}
-        </span>
-        <div>
-          <span className="text-sm font-semibold text-d3-navy block">{caseItem.title}</span>
-          <span className="text-[11px] text-gray-400">{caseItem.client}</span>
-        </div>
-      </div>
-
-      <div className="flex items-center gap-5">
-        <span className="text-xs text-gray-400">
-          {new Date(caseItem.publishedAt).toLocaleDateString("pt-BR")}
-        </span>
-
-        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          {confirming ? (
-            <>
-              <span className="text-xs text-gray-400 mr-1">Excluir?</span>
-              <button
-                onClick={() => onDelete(caseItem.id)}
-                className="flex h-8 w-8 items-center justify-center rounded-none bg-red-50 text-red-600 hover:bg-red-100 transition-colors"
-                aria-label="Confirmar exclusao"
-              >
-                <Check className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setConfirming(false)}
-                className="flex h-8 w-8 items-center justify-center rounded-none bg-gray-50 text-gray-400 hover:bg-gray-100 transition-colors"
-                aria-label="Cancelar"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </>
-          ) : (
-            <>
-              <button
-                onClick={() => onEdit(caseItem)}
-                className="flex h-8 w-8 items-center justify-center rounded-none text-gray-400 hover:text-d3-purple hover:bg-d3-purple/5 transition-colors"
-                aria-label="Editar"
-              >
-                <Pencil className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setConfirming(true)}
-                className="flex h-8 w-8 items-center justify-center rounded-none text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
-                aria-label="Excluir"
-              >
-                <Trash2 className="w-4 h-4" />
-              </button>
-            </>
+    <div className="bg-white border border-gray-100 rounded-none hover:border-d3-purple/30 hover:shadow-sm transition-all">
+      <div className="flex items-start justify-between px-5 py-4">
+        <div className="flex gap-4 min-w-0 flex-1">
+          {caseItem.imagemCapa && (
+            <img src={fileUrl(caseItem.imagemCapa)} alt="" className="w-16 h-16 object-cover rounded-none shrink-0 border border-gray-100" />
           )}
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-3 mb-1">
+              <span className="text-sm font-semibold text-d3-navy truncate">{caseItem.nomeProjeto}</span>
+              <span
+                className={`text-[10px] font-semibold px-2 py-0.5 rounded-none shrink-0 ${
+                  caseItem.exibirAoPublico
+                    ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                    : "bg-amber-50 text-amber-700 border border-amber-200"
+                }`}
+              >
+                {caseItem.exibirAoPublico ? "Publicado" : "Rascunho"}
+              </span>
+            </div>
+            <p className="text-sm text-gray-500 line-clamp-2 mb-1">
+              {caseItem.descricao.replace(/<[^>]*>/g, "")}
+            </p>
+            <div className="flex items-center gap-4 flex-wrap">
+              <span className="text-[11px] text-gray-400">{caseItem.cliente || "Sem cliente"}</span>
+              <span className="text-[11px] text-gray-300">
+                Criado {fmtDate(caseItem.createdAt)}
+              </span>
+              {caseItem.updatedAt && (
+                <span className="text-[11px] text-gray-300">
+                  Atualizado {fmtDate(caseItem.updatedAt)}
+                </span>
+              )}
+              {caseItem.tags?.length > 0 && (
+                <div className="flex flex-wrap gap-1 mt-1">
+                  {caseItem.tags.map((tag) => (
+                    <span key={tag.id} className="text-[10px] bg-d3-purple/10 text-d3-purple font-medium px-2 py-0.5 rounded-none border border-d3-purple/20">
+                      {tag.nome}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-1 shrink-0 ml-4">
+          <button onClick={() => onEdit(caseItem)} className="flex h-8 w-8 items-center justify-center rounded-none text-gray-400 hover:text-d3-purple hover:bg-d3-purple/5 transition-colors" aria-label="Editar">
+            <Pencil className="w-4 h-4" />
+          </button>
+          <button onClick={() => onDelete(caseItem)} className="flex h-8 w-8 items-center justify-center rounded-none text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors" aria-label="Excluir">
+            <Trash2 className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </div>
