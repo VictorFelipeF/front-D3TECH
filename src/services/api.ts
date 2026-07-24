@@ -1,8 +1,16 @@
 import axios from "axios";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8080/api/v1";
+const API_ORIGIN = API_BASE_URL.replace(/\/api\/v1\/?$/, "");
 
 export const http = axios.create({ baseURL: API_BASE_URL });
+
+export function fileUrl(path: string): string {
+  if (!path) return "";
+  if (path.startsWith("http")) return path;
+  if (path.startsWith("/")) return API_ORIGIN + path;
+  return API_ORIGIN + "/" + path;
+}
 
 export function getToken(): string | null {
   return localStorage.getItem("access_token");

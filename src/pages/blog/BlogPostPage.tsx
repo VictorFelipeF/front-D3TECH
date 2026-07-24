@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { usePost } from "@/hooks/usePosts";
 import { PageLoader } from "@/components/shared/PageLoader";
+import { fileUrl } from "@/services/api";
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -22,7 +23,7 @@ export default function BlogPostPage() {
 
       {post.imagemCapa && (
         <img
-          src={post.imagemCapa}
+          src={fileUrl(post.imagemCapa)}
           alt={post.titulo}
           className="w-full rounded-lg mb-6 object-cover aspect-video"
         />

@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
+import { fileUrl } from "@/services/api";
 import type { PostBackend } from "@/services/posts.service";
 
 export function FeaturedPostCard({ post }: { post: PostBackend }) {
   return (
-    <div className="grid md:grid-cols-2 gap-0 rounded-lg overflow-hidden border bg-d3-purple/5">
-      <div className="aspect-video md:aspect-auto bg-muted flex items-center justify-center" />
+    <div className="grid md:grid-cols-2 gap-0 rounded-none overflow-hidden border bg-d3-purple/5">
+      {post.imagemCapa ? (
+        <img src={fileUrl(post.imagemCapa)} alt={post.titulo} className="aspect-video md:aspect-auto object-cover w-full h-full" />
+      ) : (
+        <div className="aspect-video md:aspect-auto bg-gray-100 flex items-center justify-center text-gray-400 text-xs" />
+      )}
       <div className="p-6 flex flex-col justify-center">
             <Badge className="bg-d3-purple text-white w-fit mb-3">{post.categoria?.nome}</Badge>
             <h2 className="text-xl font-bold">{post.titulo}</h2>

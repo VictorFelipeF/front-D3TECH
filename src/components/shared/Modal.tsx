@@ -7,7 +7,7 @@ interface ModalProps {
   onClose: () => void;
   children: React.ReactNode;
   title?: string;
-  width?: "md" | "lg" | "xl" | "2xl" | "3xl";
+  width?: "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
 }
 
 export function Modal({ isOpen, onClose, children, title, width = "xl" }: ModalProps) {
@@ -18,6 +18,7 @@ export function Modal({ isOpen, onClose, children, title, width = "xl" }: ModalP
     xl: "max-w-xl",
     "2xl": "max-w-2xl",
     "3xl": "max-w-3xl",
+    "4xl": "max-w-4xl",
   }[width];
   useEffect(() => {
     function handleEsc(e: KeyboardEvent) {

@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { Pencil, Trash2 } from "lucide-react";
+import { fileUrl } from "@/services/api";
 import type { PostBackend } from "@/services/posts.service";
 
 interface Props {
@@ -14,28 +14,31 @@ function fmtDate(d: string | null) {
 }
 
 export function AdminPostRow({ post, onEdit, onDelete }: Props) {
-  const [expanded, setExpanded] = useState(true);
-
   return (
     <div className="bg-white border border-gray-100 rounded-none hover:border-d3-purple/30 hover:shadow-sm transition-all">
-      <div className="flex items-center justify-between px-5 py-3.5">
-        <div className="flex items-center gap-4 min-w-0 flex-1">
-          <span
-            className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-none shrink-0 ${
-              post.exibirAoPublico
-                ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                : "bg-amber-50 text-amber-700 border border-amber-200"
-            }`}
-          >
-            {post.exibirAoPublico ? "Publicado" : "Rascunho"}
-          </span>
-
-          <div className="min-w-0 flex-1 cursor-pointer" onClick={() => setExpanded(!expanded)}>
-            <div className="flex items-center gap-3">
+      <div className="flex items-start justify-between px-5 py-4">
+        <div className="flex gap-4 min-w-0 flex-1">
+          {post.imagemCapa && (
+            <img src={fileUrl(post.imagemCapa)} alt="" className="w-16 h-16 object-cover rounded-none shrink-0 border border-gray-100" />
+          )}
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-3 mb-1">
               <span className="text-sm font-semibold text-d3-navy truncate">{post.titulo}</span>
-              <span className="text-[11px] text-gray-400 shrink-0">{post.autor}</span>
+              <span
+                className={`text-[10px] font-semibold px-2 py-0.5 rounded-none shrink-0 ${
+                  post.exibirAoPublico
+                    ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                    : "bg-amber-50 text-amber-700 border border-amber-200"
+                }`}
+              >
+                {post.exibirAoPublico ? "Publicado" : "Rascunho"}
+              </span>
             </div>
-            <div className="flex items-center gap-4 mt-0.5">
+            <p className="text-sm text-gray-500 line-clamp-2 mb-1">
+              {post.descricao.replace(/<[^>]*>/g, "")}
+            </p>
+            <div className="flex items-center gap-4 flex-wrap">
+              <span className="text-[11px] text-gray-400">{post.autor}</span>
               <span className="text-[11px] text-gray-400">
                 {post.categoria?.nome || "Sem categoria"}
               </span>
@@ -46,6 +49,15 @@ export function AdminPostRow({ post, onEdit, onDelete }: Props) {
                 <span className="text-[11px] text-gray-300">
                   Atualizado {fmtDate(post.updatedAt)}
                 </span>
+              )}
+              {post.tags.length > 0 && (
+                <div className="flex flex-wrap gap-1">
+                  {post.tags.map((tag) => (
+                    <span key={tag.id} className="text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded-none">
+                      {tag.nome}
+                    </span>
+                  ))}
+                </div>
               )}
             </div>
           </div>
@@ -60,23 +72,6 @@ export function AdminPostRow({ post, onEdit, onDelete }: Props) {
           </button>
         </div>
       </div>
-
-      {expanded && (
-        <div className="px-5 pb-4 border-t border-gray-50">
-          <p className="text-sm text-gray-500 mt-3 line-clamp-2">
-            {post.descricao.replace(/<[^>]*>/g, "")}
-          </p>
-          {post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 mt-2">
-              {post.tags.map((tag) => (
-                <span key={tag.id} className="text-[11px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-none">
-                  {tag.nome}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
     </div>
   );
 }

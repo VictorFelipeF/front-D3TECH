@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Modal } from "@/components/shared/Modal";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { TextEditor } from "@/components/shared/TextEditor";
-import { ImageIcon, Heading, User, FileText, Eye, Save, Layers } from "lucide-react";
+import { ImageIcon, Heading, User, FileText, Eye, Save, Layers, Upload, X } from "lucide-react";
 import { http } from "@/services/api";
+import { uploadImage } from "@/services/images.service";
+import { fileUrl } from "@/services/api";
 import type { PostPayload } from "@/services/posts.service";
 
 interface Props {
@@ -29,8 +31,10 @@ const emptyForm: PostPayload = {
 type CategoriaType = { id: number; nome: string; slug: string };
 
 export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState<PostPayload>(emptyForm);
   const [categorias, setCategorias] = useState<CategoriaType[]>([]);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -59,36 +63,77 @@ export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
+  async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const url = await uploadImage(file);
+      handleChange("imagemCapa", url);
+    } catch {
+      // silencioso
+    }
+    setUploading(false);
+  }
+
   function handleSubmit() {
     onSave(form);
     onClose();
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={initialData ? "Editar post" : "Novo post"} width="2xl">
+    <Modal isOpen={isOpen} onClose={onClose} title={initialData ? "Editar post" : "Novo post"} width="4xl">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {/* Capa - full width */}
         <div className="md:col-span-2">
-          <div className="flex items-center gap-2 mb-2">
-            <ImageIcon className="w-4 h-4 text-d3-purple" />
-            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-              Imagem de capa
-            </span>
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <ImageIcon className="w-4 h-4 text-d3-purple" />
+              <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                Imagem de capa
+              </span>
+            </div>
+            {form.imagemCapa && (
+              <button
+                type="button"
+                onClick={() => handleChange("imagemCapa", "")}
+                className="text-xs text-gray-400 hover:text-red-500 transition-colors flex items-center gap-1"
+              >
+                <X className="w-3 h-3" />
+                Remover capa
+              </button>
+            )}
           </div>
-          <div className="relative border-2 border-dashed border-gray-200 hover:border-d3-purple/40 rounded-none h-44 flex flex-col items-center justify-center gap-3 text-sm text-gray-400 transition-colors cursor-pointer bg-gray-50/50 hover:bg-d3-purple/[0.03] group">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            hidden
+            onChange={handleUpload}
+          />
+          <div
+            onClick={() => fileInputRef.current?.click()}
+            className="relative border-2 border-dashed border-gray-200 hover:border-d3-purple/40 rounded-none h-44 flex flex-col items-center justify-center gap-3 text-sm text-gray-400 transition-colors cursor-pointer bg-gray-50/50 hover:bg-d3-purple/[0.03] group overflow-hidden"
+          >
             {form.imagemCapa ? (
               <>
-                <img src={form.imagemCapa} alt="Capa" className="absolute inset-0 w-full h-full object-cover rounded-none" />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
-                  <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity text-sm font-medium">
+                <img src={fileUrl(form.imagemCapa)} alt="Capa" className="absolute inset-0 w-full h-full object-cover rounded-none" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                  <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity text-sm font-medium flex items-center gap-1.5">
+                    <Upload className="w-4 h-4" />
                     Trocar imagem
                   </span>
                 </div>
               </>
+            ) : uploading ? (
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-6 h-6 border-2 border-d3-purple border-t-transparent rounded-full animate-spin" />
+                <span className="text-sm text-d3-purple">Enviando...</span>
+              </div>
             ) : (
               <>
-                <div className="w-12 h-12 rounded-none bg-d3-purple/10 flex items-center justify-center">
-                  <ImageIcon className="w-6 h-6 text-d3-purple" />
+                <div className="w-12 h-12 rounded-none bg-d3-purple/10 flex items-center justify-center group-hover:bg-d3-purple/20 transition-colors">
+                  <Upload className="w-6 h-6 text-d3-purple" />
                 </div>
                 <div className="text-center">
                   <p className="text-sm font-medium text-gray-600">Clique para fazer upload</p>

@@ -1,7 +1,7 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import Underline from "@tiptap/extension-underline";
-import Link from "@tiptap/extension-link";
+import UnderlineExtension from "@tiptap/extension-underline";
+import LinkExtension from "@tiptap/extension-link";
 import TextAlign from "@tiptap/extension-text-align";
 import {
   Undo2,
@@ -29,8 +29,8 @@ export function TextEditor({ value, onChange }: Props) {
   const editor = useEditor({
     extensions: [
       StarterKit,
-      Underline,
-      Link.configure({ openOnClick: false }),
+      UnderlineExtension,
+      LinkExtension.configure({ openOnClick: false }),
       TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
     content: value,
