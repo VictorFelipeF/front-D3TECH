@@ -48,7 +48,7 @@ export default function LoginPage() {
 
         <div className="relative z-10 text-center px-12">
           <img
-            src="/logo_extendidad.png"
+            src="/logoPainelAdmin.svg"
             alt="D3TECH"
             className="h-auto w-72 mx-auto mb-8"
           />
@@ -78,7 +78,7 @@ export default function LoginPage() {
       <div className="flex-1 flex items-center justify-center px-6 py-12 relative bg-white">
         {/* Mobile logo */}
         <div className="absolute top-8 left-8 lg:hidden">
-          <img src="/logo_extendidad.png" alt="D3TECH" className="h-8" />
+          <img src="/logoPainelAdmin.svg" alt="D3TECH" className="h-8" />
         </div>
 
         {/* Decorative elements */}

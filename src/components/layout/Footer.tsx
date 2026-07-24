@@ -11,7 +11,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 py-16 md:grid-cols-2 lg:grid-cols-3">
           {/* Coluna 1: Marca */}
           <div className="space-y-5">
-            <h3 className="text-2xl font-bold tracking-tight">D3TECH</h3>
+            <img src="/logoFooter.svg" alt="D3TECH" className="h-8" />
             <p className="max-w-xs text-sm leading-relaxed text-white/60">
               {/* TODO: conteúdo institucional real pendente */}
               Transformando conhecimento acadêmico em soluções tecnológicas reais.

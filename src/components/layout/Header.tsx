@@ -27,9 +27,9 @@ export function Header() {
         <Link
           to={isAdminArea ? "/admin/home" : "/"}
           onClick={closeMenu}
-          className="text-xl font-bold tracking-tight transition-colors hover:text-d3-purple-light"
+          className="transition-colors hover:text-d3-purple-light"
         >
-          D3TECH
+          <img src="/logoHeader.svg" alt="D3TECH" className="h-8" />
         </Link>
 
         {/* Desktop Nav */}
