@@ -5,6 +5,7 @@ export type ContactPayload = {
   email: string;
   telefone?: string;
   empresa?: string;
+  endereco?: string;
   assunto: string;
   mensagem: string;
   website?: string;

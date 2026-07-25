@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { LayoutDashboard, Pencil, Star, ExternalLink } from "lucide-react";
+import { LayoutDashboard, Pencil, Star, ExternalLink, Mail } from "lucide-react";
 
 export function AdminSidebar() {
   const navigate = useNavigate();
@@ -8,6 +8,7 @@ export function AdminSidebar() {
     { to: "/admin/home", label: "Dashboard", icon: LayoutDashboard },
     { to: "/admin/blog", label: "Blog", icon: Pencil },
     { to: "/admin/cases", label: "Cases de Sucesso", icon: Star },
+    { to: "/admin/contacts", label: "Contatos", icon: Mail },
   ];
 
   function handleViewSite() {

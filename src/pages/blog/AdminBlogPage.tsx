@@ -8,6 +8,7 @@ import type { PostBackend } from "@/services/posts.service";
 import { http } from "@/services/api";
 import { Pencil, Trash2, Plus, X, Check } from "lucide-react";
 import { ConfirmModal } from "@/components/shared/ConfirmModal";
+import { toast } from "sonner";
 
 type CategoriaType = { id: number; nome: string; slug: string };
 
@@ -48,10 +49,16 @@ export default function AdminBlogPage() {
   }, [page, carregarPosts, carregarCategorias]);
 
   async function handleSave(data: PostPayload) {
-    if (editingPost) {
-      await updatePost(editingPost.id, data);
-    } else {
-      await createPost(data);
+    try {
+      if (editingPost) {
+        await updatePost(editingPost.id, data);
+        toast.success("Post atualizado com sucesso!");
+      } else {
+        await createPost(data);
+        toast.success("Post criado com sucesso!");
+      }
+    } catch {
+      toast.error("Erro ao salvar post.");
     }
     setModalOpen(false);
     setEditingPost(null);
@@ -61,6 +68,7 @@ export default function AdminBlogPage() {
   async function confirmDelete() {
     if (!deleteTarget) return;
     await deletePost(deleteTarget.id);
+    toast.success("Post excluido com sucesso!");
     setDeleteTarget(null);
     await carregarPosts(page);
   }
@@ -98,8 +106,8 @@ export default function AdminBlogPage() {
     <div className="px-10 py-12 max-w-6xl mx-auto">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-d3-navy">Publicações</h1>
-          <p className="text-sm text-gray-400 mt-0.5">Gerencie os posts do blog</p>
+          <h1 className="text-3xl font-bold text-d3-navy">Publicações</h1>
+          <p className="text-base text-gray-400 mt-1">Gerencie os posts do blog</p>
         </div>
         <button
           onClick={openNewPost}

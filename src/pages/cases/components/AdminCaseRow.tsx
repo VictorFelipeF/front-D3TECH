@@ -22,10 +22,10 @@ export function AdminCaseRow({ caseItem, onEdit, onDelete }: Props) {
             <img src={fileUrl(caseItem.imagemCapa)} alt="" className="w-16 h-16 object-cover rounded-none shrink-0 border border-gray-100" />
           )}
           <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-3 mb-1">
-              <span className="text-sm font-semibold text-d3-navy truncate">{caseItem.nomeProjeto}</span>
+            <div className="flex items-center gap-3 mb-1.5">
+              <span className="text-base font-semibold text-d3-navy truncate">{caseItem.nomeProjeto}</span>
               <span
-                className={`text-[10px] font-semibold px-2 py-0.5 rounded-none shrink-0 ${
+                className={`text-xs font-semibold px-2.5 py-0.5 rounded-none shrink-0 ${
                   caseItem.exibirAoPublico
                     ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
                     : "bg-amber-50 text-amber-700 border border-amber-200"
@@ -34,23 +34,21 @@ export function AdminCaseRow({ caseItem, onEdit, onDelete }: Props) {
                 {caseItem.exibirAoPublico ? "Publicado" : "Rascunho"}
               </span>
             </div>
-            <p className="text-sm text-gray-500 line-clamp-2 mb-1">
-              {caseItem.descricao.replace(/<[^>]*>/g, "")}
-            </p>
+            <div className="text-sm text-gray-500 line-clamp-2 mb-1.5 prose max-w-none" dangerouslySetInnerHTML={{ __html: caseItem.descricao }} />
             <div className="flex items-center gap-4 flex-wrap">
-              <span className="text-[11px] text-gray-400">{caseItem.cliente || "Sem cliente"}</span>
-              <span className="text-[11px] text-gray-300">
+              <span className="text-xs text-gray-400">{caseItem.cliente || "Sem cliente"}</span>
+              <span className="text-xs text-gray-400">
                 Criado {fmtDate(caseItem.createdAt)}
               </span>
               {caseItem.updatedAt && (
-                <span className="text-[11px] text-gray-300">
+                <span className="text-xs text-gray-400">
                   Atualizado {fmtDate(caseItem.updatedAt)}
                 </span>
               )}
               {caseItem.tags?.length > 0 && (
                 <div className="flex flex-wrap gap-1 mt-1">
                   {caseItem.tags.map((tag) => (
-                    <span key={tag.id} className="text-[10px] bg-d3-purple/10 text-d3-purple font-medium px-2 py-0.5 rounded-none border border-d3-purple/20">
+                    <span key={tag.id} className="text-xs bg-d3-purple/10 text-d3-purple font-medium px-2 py-0.5 rounded-none border border-d3-purple/20">
                       {tag.nome}
                     </span>
                   ))}

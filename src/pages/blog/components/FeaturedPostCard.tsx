@@ -18,9 +18,7 @@ export function FeaturedPostCard({ post }: { post: PostBackend }) {
             <span>{post.autor}</span>
             <span>{post.dataPublicacao ? new Date(post.dataPublicacao).toLocaleDateString("pt-BR") : ""}</span>
         </div>
-        <p className="text-sm text-muted-foreground mt-3 line-clamp-3">
-          {post.descricao.replace(/<[^>]*>/g, "")}
-        </p>
+        <div className="text-sm text-muted-foreground mt-3 line-clamp-3 prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: post.descricao }} />
         <span className="text-xs text-muted-foreground mt-2">
           {post.dataPublicacao ? new Date(post.dataPublicacao).toLocaleDateString("pt-BR") : ""}
         </span>

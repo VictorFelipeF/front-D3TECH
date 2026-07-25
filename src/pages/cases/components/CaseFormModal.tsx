@@ -89,7 +89,7 @@ export function CaseFormModal({ isOpen, onClose, onSave, initialData }: Props) {
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <ImageIcon className="w-4 h-4 text-d3-purple" />
-              <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Imagem de capa</span>
+              <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Imagem de capa</span>
             </div>
             {form.imagemCapa && (
               <button type="button" onClick={() => handleChange("imagemCapa", "")} className="text-xs text-gray-400 hover:text-red-500 transition-colors flex items-center gap-1">
@@ -134,7 +134,7 @@ export function CaseFormModal({ isOpen, onClose, onSave, initialData }: Props) {
         <div>
           <div className="flex items-center gap-2 mb-2">
             <Package className="w-4 h-4 text-d3-purple" />
-            <Label htmlFor="nomeProjeto" className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Nome do projeto</Label>
+            <Label htmlFor="nomeProjeto" className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Nome do projeto</Label>
           </div>
           <Input id="nomeProjeto" value={form.nomeProjeto} onChange={(e) => handleChange("nomeProjeto", e.target.value)} className="h-11" placeholder="Nome do case" />
         </div>
@@ -143,7 +143,7 @@ export function CaseFormModal({ isOpen, onClose, onSave, initialData }: Props) {
         <div>
           <div className="flex items-center gap-2 mb-2">
             <Package className="w-4 h-4 text-d3-purple" />
-            <Label htmlFor="cliente" className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Cliente</Label>
+            <Label htmlFor="cliente" className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Cliente</Label>
           </div>
           <Input id="cliente" value={form.cliente ?? ""} onChange={(e) => handleChange("cliente", e.target.value)} className="h-11" placeholder="Nome do cliente ou instituicao" />
         </div>
@@ -152,7 +152,7 @@ export function CaseFormModal({ isOpen, onClose, onSave, initialData }: Props) {
         <div className="md:col-span-2">
           <div className="flex items-center gap-2 mb-2">
             <Tag className="w-4 h-4 text-d3-purple" />
-            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Tags</span>
+            <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Tags</span>
           </div>
           <TagSelector
             tags={tags}
@@ -166,7 +166,7 @@ export function CaseFormModal({ isOpen, onClose, onSave, initialData }: Props) {
         <div className="md:col-span-2">
           <div className="flex items-center gap-2 mb-2">
             <FileText className="w-4 h-4 text-d3-purple" />
-            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Descricao</span>
+            <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Descricao</span>
           </div>
           <TextEditor value={form.descricao} onChange={(html) => handleChange("descricao", html)} />
         </div>
@@ -175,7 +175,7 @@ export function CaseFormModal({ isOpen, onClose, onSave, initialData }: Props) {
         <div className="md:col-span-2">
           <div className="flex items-center gap-2 mb-2">
             <MessageSquareQuote className="w-4 h-4 text-d3-purple" />
-            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Depoimento (opcional)</span>
+            <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Depoimento (opcional)</span>
           </div>
           <TextEditor value={form.depoimento ?? ""} onChange={(html) => handleChange("depoimento", html)} />
         </div>

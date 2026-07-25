@@ -40,7 +40,7 @@ export function Modal({ isOpen, onClose, children, title, width = "xl" }: ModalP
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between p-5 bg-gradient-to-r from-d3-navy to-d3-navy-dark rounded-t-none border-b border-d3-purple/20">
-          <h2 className="font-semibold text-lg text-white">{title}</h2>
+          <h2 className="font-semibold text-xl text-white">{title}</h2>
           <button
             onClick={onClose}
             aria-label="Fechar"

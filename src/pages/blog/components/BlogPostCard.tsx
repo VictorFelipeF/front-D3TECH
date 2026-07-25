@@ -15,9 +15,7 @@ export function BlogPostCard({ post }: { post: PostBackend }) {
       <CardContent className="p-4">
         <Badge className="bg-d3-purple text-white mb-2">{post.categoria?.nome}</Badge>
         <h3 className="font-semibold text-lg">{post.titulo}</h3>
-        <p className="text-sm text-muted-foreground line-clamp-2 mt-1">
-          {post.descricao.replace(/<[^>]*>/g, "").substring(0, 120)}...
-        </p>
+        <div className="text-sm text-muted-foreground line-clamp-2 mt-1 prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: post.descricao }} />
         <div className="flex items-center justify-between mt-4 text-xs text-muted-foreground">
           <span>{post.autor}</span>
           <span>{post.dataPublicacao ? new Date(post.dataPublicacao).toLocaleDateString("pt-BR") : ""}</span>
