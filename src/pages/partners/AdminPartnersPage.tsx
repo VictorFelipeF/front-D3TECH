@@ -64,9 +64,9 @@ export default function AdminPartnersPage() {
       </div>
 
       <div className="space-y-3">
-        {loading ? <p className="text-sm text-gray-400 py-10 text-center">Carregando...</p>
-        : (partners.length === 0 ? <p className="text-sm text-gray-400 py-10 text-center">Nenhum parceiro cadastrado.</p>
-        : partners.map((p) => (
+        {loading && <p className="text-sm text-gray-400 py-10 text-center">Carregando...</p>}
+        {!loading && partners.length === 0 && <p className="text-sm text-gray-400 py-10 text-center">Nenhum parceiro cadastrado.</p>}
+        {partners.map((p) => (
             <div key={p.id} className="bg-white border border-gray-100 rounded-none hover:border-d3-purple/30 transition-all px-5 py-4 flex items-center justify-between">
               <div className="flex items-center gap-4 min-w-0">
                 {p.logo ? <img src={fileUrl(p.logo)} alt="" className="w-10 h-10 object-contain rounded-none border" /> : <div className="w-10 h-10 bg-gray-100 rounded-none flex items-center justify-center text-xs text-gray-400">Logo</div>}
@@ -85,7 +85,7 @@ export default function AdminPartnersPage() {
               </div>
             </div>
           ))
-        )}
+        }
       </div>
 
       {totalPages > 1 && (
