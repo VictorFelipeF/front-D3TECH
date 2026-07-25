@@ -17,6 +17,7 @@ const LoginPage = lazy(() => import("@/pages/auth/LoginPage"));
 const AdminHomePage = lazy(() => import("@/pages/auth/AdminHomePage"));
 const AdminBlogPage = lazy(() => import("@/pages/blog/AdminBlogPage"));
 const AdminCasesPage = lazy(() => import("@/pages/cases/AdminCasesPage"));
+const AdminContactsPage = lazy(() => import("@/pages/contact/AdminContactsPage"));
 
 // Dummy component for home page for now, as it's not in Phase 1/2 scope
 const HomePlaceholder = () => (
@@ -49,6 +50,7 @@ function App() {
               <Route path="/admin/home" element={<AdminHomePage />} />
               <Route path="/admin/blog" element={<AdminBlogPage />} />
               <Route path="/admin/cases" element={<AdminCasesPage />} />
+              <Route path="/admin/contacts" element={<AdminContactsPage />} />
             </Route>
           </Route>
         </Routes>

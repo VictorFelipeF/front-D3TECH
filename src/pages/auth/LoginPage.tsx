@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useLogin } from "@/hooks/useLogin";
 import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "sonner";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ export default function LoginPage() {
       navigate("/admin/home");
     } catch (err: any) {
       setError(err?.response?.data?.message || err?.message || "Erro ao entrar");
+      toast.error("Credenciais invalidas.");
     }
   }
 

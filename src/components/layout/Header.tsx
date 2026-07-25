@@ -50,7 +50,16 @@ export function Header() {
             </NavLink>
           ))}
 
-          {user ? (
+          {!isAdminArea && (
+            <Link
+              to="/contato"
+              className="inline-flex h-9 items-center justify-center rounded-lg bg-d3-purple px-5 py-2 text-sm font-semibold text-white shadow-md shadow-d3-purple/25 transition-all duration-200 hover:bg-d3-purple-light hover:shadow-lg hover:shadow-d3-purple/30 hover:-translate-y-px active:translate-y-0"
+            >
+              Fale conosco
+            </Link>
+          )}
+
+          {user && (
             <div className="flex items-center gap-4 ml-4 pl-4 border-l border-white/10">
               <Link
                 to="/admin/home"
@@ -76,13 +85,6 @@ export function Header() {
                 <LogOut className="h-4 w-4" />
               </button>
             </div>
-          ) : !isAdminArea && (
-            <Link
-              to="/contato"
-              className="inline-flex h-9 items-center justify-center rounded-lg bg-d3-purple px-5 py-2 text-sm font-semibold text-white shadow-md shadow-d3-purple/25 transition-all duration-200 hover:bg-d3-purple-light hover:shadow-lg hover:shadow-d3-purple/30 hover:-translate-y-px active:translate-y-0"
-            >
-              Fale conosco
-            </Link>
           )}
         </nav>
 

@@ -5,6 +5,7 @@ import { getAllCases, createCase, updateCase, deleteCase, type CasePayload } fro
 import type { CaseBackend } from "@/services/cases.service";
 import { ConfirmModal } from "@/components/shared/ConfirmModal";
 import { CaseFormModal } from "@/pages/cases/components/CaseFormModal";
+import { toast } from "sonner";
 
 export default function AdminCasesPage() {
   const [cases, setCases] = useState<CaseBackend[]>([]);
@@ -31,10 +32,16 @@ export default function AdminCasesPage() {
   }, [page, carregarCases]);
 
   async function handleSave(data: CasePayload) {
-    if (editingCase) {
-      await updateCase(editingCase.id, data);
-    } else {
-      await createCase(data);
+    try {
+      if (editingCase) {
+        await updateCase(editingCase.id, data);
+        toast.success("Case atualizado com sucesso!");
+      } else {
+        await createCase(data);
+        toast.success("Case criado com sucesso!");
+      }
+    } catch {
+      toast.error("Erro ao salvar case.");
     }
     setModalOpen(false);
     setEditingCase(null);
@@ -44,6 +51,7 @@ export default function AdminCasesPage() {
   async function confirmDelete() {
     if (!deleteTarget) return;
     await deleteCase(deleteTarget.id);
+    toast.success("Case excluido com sucesso!");
     setDeleteTarget(null);
     await carregarCases(page);
   }
@@ -67,8 +75,8 @@ export default function AdminCasesPage() {
     <div className="px-10 py-12 max-w-6xl mx-auto">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-d3-navy">Cases de sucesso</h1>
-          <p className="text-sm text-gray-400 mt-0.5">Gerencie os projetos e resultados</p>
+          <h1 className="text-3xl font-bold text-d3-navy">Cases de sucesso</h1>
+          <p className="text-base text-gray-400 mt-1">Gerencie os projetos e resultados</p>
         </div>
         <button
           onClick={openNewCase}

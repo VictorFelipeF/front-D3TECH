@@ -11,6 +11,7 @@ import { uploadImage } from "@/services/images.service";
 import { fileUrl } from "@/services/api";
 import { TagSelector } from "@/components/shared/TagSelector";
 import type { PostPayload } from "@/services/posts.service";
+import { toast } from "sonner";
 
 interface Props {
   isOpen: boolean;
@@ -97,8 +98,8 @@ export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <ImageIcon className="w-4 h-4 text-d3-purple" />
-              <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-                Imagem de capa
+            <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
+              Imagem de capa
               </span>
             </div>
             {form.imagemCapa && (
@@ -156,7 +157,7 @@ export function PostFormModal({ isOpen, onClose, onSave, initialData }: Props) {
         <div className="md:col-span-2">
           <div className="flex items-center gap-2 mb-2">
             <Heading className="w-4 h-4 text-d3-purple" />
-            <Label htmlFor="titulo" className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+            <Label htmlFor="titulo" className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
 Título
             </Label>
           </div>
@@ -173,7 +174,7 @@ Título
         <div>
           <div className="flex items-center gap-2 mb-2">
             <User className="w-4 h-4 text-d3-purple" />
-            <Label htmlFor="autor" className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+            <Label htmlFor="autor" className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
               Autor
             </Label>
           </div>
@@ -189,7 +190,7 @@ Título
         <div>
           <div className="flex items-center gap-2 mb-2">
             <Layers className="w-4 h-4 text-d3-purple" />
-            <Label htmlFor="categoriaId" className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+            <Label htmlFor="categoriaId" className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
               Categoria
             </Label>
           </div>
@@ -210,7 +211,7 @@ Título
         <div>
           <div className="flex items-center gap-2 mb-2">
             <Tag className="w-4 h-4 text-d3-purple" />
-            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+            <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
               Tags
             </span>
           </div>
@@ -226,7 +227,7 @@ Título
         <div>
           <div className="flex items-center gap-2 mb-2">
             <Eye className="w-4 h-4 text-d3-purple" />
-            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+            <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
               Publicação
             </span>
           </div>
@@ -246,7 +247,7 @@ Título
         <div className="md:col-span-2">
           <div className="flex items-center gap-2 mb-2">
             <FileText className="w-4 h-4 text-d3-purple" />
-            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+            <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
 Descrição
             </span>
           </div>

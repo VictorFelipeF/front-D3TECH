@@ -36,9 +36,7 @@ export function CaseCard({
         {caseItem.cliente && (
           <p className="text-sm font-medium text-gray-500">{caseItem.cliente}</p>
         )}
-        <p className="text-base leading-relaxed text-gray-600 line-clamp-3">
-          {caseItem.descricao.replace(/<[^>]*>/g, "")}
-        </p>
+        <div className="text-base leading-relaxed text-gray-600 line-clamp-3 prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: caseItem.descricao }} />
         {caseItem.tags?.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {caseItem.tags.map((tag) => (
