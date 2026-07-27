@@ -1,10 +1,11 @@
 import { HeroHome } from "./components/HeroHome";
+import { AboutSection } from "./components/AboutSection";
 
-
-export default function homePage(){
-    return(
-        <div>
-            <HeroHome />
-        </div>
-    )
+export default function HomePage() {
+  return (
+    <div>
+      <HeroHome />
+      <AboutSection />
+    </div>
+  );
 }
