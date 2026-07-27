@@ -22,6 +22,7 @@ export default function CasesPage() {
           eyebrow="Portfolio"
           title="Nossos cases"
           subtitle="Uma selecao dos projetos que desenvolvemos junto aos nossos clientes."
+          align="center"
         />
 
         {isEmpty ? (

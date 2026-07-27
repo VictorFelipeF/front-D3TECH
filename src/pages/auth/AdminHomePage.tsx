@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { Pencil, FileText, Star, FileEdit } from "lucide-react";
 import { PostFormModal } from "@/pages/blog/components/PostFormModal";
+import { CaseFormModal } from "@/pages/cases/components/CaseFormModal";
 import { createPost } from "@/services/posts.service";
+import { createCase } from "@/services/cases.service";
 import { http } from "@/services/api";
 import type { PostPayload } from "@/services/posts.service";
+import type { CasePayload } from "@/services/cases.service";
 
 type DashboardStats = {
   postsPublicados: number;
@@ -14,6 +17,7 @@ type DashboardStats = {
 
 export default function AdminHomePage() {
   const [blogModalOpen, setBlogModalOpen] = useState(false);
+  const [caseModalOpen, setCaseModalOpen] = useState(false);
   const [stats, setStats] = useState<DashboardStats>({
     postsPublicados: 0, postsRascunho: 0, casesPublicados: 0, casesRascunho: 0,
   });
@@ -29,6 +33,11 @@ export default function AdminHomePage() {
 
   async function handleSaveBlogPost(data: PostPayload) {
     await createPost(data);
+    await loadStats();
+  }
+
+  async function handleSaveCase(data: CasePayload) {
+    await createCase(data);
     await loadStats();
   }
 
@@ -70,13 +79,14 @@ export default function AdminHomePage() {
         <div className="bg-white rounded-none p-7 border border-gray-100 shadow-sm hover:shadow-md hover:border-d3-purple/20 transition-all">
           <h2 className="font-semibold text-lg text-d3-navy mb-1">Cases de sucesso</h2>
           <p className="text-sm text-gray-400 mb-6">Gerencie projetos e resultados</p>
-          <button onClick={() => {}} className="bg-d3-purple hover:bg-d3-purple-dark transition-colors text-white text-sm font-semibold rounded-none px-5 py-2.5 shadow-md shadow-d3-purple/20">
+          <button onClick={() => setCaseModalOpen(true)} className="bg-d3-purple hover:bg-d3-purple-dark transition-colors text-white text-sm font-semibold rounded-none px-5 py-2.5 shadow-md shadow-d3-purple/20">
             + Novo case
           </button>
         </div>
       </div>
 
       <PostFormModal isOpen={blogModalOpen} onClose={() => setBlogModalOpen(false)} onSave={handleSaveBlogPost} initialData={null} />
+      <CaseFormModal isOpen={caseModalOpen} onClose={() => setCaseModalOpen(false)} onSave={handleSaveCase} initialData={null} />
     </div>
   );
 }

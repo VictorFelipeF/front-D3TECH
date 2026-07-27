@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BlogPostCard } from "@/pages/blog/components/BlogPostCard";
 import { FeaturedPostCard } from "@/pages/blog/components/FeaturedPostCard";
+import { SectionHeading } from "@/components/shared/SectionHeading";
 import { usePublishedPosts } from "@/hooks/usePosts";
 
 export default function BlogPage() {
@@ -13,6 +14,13 @@ export default function BlogPage() {
 
   return (
     <div className="container mx-auto px-4 py-16">
+      <SectionHeading
+        eyebrow="Blog"
+        title="Nossas publicacoes"
+        subtitle="Conteudos, novidades e bastidores direto da equipe D3TEC."
+        align="center"
+      />
+
       {isEmpty ? (
         <p className="text-center text-muted-foreground py-16">
           Ainda nao ha posts publicados.
