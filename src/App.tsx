@@ -7,6 +7,7 @@ import { ProtectedRoute } from "@/pages/auth/components/ProtectedRoute";
 
 // Lazy loading the pages
 const AboutPage = lazy(() => import("./pages/about/AboutPage"));
+const HomePage = lazy(() => import("./pages/home/HomePage"));
 const ServicesPage = lazy(() => import("./pages/services/ServicesPage"));
 const ContactPage = lazy(() => import("./pages/contact/ContactPage"));
 const PrivacyPolicyPage = lazy(() => import("./pages/legal/PrivacyPolicyPage"));
@@ -22,12 +23,6 @@ const AdminServicesPage = lazy(() => import("@/pages/services/AdminServicesPage"
 const AdminPartnersPage = lazy(() => import("@/pages/partners/AdminPartnersPage"));
 const AdminIndicadoresPage = lazy(() => import("@/pages/indicadores/AdminIndicadoresPage"));
 
-// Dummy component for home page for now, as it's not in Phase 1/2 scope
-const HomePlaceholder = () => (
-  <div className="flex min-h-[50vh] items-center justify-center">
-    <h1 className="text-2xl font-bold">Home Page (Phase 3)</h1>
-  </div>
-);
 
 function App() {
   return (
@@ -35,7 +30,7 @@ function App() {
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route element={<PageLayout />}>
-            <Route path="/" element={<HomePlaceholder />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/sobre-nos" element={<AboutPage />} />
             <Route path="/servicos" element={<ServicesPage />} />
             <Route path="/contato" element={<ContactPage />} />
