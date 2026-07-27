@@ -22,14 +22,14 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-d3-navy/95 text-white backdrop-blur-md shadow-lg shadow-d3-navy-dark/20">
+    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-d3-navy text-white backdrop-blur-md shadow-lg shadow-d3-navy-dark/20">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link
           to={isAdminArea ? "/admin/home" : "/"}
           onClick={closeMenu}
-          className="text-xl font-bold tracking-tight transition-colors hover:text-d3-purple-light"
+          className="transition-colors hover:text-d3-purple-light"
         >
-          D3TECH
+          <img src="/logoHeader.svg" alt="D3TECH" className="h-8" />
         </Link>
 
         {/* Desktop Nav */}
