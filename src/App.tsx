@@ -4,6 +4,7 @@ import { PageLayout } from "./components/layout/PageLayout";
 import { PageLoader } from "./components/shared/PageLoader";
 import { AdminLayout } from "@/pages/auth/components/AdminLayout";
 import { ProtectedRoute } from "@/pages/auth/components/ProtectedRoute";
+import { ScrollToTop } from "@/components/shared/ScrollToTop";
 
 // Lazy loading the pages
 const AboutPage = lazy(() => import("./pages/about/AboutPage"));
@@ -32,35 +33,37 @@ const HomePlaceholder = () => (
 function App() {
   return (
     <BrowserRouter>
-      <Suspense fallback={<PageLoader />}>
-        <Routes>
-          <Route element={<PageLayout />}>
-            <Route path="/" element={<HomePlaceholder />} />
-            <Route path="/sobre-nos" element={<AboutPage />} />
-            <Route path="/servicos" element={<ServicesPage />} />
-            <Route path="/contato" element={<ContactPage />} />
-            <Route path="/cases" element={<CasesPage />} />
-            <Route path="/blog" element={<BlogPage />} />
-            <Route path="/blog/:slug" element={<BlogPostPage />} />
-            <Route path="/politica-de-privacidade" element={<PrivacyPolicyPage />} />
-          </Route>
-
-          <Route path="/admin" element={<LoginPage />} />
-          <Route path="/admin/login" element={<Navigate to="/admin" replace />} />
-
-          <Route element={<ProtectedRoute />}>
-            <Route element={<AdminLayout />}>
-              <Route path="/admin/home" element={<AdminHomePage />} />
-              <Route path="/admin/blog" element={<AdminBlogPage />} />
-              <Route path="/admin/cases" element={<AdminCasesPage />} />
-              <Route path="/admin/contacts" element={<AdminContactsPage />} />
-              <Route path="/admin/services" element={<AdminServicesPage />} />
-              <Route path="/admin/partners" element={<AdminPartnersPage />} />
-              <Route path="/admin/indicadores" element={<AdminIndicadoresPage />} />
+      <ScrollToTop /> {
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route element={<PageLayout />}>
+              <Route path="/" element={<HomePlaceholder />} />
+              <Route path="/sobre-nos" element={<AboutPage />} />
+              <Route path="/servicos" element={<ServicesPage />} />
+              <Route path="/contato" element={<ContactPage />} />
+              <Route path="/cases" element={<CasesPage />} />
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/blog/:slug" element={<BlogPostPage />} />
+              <Route path="/politica-de-privacidade" element={<PrivacyPolicyPage />} />
             </Route>
-          </Route>
-        </Routes>
-      </Suspense>
+
+            <Route path="/admin" element={<LoginPage />} />
+            <Route path="/admin/login" element={<Navigate to="/admin" replace />} />
+
+            <Route element={<ProtectedRoute />}>
+              <Route element={<AdminLayout />}>
+                <Route path="/admin/home" element={<AdminHomePage />} />
+                <Route path="/admin/blog" element={<AdminBlogPage />} />
+                <Route path="/admin/cases" element={<AdminCasesPage />} />
+                <Route path="/admin/contacts" element={<AdminContactsPage />} />
+                <Route path="/admin/services" element={<AdminServicesPage />} />
+                <Route path="/admin/partners" element={<AdminPartnersPage />} />
+                <Route path="/admin/indicadores" element={<AdminIndicadoresPage />} />
+              </Route>
+            </Route>
+          </Routes>
+        </Suspense>
+      }
     </BrowserRouter>
   );
 }
