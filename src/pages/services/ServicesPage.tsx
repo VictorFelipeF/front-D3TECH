@@ -1,10 +1,11 @@
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { ServiceCard, type ServiceType } from "@/pages/services/components/ServiceCard";
+import { ServiceCard } from "@/pages/services/components/ServiceCard";
 import { HeroServices } from "@/pages/services/components/HeroServices";
-import servicesData from "@/mocks/services.json";
+import { useServices } from "@/hooks/useServices";
 
 export default function ServicesPage() {
-  const services = servicesData as ServiceType[];
+  const { data: services, isLoading } = useServices();
+  const list = services ?? [];
 
   return (
     <div>
@@ -21,15 +22,25 @@ export default function ServicesPage() {
           subtitle="Soluções sob medida para cada desafio. Nossa equipe de especialistas transforma problemas reais em resultados digitais eficientes."
         />
 
-        <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => (
-            <ServiceCard
-              key={service.id}
-              service={service}
-              index={index}
-            />
-          ))}
-        </div>
+        {isLoading ? (
+          <p className="mt-16 text-center text-sm text-muted-foreground">
+            Carregando serviços...
+          </p>
+        ) : list.length === 0 ? (
+          <p className="mt-16 text-center text-sm text-muted-foreground">
+            Nenhum serviço cadastrado no momento.
+          </p>
+        ) : (
+          <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {list.map((service, index) => (
+              <ServiceCard
+                key={service.id}
+                service={service}
+                index={index}
+              />
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );
