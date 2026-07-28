@@ -1,6 +1,23 @@
 import { Link } from "react-router-dom";
 import { CTAButton } from "@/components/shared/CTAButton";
 
+
+function HeroLogo(){
+  return(
+    <div className="relative aspect-square w-[85vw] max-w-[640px] flex items-center justify-center sm:w-[70vw] md:w-full md:-ml-16">
+      <img
+        src="/aureola.png"
+        alt=""
+        className="absolute w-full h-full animate-[spin_20s_linear_infinite]"
+      />
+      <img
+        src="/logod3Hero.png"
+        alt="D3TEC"
+        className="relative z-10 w-[55%]"
+      />
+    </div>
+  )
+}
 export function HeroHome() {
   return (
     <section className="relative overflow-hidden bg-d3-navy text-white">
@@ -49,13 +66,7 @@ export function HeroHome() {
         <div className="relative mx-auto w-full max-w-md">
           <div className="pointer-events-none absolute inset-0 scale-110 rounded-full bg-d3-purple/30 blur-3xl" />
           <div className="pointer-events-none absolute -right-6 -top-6 h-32 w-32 rounded-full bg-d3-purple-light/25 blur-2xl" />
-          <img
-            src="/logod3Hero.png"
-            alt="D3TECH"
-            loading="eager"
-            decoding="async"
-            className="relative z-10 w-full select-none drop-shadow-2xl pointer-events-none"
-          />
+          {HeroLogo()}
         </div>
       </div>
     </section>
