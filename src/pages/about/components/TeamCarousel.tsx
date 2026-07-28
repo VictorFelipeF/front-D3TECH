@@ -1,16 +1,14 @@
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Carousel } from "@/components/shared/Carousel";
-import teamData from "@/mocks/team.json";
 import { User } from "lucide-react";
 
-type TeamMember = {
-  id: string;
-  name: string;
-  role: string;
-};
+type TeamMember = { id: string; name: string; role: string; };
+
+const team: TeamMember[] = [
+  { id: "1", name: "Equipe D3TEC", role: "Desenvolvimento" },
+];
 
 export function TeamCarousel() {
-  const team = teamData as TeamMember[];
 
   return (
     <section className="border-t border-border/50 bg-muted/30 py-20 md:py-28">
