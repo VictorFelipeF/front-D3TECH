@@ -61,7 +61,7 @@ export function CaseFormModal({ isOpen, onClose, onSave, initialData }: Props) {
     });
   }, [initialData, isOpen]);
 
-  function handleChange(field: keyof CasePayload, value: string | boolean) {
+  function handleChange(field: keyof CasePayload, value: unknown) {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
