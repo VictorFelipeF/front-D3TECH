@@ -12,6 +12,7 @@ export default function ServicesPage() {
     getServices().then(setServices).catch(() => {});
   }, []);
 
+
   return (
     <div>
       <HeroServices />

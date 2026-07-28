@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { ChevronDown, Sparkles } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { cn } from "@/lib/utils";
@@ -10,9 +12,21 @@ type ServiceCardProps = {
   index?: number;
 };
 
+function hasContent(html?: string) {
+  return !!html && html.trim().length > 0 && html.trim() !== "<p></p>";
+}
+
 export function ServiceCard({ service, index = 0 }: ServiceCardProps) {
   const Icon = getIcon(service.icone);
   const number = String(index + 1).padStart(2, "0");
+
+  const hasDetails =
+    hasContent(service.descricaoDetalhada) ||
+    hasContent(service.problemasQueResolve) ||
+    hasContent(service.beneficios);
+
+  const ctaTexto = service.ctaTexto?.trim() || "Fale conosco";
+  const ctaLink = service.ctaLink?.trim() || "/contato";
 
   return (
     <Card className={cn(
