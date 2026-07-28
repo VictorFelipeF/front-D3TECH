@@ -1,12 +1,18 @@
-import { Award, Calendar, Users } from "lucide-react";
-
-const indicadores = [
-  { valor: "+20", nome: "projetos entregues", icon: Award },
-  { valor: "5", nome: "anos de experiência", icon: Calendar },
-  { valor: "10+", nome: "clientes atendidos", icon: Users },
-];
+import { useState, useEffect } from "react";
+import {getIndicadores, type IndicadorBackend} from "@/services/indicadores.service";
 
 export function IndicadoresSection() {
+
+const [indicadores, setIndicadores] = useState<IndicadorBackend[]>([]);
+const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+  getIndicadores()
+  .then((data)=> setIndicadores(data))
+  .catch(() => setIndicadores([]))
+  .finally(() => setLoading(false));
+}, []);
+
   return (
     <section
       className="relative overflow-hidden bg-d3-navy-dark text-white"
@@ -30,9 +36,10 @@ export function IndicadoresSection() {
 
       <div className="container relative mx-auto px-4 py-20 md:py-28">
         <div className="grid grid-cols-1 gap-y-12 sm:grid-cols-3 md:gap-x-12">
-          {indicadores.map(({ valor, nome, icon: Icon }) => (
+          {loading && <p className="text-white/60">Carregando...</p>}
+          {indicadores.map(({ valor, nome}, index) => {
+            return(
             <div key={nome} className="group text-center">
-              <Icon className="mx-auto mb-3 h-5 w-5 text-d3-purple-light/40 transition-colors duration-300 group-hover:text-d3-purple-light" />
               <div className="bg-gradient-to-r from-white to-d3-purple-light bg-clip-text text-4xl font-bold text-transparent transition-transform duration-300 group-hover:scale-105 md:text-5xl">
                 {valor}
               </div>
@@ -40,7 +47,8 @@ export function IndicadoresSection() {
                 {nome}
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
