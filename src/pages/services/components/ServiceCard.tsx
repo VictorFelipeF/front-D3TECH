@@ -1,10 +1,8 @@
-import { useState } from "react";
-import { ChevronDown, Sparkles } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { cn } from "@/lib/utils";
 import { getIcon } from "@/utils/icons";
-import * as Icons from "lucide-react";
+import { Sparkles } from "lucide-react";
 import type { ServiceBackend } from "@/services/services.service";
 
 type ServiceCardProps = {
@@ -12,21 +10,9 @@ type ServiceCardProps = {
   index?: number;
 };
 
-function hasContent(html?: string) {
-  return !!html && html.trim().length > 0 && html.trim() !== "<p></p>";
-}
-
 export function ServiceCard({ service, index = 0 }: ServiceCardProps) {
   const Icon = getIcon(service.icone);
   const number = String(index + 1).padStart(2, "0");
-
-  const hasDetails =
-    hasContent(service.descricaoDetalhada) ||
-    hasContent(service.problemasQueResolve) ||
-    hasContent(service.beneficios);
-
-  const ctaTexto = service.ctaTexto?.trim() || "Fale conosco";
-  const ctaLink = service.ctaLink?.trim() || "/contato";
 
   return (
     <Card className={cn(
@@ -38,16 +24,11 @@ export function ServiceCard({ service, index = 0 }: ServiceCardProps) {
       </span>
 
       <div className="relative mb-6 flex h-16 w-16 items-center justify-center rounded-none bg-d3-purple/10 text-d3-purple transition-colors duration-300 group-hover:bg-d3-purple group-hover:text-white">
-        {Icon ? <Icon className="h-8 w-8" /> : <Icons.Sparkles className="h-8 w-8" />}
+        {Icon ? <Icon className="h-8 w-8" /> : <Sparkles className="h-8 w-8" />}
       </div>
 
-      <h3 className="relative mb-2 text-lg font-semibold leading-snug text-foreground">
-        {service.nome}
-      </h3>
-
-      <p className="relative mb-6 text-sm leading-relaxed text-muted-foreground">
-        {service.descricaoCurta}
-      </p>
+      <h3 className="relative mb-2 text-lg font-semibold leading-snug text-foreground">{service.nome}</h3>
+      <p className="relative mb-6 text-sm leading-relaxed text-muted-foreground">{service.descricaoCurta}</p>
 
       <div className="relative mt-auto pt-2">
         <CTAButton to={service.ctaLink || "/contato"} variant="outline">
