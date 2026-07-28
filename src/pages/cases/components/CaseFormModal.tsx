@@ -26,6 +26,7 @@ const emptyForm: CasePayload = {
   descricao: "",
   depoimento: "",
   exibirAoPublico: false,
+  featured: false,
   tagIds: [],
 };
 
@@ -57,13 +58,20 @@ export function CaseFormModal({ isOpen, onClose, onSave, initialData }: Props) {
       descricao: c.descricao ?? "",
       depoimento: c.depoimento ?? "",
       exibirAoPublico: c.exibirAoPublico ?? false,
+      featured: c.featured ?? false,
       tagIds: c.tags?.map((t) => t.id) ?? c.tagIds ?? [],
     });
   }, [initialData, isOpen]);
 
-  function handleChange(field: keyof CasePayload, value: unknown) {
-    setForm((prev) => ({ ...prev, [field]: value }));
-  }
+  function handleChange<K extends keyof CasePayload>(
+  field: K,
+  value: CasePayload[K]
+) {
+  setForm((prev) => ({
+    ...prev,
+    [field]: value,
+  }));
+}
 
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -180,13 +188,36 @@ export function CaseFormModal({ isOpen, onClose, onSave, initialData }: Props) {
           <TextEditor value={form.depoimento ?? ""} onChange={(html) => handleChange("depoimento", html)} />
         </div>
 
-        {/* Exibir ao publico */}
-        <div className="md:col-span-2">
+        {/* Opções */}
+        <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex items-center gap-2 border border-gray-200 rounded-none px-4 h-11 bg-gray-50/50">
-            <Checkbox id="casePublico" checked={form.exibirAoPublico} onCheckedChange={(c) => handleChange("exibirAoPublico", !!c)} />
-            <Label htmlFor="casePublico" className="text-sm cursor-pointer text-d3-navy">
+            <Checkbox
+              id="casePublico"
+              checked={form.exibirAoPublico}
+              onCheckedChange={(c) => handleChange("exibirAoPublico", !!c)}
+            />
+
+            <Label
+              htmlFor="casePublico"
+              className="text-sm cursor-pointer text-d3-navy"
+            >
               <Eye className="w-4 h-4 inline mr-1.5 text-d3-purple" />
-              Exibir ao publico
+              Exibir ao público
+            </Label>
+          </div>
+
+          <div className="flex items-center gap-2 border border-gray-200 rounded-none px-4 h-11 bg-gray-50/50">
+            <Checkbox
+              id="caseFeatured"
+              checked={form.featured ?? false}
+              onCheckedChange={(c) => handleChange("featured", !!c)}
+            />
+
+            <Label
+              htmlFor="caseFeatured"
+              className="text-sm cursor-pointer text-d3-navy"
+            >
+              ⭐ Destacar Case de Sucesso
             </Label>
           </div>
         </div>
