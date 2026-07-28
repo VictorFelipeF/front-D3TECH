@@ -3,24 +3,28 @@ import { usePublishedCases } from "@/hooks/useCases";
 import { CasesHero } from "@/pages/cases/components/CasesHero";
 import { CasesCTA } from "@/pages/cases/components/CasesCTA";
 import { CaseCard } from "@/pages/cases/components/CaseCard";
+import { FeaturedCases } from "@/pages/cases/components/FeaturedCases";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
 export default function CasesPage() {
   const [page, setPage] = useState(0);
   const { data, isLoading } = usePublishedCases(page, 6);
-  const cases = data?.content ?? [];
+  const publishedCases = data?.content ?? [];
+  const cases = publishedCases.filter((c) => !c.featured);
   const totalPages = data?.totalPages ?? 1;
 
-  const isEmpty = !isLoading && cases.length === 0;
+  const isEmpty = !isLoading && publishedCases.length === 0;
 
   return (
     <div>
       <CasesHero />
 
+      <FeaturedCases />
+
       <div className="container mx-auto px-4 py-16">
         <SectionHeading
           eyebrow="Portfolio"
-          title="Nossos cases"
+          title="Todos os cases"
           subtitle="Uma selecao dos projetos que desenvolvemos junto aos nossos clientes."
         />
 

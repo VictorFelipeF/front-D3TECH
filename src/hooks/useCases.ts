@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   getPublishedCases,
   getAllCases,
+  getFeaturedCases,
   createCase,
   updateCase,
   deleteCase,
@@ -12,6 +13,13 @@ export function usePublishedCases(page = 0, size = 9) {
   return useQuery({
     queryKey: ["cases", "published", page],
     queryFn: () => getPublishedCases(page, size),
+  });
+}
+
+export function useFeaturedCases() {
+  return useQuery({
+    queryKey: ["cases", "featured"],
+    queryFn: () => getFeaturedCases(),
   });
 }
 
