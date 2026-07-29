@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
-import { Menu, X, User, LogOut } from "lucide-react";
+import { Menu, X, User, LogOut, Sun, Moon } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export function Header() {
   const { user, logout } = useAuth();
+  const { isDark, toggle: toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
@@ -100,13 +102,24 @@ export function Header() {
           )}
         </nav>
 
-        <button
-          onClick={() => setIsOpen((p) => !p)}
-          className="md:hidden flex items-center justify-center h-10 w-10 text-white/70 hover:text-white transition-colors"
-          aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
-        >
-          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center gap-1">
+          <button
+            onClick={toggleTheme}
+            className="flex items-center justify-center h-10 w-10 text-white/50 hover:text-white transition-colors"
+            title={isDark ? "Modo claro" : "Modo escuro"}
+            aria-label={isDark ? "Alternar para modo claro" : "Alternar para modo escuro"}
+          >
+            {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
+
+          <button
+            onClick={() => setIsOpen((p) => !p)}
+            className="md:hidden flex items-center justify-center h-10 w-10 text-white/70 hover:text-white transition-colors"
+            aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
+          >
+            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {isOpen && (

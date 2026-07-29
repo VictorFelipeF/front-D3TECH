@@ -5,7 +5,7 @@ import type { PostBackend } from "@/services/posts.service";
 export function BlogPostCard({ post }: { post: PostBackend }) {
   return (
     <Link to={`/blog/${post.slug}`} className="group block">
-      <div className="overflow-hidden bg-white border border-gray-100 hover:border-d3-purple/30 transition-all hover:-translate-y-1 flex flex-col md:flex-row">
+      <div className="overflow-hidden bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 hover:border-d3-purple/30 transition-all hover:-translate-y-1 flex flex-col md:flex-row">
         {post.imagemCapa ? (
           <img src={fileUrl(post.imagemCapa)} alt={post.titulo} className="w-full md:w-64 aspect-video md:aspect-square object-cover shrink-0" />
         ) : (
@@ -19,7 +19,7 @@ export function BlogPostCard({ post }: { post: PostBackend }) {
               </span>
             )}
           </div>
-          <h3 className="font-semibold text-lg md:text-xl text-d3-navy group-hover:text-d3-purple transition-colors leading-snug">
+          <h3 className="font-semibold text-lg md:text-xl text-d3-navy dark:text-white group-hover:text-d3-purple transition-colors leading-snug">
             {post.titulo}
           </h3>
           <div className="text-sm text-gray-500 line-clamp-2 mt-2 prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: post.descricao }} />

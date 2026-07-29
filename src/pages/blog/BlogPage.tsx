@@ -40,7 +40,7 @@ export default function BlogPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white relative overflow-hidden">
+    <div className="min-h-screen bg-white dark:bg-gray-950 relative overflow-hidden">
       {/* Elementos graficos decorativos */}
       <svg className="pointer-events-none absolute top-0 right-0 w-[800px] h-[800px] opacity-[0.12]" viewBox="0 0 800 800" aria-hidden="true">
         <defs>
@@ -80,12 +80,12 @@ export default function BlogPage() {
       <div className="container mx-auto px-4 py-16 md:py-20 relative">
         <div className="mb-8">
           <p className="text-sm font-semibold text-d3-purple uppercase tracking-wider mb-2">Blog</p>
-          <h1 className="text-3xl md:text-4xl font-bold text-d3-navy">Publicações</h1>
-          <p className="text-gray-400 mt-2">Artigos, novidades e conhecimento da D3TECH</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-d3-navy dark:text-white">Publicações</h1>
+          <p className="text-gray-400 dark:text-gray-500 mt-2">Artigos, novidades e conhecimento da D3TECH</p>
         </div>
 
         {/* Filtros full-width */}
-        <div className="bg-gray-50/50 border border-gray-100 p-6 mb-10">
+        <div className="bg-gray-50/50 dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800 p-6 mb-10">
           <div className="flex flex-wrap items-end gap-4 mb-4">
             <div className="flex-1 min-w-[200px]">
               <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Buscar</label>
@@ -96,7 +96,7 @@ export default function BlogPage() {
                   value={search}
                   onChange={(e) => { setSearch(e.target.value); setPage(0); }}
                   placeholder="Buscar por título ou descrição..."
-                  className="w-full h-11 pl-9 pr-3 text-sm border border-gray-200 bg-white focus:outline-none focus:border-d3-purple/40"
+                  className="w-full h-11 pl-9 pr-3 text-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 dark:text-gray-200 focus:outline-none focus:border-d3-purple/40"
                 />
               </div>
             </div>
@@ -106,7 +106,7 @@ export default function BlogPage() {
               <select
                 value={categoriaId ?? ""}
                 onChange={(e) => { setCategoriaId(e.target.value ? Number(e.target.value) : undefined); setPage(0); }}
-                className="h-11 px-3 text-sm border border-gray-200 bg-white text-gray-600 focus:outline-none focus:border-d3-purple/40 min-w-[180px]"
+                className="h-11 px-3 text-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 focus:outline-none focus:border-d3-purple/40 min-w-[180px]"
               >
                 <option value="">Todas</option>
                 {categorias.map(c => <option key={c.id} value={c.id}>{c.nome}</option>)}
@@ -132,7 +132,7 @@ export default function BlogPage() {
                     className={`text-xs px-3 py-1.5 border transition-colors font-medium ${
                       active
                         ? "bg-d3-purple text-white border-d3-purple"
-                        : "bg-white text-gray-500 border-gray-200 hover:border-d3-purple/40"
+                        : "bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-d3-purple/40"
                     }`}
                   >
                     {tag.nome}
@@ -160,7 +160,7 @@ export default function BlogPage() {
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-2 mt-12">
                 {Array.from({ length: totalPages }, (_, i) => (
-                  <button key={i} onClick={() => setPage(i)} className={`w-10 h-10 flex items-center justify-center text-sm font-medium transition-colors ${page === i ? "bg-d3-navy text-white" : "text-gray-400 hover:text-d3-navy hover:bg-gray-50"}`}>
+                  <button key={i} onClick={() => setPage(i)} className={`w-10 h-10 flex items-center justify-center text-sm font-medium transition-colors ${                      page === i ? "bg-d3-navy text-white" : "text-gray-400 dark:text-gray-500 hover:text-d3-navy dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"}`}>
                     {i + 1}
                   </button>
                 ))}

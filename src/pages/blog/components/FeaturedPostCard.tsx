@@ -5,7 +5,7 @@ import type { PostBackend } from "@/services/posts.service";
 export function FeaturedPostCard({ post }: { post: PostBackend }) {
   return (
     <Link to={`/blog/${post.slug}`} className="group block">
-      <div className="grid md:grid-cols-2 overflow-hidden bg-white border border-gray-100 hover:border-d3-purple/30 transition-colors">
+      <div className="grid md:grid-cols-2 overflow-hidden bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 hover:border-d3-purple/30 transition-colors">
         {post.imagemCapa ? (
           <img src={fileUrl(post.imagemCapa)} alt={post.titulo} className="aspect-video md:aspect-auto object-cover w-full h-full md:h-80" />
         ) : (
@@ -17,15 +17,15 @@ export function FeaturedPostCard({ post }: { post: PostBackend }) {
               {post.categoria.nome}
             </span>
           )}
-          <h2 className="text-2xl font-bold text-d3-navy group-hover:text-d3-purple transition-colors leading-tight">
+          <h2 className="text-2xl font-bold text-d3-navy dark:text-white group-hover:text-d3-purple transition-colors leading-tight">
             {post.titulo}
           </h2>
-          <div className="flex items-center gap-3 mt-3 text-sm text-gray-400">
+          <div className="flex items-center gap-3 mt-3 text-sm text-gray-400 dark:text-gray-500">
             <span>{post.autor}</span>
             <span>·</span>
             <span>{post.dataPublicacao ? new Date(post.dataPublicacao).toLocaleDateString("pt-BR") : ""}</span>
           </div>
-          <div className="text-sm text-gray-500 mt-4 line-clamp-3 prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: post.descricao }} />
+          <div className="text-sm text-gray-500 dark:text-gray-400 mt-4 line-clamp-3 prose prose-sm dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: post.descricao }} />
           {post.tags.length > 0 && (
             <div className="flex flex-wrap gap-1 mt-3">
               {post.tags.map(tag => (

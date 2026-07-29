@@ -47,8 +47,9 @@ function App() {
               <Route path="/politica-de-privacidade" element={<PrivacyPolicyPage />} />
             </Route>
 
-            <Route path="/admin" element={<LoginPage />} />
-            <Route path="/admin/login" element={<Navigate to="/admin" replace />} />
+          <Route path="/admin" element={<LoginPage />} />
+          <Route path="/admin/login" element={<Navigate to="/admin" replace />} />
+          <Route path="/login" element={<Navigate to="/admin" replace />} />
 
             <Route element={<ProtectedRoute />}>
               <Route element={<AdminLayout />}>
