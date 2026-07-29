@@ -106,8 +106,8 @@ export default function AdminBlogPage() {
     <div className="px-10 py-12 max-w-6xl mx-auto">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-d3-navy">Publicações</h1>
-          <p className="text-base text-gray-400 mt-1">Gerencie os posts do blog</p>
+          <h1 className="text-3xl font-bold text-d3-navy dark:text-white">Publicações</h1>
+          <p className="text-base text-gray-400 dark:text-gray-500 mt-1">Gerencie os posts do blog</p>
         </div>
         <button
           onClick={openNewPost}
@@ -155,7 +155,7 @@ export default function AdminBlogPage() {
       )}
 
       {/* Categorias */}
-      <div className="mt-10 bg-white border border-gray-100 rounded-none p-5">
+      <div className="mt-10 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-none p-5">
         <h2 className="text-sm font-semibold text-d3-navy uppercase tracking-wider mb-4">Categorias</h2>
 
         <div className="flex items-center gap-2 mb-4">

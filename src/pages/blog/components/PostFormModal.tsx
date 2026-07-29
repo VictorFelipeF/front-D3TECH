@@ -11,7 +11,6 @@ import { uploadImage } from "@/services/images.service";
 import { fileUrl } from "@/services/api";
 import { TagSelector } from "@/components/shared/TagSelector";
 import type { PostPayload } from "@/services/posts.service";
-import { toast } from "sonner";
 
 interface Props {
   isOpen: boolean;

@@ -4,6 +4,7 @@ import { PageLayout } from "./components/layout/PageLayout";
 import { PageLoader } from "./components/shared/PageLoader";
 import { AdminLayout } from "@/pages/auth/components/AdminLayout";
 import { ProtectedRoute } from "@/pages/auth/components/ProtectedRoute";
+import { ScrollToTop } from "@/components/shared/ScrollToTop";
 
 // Lazy loading the pages
 const AboutPage = lazy(() => import("./pages/about/AboutPage"));
@@ -42,20 +43,21 @@ function App() {
 
           <Route path="/admin" element={<LoginPage />} />
           <Route path="/admin/login" element={<Navigate to="/admin" replace />} />
+          <Route path="/login" element={<Navigate to="/admin" replace />} />
 
-          <Route element={<ProtectedRoute />}>
-            <Route element={<AdminLayout />}>
-              <Route path="/admin/home" element={<AdminHomePage />} />
-              <Route path="/admin/blog" element={<AdminBlogPage />} />
-              <Route path="/admin/cases" element={<AdminCasesPage />} />
-              <Route path="/admin/contacts" element={<AdminContactsPage />} />
-              <Route path="/admin/services" element={<AdminServicesPage />} />
-              <Route path="/admin/partners" element={<AdminPartnersPage />} />
-              <Route path="/admin/indicadores" element={<AdminIndicadoresPage />} />
+            <Route element={<ProtectedRoute />}>
+              <Route element={<AdminLayout />}>
+                <Route path="/admin/home" element={<AdminHomePage />} />
+                <Route path="/admin/blog" element={<AdminBlogPage />} />
+                <Route path="/admin/cases" element={<AdminCasesPage />} />
+                <Route path="/admin/contacts" element={<AdminContactsPage />} />
+                <Route path="/admin/services" element={<AdminServicesPage />} />
+                <Route path="/admin/partners" element={<AdminPartnersPage />} />
+                <Route path="/admin/indicadores" element={<AdminIndicadoresPage />} />
+              </Route>
             </Route>
-          </Route>
-        </Routes>
-      </Suspense>
+          </Routes>
+        </Suspense>
     </BrowserRouter>
   );
 }
