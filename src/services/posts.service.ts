@@ -44,8 +44,14 @@ const toPayload = (p: PostPayload) => ({
 });
 
 /* Public */
-export async function getPublishedPosts(page = 0, size = 9) {
-  const res = await http.get<Page<PostBackend>>("/posts", { params: { page, size } });
+export async function getPublishedPosts(page = 0, size = 9, search?: string, categoriaId?: number, tagIds?: number[]) {
+  const searchParams = new URLSearchParams();
+  searchParams.set("page", String(page));
+  searchParams.set("size", String(size));
+  if (search) searchParams.set("search", search);
+  if (categoriaId) searchParams.set("categoriaId", String(categoriaId));
+  if (tagIds?.length) tagIds.forEach(id => searchParams.append("tagIds", String(id)));
+  const res = await http.get<Page<PostBackend>>(`/posts?${searchParams.toString()}`);
   return res.data;
 }
 

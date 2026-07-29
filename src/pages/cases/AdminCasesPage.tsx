@@ -75,8 +75,8 @@ export default function AdminCasesPage() {
     <div className="px-10 py-12 max-w-6xl mx-auto">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-d3-navy">Cases de sucesso</h1>
-          <p className="text-base text-gray-400 mt-1">Gerencie os projetos e resultados</p>
+          <h1 className="text-3xl font-bold text-d3-navy dark:text-white">Cases de sucesso</h1>
+          <p className="text-base text-gray-400 dark:text-gray-500 mt-1">Gerencie os projetos e resultados</p>
         </div>
         <button
           onClick={openNewCase}

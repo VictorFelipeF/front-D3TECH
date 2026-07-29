@@ -15,7 +15,7 @@ function fmtDate(d: string | null) {
 
 export function AdminCaseRow({ caseItem, onEdit, onDelete }: Props) {
   return (
-    <div className="bg-white border border-gray-100 rounded-none hover:border-d3-purple/30 hover:shadow-sm transition-all">
+    <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-none hover:border-d3-purple/30 hover:shadow-sm transition-all">
       <div className="flex items-start justify-between px-5 py-4">
         <div className="flex gap-4 min-w-0 flex-1">
           {caseItem.imagemCapa && (
@@ -23,7 +23,7 @@ export function AdminCaseRow({ caseItem, onEdit, onDelete }: Props) {
           )}
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-3 mb-1.5">
-              <span className="text-base font-semibold text-d3-navy truncate">{caseItem.nomeProjeto}</span>
+              <span className="text-base font-semibold text-d3-navy dark:text-white truncate">{caseItem.nomeProjeto}</span>
               <span
                 className={`text-xs font-semibold px-2.5 py-0.5 rounded-none shrink-0 ${
                   caseItem.exibirAoPublico
