@@ -2,7 +2,13 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { usePost } from "@/hooks/usePosts";
 import { PageLoader } from "@/components/shared/PageLoader";
 import { fileUrl } from "@/services/api";
-import { ArrowLeft, Calendar, User } from "lucide-react";
+import { ArrowLeft, Calendar, User, Clock } from "lucide-react";
+
+function estimateReadTime(html: string) {
+  const text = html.replace(/<[^>]+>/g, " ");
+  const words = text.trim().split(/\s+/).length;
+  return Math.max(1, Math.round(words / 200));
+}
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -12,67 +18,109 @@ export default function BlogPostPage() {
   if (isLoading) return <PageLoader />;
   if (!post) return <PageLoader />;
 
+  const readTime = estimateReadTime(post.descricao ?? "");
+
   return (
     <article className="min-h-screen bg-white relative overflow-hidden">
-      <svg className="pointer-events-none absolute top-0 right-0 w-[500px] h-[500px] opacity-[0.08]" viewBox="0 0 500 500" aria-hidden="true">
-        <defs><linearGradient id="bpGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#7c3aed"/><stop offset="100%" stopColor="#6d28d9"/></linearGradient></defs>
-        <circle cx="400" cy="80" r="50" fill="url(#bpGrad)"/>
-        <rect x="350" y="150" width="40" height="40" fill="url(#bpGrad)" transform="rotate(45 370 170)"/>
-        <polygon points="380,0 420,80 400,80 440,150 380,100 400,100 350,0" fill="url(#bpGrad)" opacity="0.5"/>
-        <polygon points="200,50 220,100 212,100 230,140 200,115 210,115 190,50" fill="url(#bpGrad)" opacity="0.4"/>
-        <polygon points="100,300 130,360 115,360 145,420 100,375 118,375 80,300" fill="url(#bpGrad)" opacity="0.3"/>
-        <line x1="0" y1="0" x2="500" y2="500" stroke="#7c3aed" strokeWidth="0.5"/>
-      </svg>
-      <svg className="pointer-events-none absolute bottom-0 left-0 w-[300px] h-[300px] opacity-[0.08]" viewBox="0 0 300 300" aria-hidden="true">
-        <defs><linearGradient id="bpGrad2" x1="100%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stopColor="#7c3aed"/><stop offset="100%" stopColor="#4d1c99"/></linearGradient></defs>
-        <circle cx="40" cy="260" r="40" fill="url(#bpGrad2)"/>
-        <polygon points="200,200 220,250 210,250 230,290 200,260 212,260 190,200" fill="url(#bpGrad2)" opacity="0.5"/>
-        <polygon points="80,20 100,60 93,60 108,90 80,70 90,70 70,20" fill="url(#bpGrad2)" opacity="0.4"/>
-        <line x1="0" y1="300" x2="300" y2="0" stroke="#7c3aed" strokeWidth="0.5"/>
-      </svg>
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-d3-purple/[0.06] rounded-full blur-3xl" />
+        <div className="absolute top-1/3 -right-24 w-80 h-80 bg-d3-purple/[0.05] rounded-full blur-3xl" />
+
+        <div className="absolute top-0 left-0 h-full w-px bg-d3-purple/15" style={{ left: 80 }} />
+        <div className="absolute top-[15%] h-3 w-3 bg-d3-purple/30 -translate-x-1/2" style={{ left: 80 }} />
+        <div className="absolute top-[45%] h-2 w-2 bg-d3-purple/25 -translate-x-1/2" style={{ left: 80 }} />
+        <div className="absolute top-[75%] h-3 w-3 bg-d3-purple/30 -translate-x-1/2" style={{ left: 80 }} />
+        <div className="absolute top-[30%] h-px bg-d3-purple/15" style={{ left: 0, width: 80 }} />
+        <div className="absolute top-[60%] h-px bg-d3-purple/15" style={{ left: 0, width: 80 }} />
+
+        <div className="absolute top-0 right-0 h-full w-px bg-d3-purple/15" style={{ right: 80 }} />
+        <div className="absolute top-[20%] h-2.5 w-2.5 bg-d3-purple/30 -translate-x-1/2" style={{ right: 80 }} />
+        <div className="absolute top-[50%] h-3 w-3 bg-d3-purple/25 -translate-x-1/2" style={{ right: 80 }} />
+        <div className="absolute top-[85%] h-2 w-2 bg-d3-purple/30 -translate-x-1/2" style={{ right: 80 }} />
+        <div className="absolute top-[25%] h-px bg-d3-purple/15" style={{ right: 0, width: 80 }} />
+        <div className="absolute top-[70%] h-px bg-d3-purple/15" style={{ right: 0, width: 80 }} />
+      </div>
+
       <div className="container mx-auto px-4 py-12 max-w-3xl relative">
-        <button onClick={() => navigate("/blog")} className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-d3-purple transition-colors mb-8">
-          <ArrowLeft className="w-4 h-4" /> Voltar
+        <button
+          onClick={() => navigate("/blog")}
+          className="group inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-d3-purple transition-colors mb-8"
+        >
+          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" /> Voltar
         </button>
 
         {post.categoria && (
-          <span className="text-xs font-semibold text-d3-purple uppercase tracking-wider">
+          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-d3-purple uppercase tracking-wider bg-d3-purple/5 border border-d3-purple/10 rounded-full px-3 py-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-d3-purple" />
             {post.categoria.nome}
           </span>
         )}
 
-        <h1 className="text-3xl md:text-4xl font-bold text-d3-navy mt-3 mb-4 leading-tight">
+        <h1 className="text-3xl md:text-5xl font-bold text-d3-navy mt-4 mb-5 leading-tight tracking-tight">
           {post.titulo}
         </h1>
 
-        <div className="flex items-center gap-4 text-sm text-gray-400 mb-8 pb-8 border-b border-gray-100">
-          <span className="flex items-center gap-1.5"><User className="w-3.5 h-3.5" /> {post.autor}</span>
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-gray-400 mb-8 pb-8 border-b border-gray-100">
+          <span className="flex items-center gap-2">
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-d3-purple/10 text-d3-purple">
+              <User className="w-3.5 h-3.5" />
+            </span>
+            {post.autor}
+          </span>
           <span className="flex items-center gap-1.5">
             <Calendar className="w-3.5 h-3.5" />
-            {post.dataPublicacao ? new Date(post.dataPublicacao).toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" }) : ""}
+            {post.dataPublicacao
+              ? new Date(post.dataPublicacao).toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" })
+              : ""}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <Clock className="w-3.5 h-3.5" />
+            {readTime} min de leitura
           </span>
         </div>
 
         {post.imagemCapa && (
-          <img src={fileUrl(post.imagemCapa)} alt={post.titulo} className="w-full mb-10 object-cover" />
+          <div className="relative mb-10 group">
+            <div className="absolute -inset-1 bg-gradient-to-br from-d3-purple/20 to-d3-purple/5 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
+            <img
+              src={fileUrl(post.imagemCapa)}
+              alt={post.titulo}
+              className="relative w-full rounded-xl object-cover shadow-sm"
+            />
+          </div>
         )}
 
-        <div className="prose prose-lg max-w-none prose-headings:text-d3-navy prose-a:text-d3-purple" dangerouslySetInnerHTML={{ __html: post.descricao }} />
+        <div
+          className="prose prose-lg max-w-none prose-headings:text-d3-navy prose-headings:font-bold prose-a:text-d3-purple prose-a:no-underline hover:prose-a:underline prose-strong:text-d3-navy prose-blockquote:border-l-d3-purple prose-blockquote:text-gray-500"
+          dangerouslySetInnerHTML={{ __html: post.descricao }}
+        />
 
         {post.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-12 pt-8 border-t border-gray-100">
             {post.tags.map((tag) => (
-              <span key={tag.id} className="text-xs bg-d3-purple/5 text-d3-purple px-3 py-1.5 border border-d3-purple/10">
-                {tag.nome}
+              <span
+                key={tag.id}
+                className="text-xs font-medium bg-d3-purple/5 text-d3-purple px-3 py-1.5 rounded-full border border-d3-purple/10 hover:border-d3-purple/30 hover:bg-d3-purple/10 transition-colors cursor-default"
+              >
+                #{tag.nome}
               </span>
             ))}
           </div>
         )}
 
-        <div className="mt-12 pt-8 border-t border-gray-100">
-          <Link to="/blog" className="inline-flex items-center gap-1.5 text-sm text-d3-purple hover:text-d3-purple-dark font-medium transition-colors">
-            <ArrowLeft className="w-4 h-4" /> Ver mais publicações
+        <div className="mt-12 pt-8 border-t border-gray-100 flex items-center justify-between flex-wrap gap-4">
+          <Link
+            to="/blog"
+            className="group inline-flex items-center gap-1.5 text-sm text-d3-purple hover:text-d3-purple-dark font-medium transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" /> Ver mais publicacoes
           </Link>
+
+          <div className="flex items-center gap-2 text-xs text-gray-300">
+            <span className="w-8 h-px bg-d3-purple/20" />
+            D3TECH
+            <span className="w-8 h-px bg-d3-purple/20" />
+          </div>
         </div>
       </div>
     </article>

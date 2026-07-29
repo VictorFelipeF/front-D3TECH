@@ -42,45 +42,40 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
       {/* Elementos graficos decorativos */}
-      <svg className="pointer-events-none absolute top-0 right-0 w-[600px] h-[600px] opacity-[0.12]" viewBox="0 0 600 600" aria-hidden="true">
+      <svg className="pointer-events-none absolute top-0 right-0 w-[800px] h-[800px] opacity-[0.12]" viewBox="0 0 800 800" aria-hidden="true">
         <defs>
           <linearGradient id="blogGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#7c3aed" />
             <stop offset="100%" stopColor="#6d28d9" />
           </linearGradient>
         </defs>
-        <circle cx="500" cy="100" r="80" fill="url(#blogGrad)" />
-        <circle cx="550" cy="250" r="40" fill="url(#blogGrad)" />
-        <rect x="420" y="180" width="60" height="60" rx="0" fill="url(#blogGrad)" transform="rotate(45 450 210)" />
-        <line x1="0" y1="0" x2="600" y2="600" stroke="#7c3aed" strokeWidth="1" />
-        <line x1="200" y1="0" x2="600" y2="400" stroke="#7c3aed" strokeWidth="0.5" />
-        <line x1="400" y1="0" x2="600" y2="200" stroke="#6d28d9" strokeWidth="0.5" />
-        <polygon points="500,0 550,30 530,80 500,60 470,80 450,30" fill="url(#blogGrad)" opacity="0.5" />
-        <polygon points="100,50 130,120 110,120 150,200 100,140 120,140 80,50" fill="url(#blogGrad)" opacity="0.6" />
-        <polygon points="300,150 315,195 308,195 330,230 300,200 312,200 285,150" fill="url(#blogGrad)" opacity="0.4" />
-        <polygon points="60,300 80,345 72,345 90,380 60,350 70,350 50,300" fill="url(#blogGrad)" opacity="0.35" />
-        <polygon points="450,350 480,420 460,420 500,480 445,430 460,430 420,350" fill="url(#blogGrad)" opacity="0.25" />
+        <circle cx="650" cy="150" r="120" fill="url(#blogGrad)" opacity="0.4" />
+        <circle cx="720" cy="350" r="60" fill="url(#blogGrad)" opacity="0.3" />
+        <rect x="500" y="250" width="90" height="90" fill="url(#blogGrad)" opacity="0.4" transform="rotate(45 545 295)" />
+        <polygon points="650,0 720,40 700,100 650,70 600,100 580,40" fill="url(#blogGrad)" opacity="0.5" />
+        <polygon points="120,80 170,180 130,180 200,300 110,200 135,200 80,80" fill="url(#blogGrad)" opacity="0.12" />
+        <polygon points="350,420 380,500 360,500 410,600 340,530 365,530 300,420" fill="url(#blogGrad)" opacity="0.12" />
+        <polygon points="550,500 590,600 560,600 630,750 540,650 570,650 480,500" fill="url(#blogGrad)" opacity="0.12" />
+        <polygon points="250,200 295,320 265,320 320,420 240,340 270,340 200,200" fill="url(#blogGrad)" opacity="0.12" />
+        <polygon points="450,100 490,200 465,200 520,300 440,230 465,230 400,100" fill="url(#blogGrad)" opacity="0.12" />
+        <polygon points="100,500 145,600 120,600 165,700 95,620 120,620 70,500" fill="url(#blogGrad)" opacity="0.12" />
       </svg>
 
-      <svg className="pointer-events-none absolute bottom-0 left-0 w-[400px] h-[400px] opacity-[0.12]" viewBox="0 0 400 400" aria-hidden="true">
+      <svg className="pointer-events-none absolute bottom-0 left-0 w-[600px] h-[600px] opacity-[0.12]" viewBox="0 0 600 600" aria-hidden="true">
         <defs>
           <linearGradient id="blogGrad2" x1="100%" y1="100%" x2="0%" y2="0%">
             <stop offset="0%" stopColor="#7c3aed" />
             <stop offset="100%" stopColor="#4d1c99" />
           </linearGradient>
         </defs>
-        <circle cx="50" cy="350" r="60" fill="url(#blogGrad2)" />
-        <rect x="20" y="200" width="80" height="80" rx="0" fill="url(#blogGrad2)" transform="rotate(30 60 240)" />
-        <line x1="0" y1="400" x2="400" y2="0" stroke="#7c3aed" strokeWidth="1" />
-        <line x1="0" y1="300" x2="300" y2="0" stroke="#7c3aed" strokeWidth="0.5" />
-        <polygon points="0,50 30,20 50,60 20,70" fill="url(#blogGrad2)" />
-        <polygon points="300,250 320,300 310,300 340,350 300,310 315,310 280,250" fill="url(#blogGrad2)" opacity="0.4" />
-        <polygon points="150,100 170,150 160,150 180,190 150,165 162,165 140,100" fill="url(#blogGrad2)" opacity="0.35" />
+        <circle cx="80" cy="520" r="100" fill="url(#blogGrad2)" opacity="0.3" />
+        <rect x="30" y="300" width="100" height="100" fill="url(#blogGrad2)" opacity="0.3" transform="rotate(30 80 350)" />
+        <polygon points="0,80 50,50 80,120 30,130" fill="url(#blogGrad2)" opacity="0.4" />
+        <polygon points="400,350 440,480 410,480 470,600 380,500 415,500 340,350" fill="url(#blogGrad2)" opacity="0.12" />
+        <polygon points="200,140 240,240 215,240 270,340 190,270 220,270 150,140" fill="url(#blogGrad2)" opacity="0.12" />
+        <polygon points="80,280 120,380 95,380 140,480 70,400 100,400 50,280" fill="url(#blogGrad2)" opacity="0.12" />
+        <polygon points="500,80 540,180 515,180 560,280 490,210 520,210 450,80" fill="url(#blogGrad2)" opacity="0.12" />
       </svg>
-
-      <div className="pointer-events-none absolute top-1/2 -translate-y-1/2 right-0 w-px h-32 bg-d3-purple/15 hidden lg:block" />
-      <div className="pointer-events-none absolute top-1/3 right-4 w-1.5 h-1.5 bg-d3-purple/30 hidden lg:block" />
-      <div className="pointer-events-none absolute bottom-1/3 right-8 w-2 h-2 bg-d3-purple/25 hidden lg:block" />
 
       <div className="container mx-auto px-4 py-16 md:py-20 relative">
         <div className="mb-8">

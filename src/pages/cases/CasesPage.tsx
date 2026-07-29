@@ -15,20 +15,21 @@ export default function CasesPage() {
 
   return (
     <div className="relative overflow-hidden">
-      <svg className="pointer-events-none absolute top-0 right-0 w-[500px] h-[500px] opacity-[0.08]" viewBox="0 0 500 500" aria-hidden="true">
+      <svg className="pointer-events-none absolute top-0 right-0 w-[700px] h-[700px] opacity-[0.12]" viewBox="0 0 700 700" aria-hidden="true">
         <defs><linearGradient id="csGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#7c3aed"/><stop offset="100%" stopColor="#6d28d9"/></linearGradient></defs>
-        <circle cx="420" cy="60" r="60" fill="url(#csGrad)"/>
-        <rect x="350" y="130" width="50" height="50" fill="url(#csGrad)" transform="rotate(45 375 155)"/>
-        <polygon points="400,0 440,80 420,80 460,160 400,110 420,110 370,0" fill="url(#csGrad)" opacity="0.5"/>
-        <polygon points="180,80 200,130 190,130 210,170 180,145 192,145 170,80" fill="url(#csGrad)" opacity="0.4"/>
-        <polygon points="80,320 110,380 95,380 125,450 80,400 100,400 60,320" fill="url(#csGrad)" opacity="0.3"/>
+        <circle cx="580" cy="120" r="100" fill="url(#csGrad)" opacity="0.3"/>
+        <rect x="450" y="220" width="80" height="80" fill="url(#csGrad)" opacity="0.3" transform="rotate(45 490 260)"/>
+        <polygon points="560,0 630,80 600,80 670,200 560,130 595,130 500,0" fill="url(#csGrad)" opacity="0.12"/>
+        <polygon points="150,120 220,260 180,260 270,400 150,310 185,310 100,120" fill="url(#csGrad)" opacity="0.12"/>
+        <polygon points="380,450 430,590 400,590 460,700 370,610 405,610 320,450" fill="url(#csGrad)" opacity="0.12"/>
+        <polygon points="250,300 300,420 275,420 330,530 245,450 275,450 200,300" fill="url(#csGrad)" opacity="0.12"/>
       </svg>
-      <svg className="pointer-events-none absolute bottom-0 left-0 w-[400px] h-[400px] opacity-[0.08]" viewBox="0 0 400 400" aria-hidden="true">
+      <svg className="pointer-events-none absolute bottom-0 left-0 w-[500px] h-[500px] opacity-[0.12]" viewBox="0 0 500 500" aria-hidden="true">
         <defs><linearGradient id="csGrad2" x1="100%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stopColor="#7c3aed"/><stop offset="100%" stopColor="#4d1c99"/></linearGradient></defs>
-        <circle cx="60" cy="340" r="50" fill="url(#csGrad2)"/>
-        <polygon points="200,180 220,240 210,240 230,290 200,250 215,250 180,180" fill="url(#csGrad2)" opacity="0.5"/>
-        <polygon points="300,80 320,120 312,120 330,160 300,130 315,130 285,80" fill="url(#csGrad2)" opacity="0.4"/>
-        <line x1="0" y1="400" x2="400" y2="0" stroke="#7c3aed" strokeWidth="0.5"/>
+        <circle cx="80" cy="420" r="80" fill="url(#csGrad2)" opacity="0.3"/>
+        <polygon points="280,220 330,360 300,360 360,480 270,380 305,380 220,220" fill="url(#csGrad2)" opacity="0.12"/>
+        <polygon points="100,60 150,180 125,180 170,280 95,200 125,200 60,60" fill="url(#csGrad2)" opacity="0.12"/>
+        <polygon points="380,100 430,220 405,220 460,340 370,250 405,250 320,100" fill="url(#csGrad2)" opacity="0.12"/>
       </svg>
 
       <CasesHero />
