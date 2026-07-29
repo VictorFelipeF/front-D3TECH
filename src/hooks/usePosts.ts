@@ -9,10 +9,10 @@ import {
   type PostPayload,
 } from "@/services/posts.service";
 
-export function usePublishedPosts(page = 0, size = 9) {
+export function usePublishedPosts(page = 0, size = 9, search?: string, categoriaId?: number, tagIds?: number[]) {
   return useQuery({
-    queryKey: ["posts", "published", page],
-    queryFn: () => getPublishedPosts(page, size),
+    queryKey: ["posts", "published", page, search, categoriaId, tagIds],
+    queryFn: () => getPublishedPosts(page, size, search, categoriaId, tagIds),
   });
 }
 
