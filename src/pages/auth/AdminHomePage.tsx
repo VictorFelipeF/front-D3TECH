@@ -42,8 +42,8 @@ export default function AdminHomePage() {
   return (
     <div className="px-10 py-12 max-w-6xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-d3-navy">Dashboard</h1>
-        <p className="text-base text-gray-400 mt-1">Visao geral do conteudo administrativo</p>
+        <h1 className="text-3xl font-bold text-d3-navy dark:text-white">Dashboard</h1>
+        <p className="text-base text-gray-400 dark:text-gray-500 mt-1">Visao geral do conteudo administrativo</p>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -59,17 +59,17 @@ export default function AdminHomePage() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-5">
-        <div className="bg-white rounded-none p-7 border border-gray-100 shadow-sm hover:shadow-md hover:border-d3-purple/20 transition-all">
-          <h2 className="font-semibold text-lg text-d3-navy mb-1">Blog</h2>
-          <p className="text-sm text-gray-400 mb-6">Gerencie publicacoes e rascunhos</p>
+        <div className="bg-white dark:bg-gray-900 rounded-none p-7 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md hover:border-d3-purple/20 transition-all">
+          <h2 className="font-semibold text-lg text-d3-navy dark:text-white mb-1">Blog</h2>
+          <p className="text-sm text-gray-400 dark:text-gray-500 mb-6">Gerencie publicacoes e rascunhos</p>
           <button onClick={() => setBlogModalOpen(true)} className="bg-d3-purple hover:bg-d3-purple-dark transition-colors text-white text-sm font-semibold rounded-none px-5 py-2.5 shadow-md shadow-d3-purple/20">
             + Novo post
           </button>
         </div>
 
-        <div className="bg-white rounded-none p-7 border border-gray-100 shadow-sm hover:shadow-md hover:border-d3-purple/20 transition-all">
-          <h2 className="font-semibold text-lg text-d3-navy mb-1">Cases de sucesso</h2>
-          <p className="text-sm text-gray-400 mb-6">Gerencie projetos e resultados</p>
+        <div className="bg-white dark:bg-gray-900 rounded-none p-7 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md hover:border-d3-purple/20 transition-all">
+          <h2 className="font-semibold text-lg text-d3-navy dark:text-white mb-1">Cases de sucesso</h2>
+          <p className="text-sm text-gray-400 dark:text-gray-500 mb-6">Gerencie projetos e resultados</p>
           <button onClick={() => {}} className="bg-d3-purple hover:bg-d3-purple-dark transition-colors text-white text-sm font-semibold rounded-none px-5 py-2.5 shadow-md shadow-d3-purple/20">
             + Novo case
           </button>
