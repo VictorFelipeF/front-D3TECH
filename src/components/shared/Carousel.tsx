@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type CarouselProps<T> = {
@@ -61,30 +60,30 @@ export function Carousel<T>({ items, renderItem, itemsPerView = { base: 1, md: 3
         </div>
       </div>
       
-      <div className="mt-4 flex items-center justify-center gap-2">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={goPrev}
-          disabled={!canGoPrev}
-          onKeyDown={(e: React.KeyboardEvent) => handleKeyDown(e, "prev")}
-          aria-label="Item anterior"
-          className={cn("rounded-full h-10 w-10", !canGoPrev && "opacity-50")}
-        >
-          <ChevronLeft className="h-5 w-5" />
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={goNext}
-          disabled={!canGoNext}
-          onKeyDown={(e: React.KeyboardEvent) => handleKeyDown(e, "next")}
-          aria-label="Próximo item"
-          className={cn("rounded-full h-10 w-10", !canGoNext && "opacity-50")}
-        >
-          <ChevronRight className="h-5 w-5" />
-        </Button>
-      </div>
+      <button
+        type="button"
+        onClick={goPrev}
+        onKeyDown={(e: React.KeyboardEvent) => handleKeyDown(e, "prev")}
+        aria-label="Item anterior"
+        className={cn(
+          "absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 rounded-full h-11 w-11 bg-background border border-border shadow-md flex items-center justify-center hover:bg-d3-purple hover:text-white transition-colors",
+          !canGoPrev && "hidden"
+        )}
+      >
+        <ChevronLeft className="h-5 w-5" />
+      </button>
+      <button
+        type="button"
+        onClick={goNext}
+        onKeyDown={(e: React.KeyboardEvent) => handleKeyDown(e, "next")}
+        aria-label="Próximo item"
+        className={cn(
+          "absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 rounded-full h-11 w-11 bg-background border border-border shadow-md flex items-center justify-center hover:bg-d3-purple hover:text-white transition-colors",
+          !canGoNext && "hidden"
+        )}
+      >
+        <ChevronRight className="h-5 w-5" />
+      </button>
     </div>
   );
 }
