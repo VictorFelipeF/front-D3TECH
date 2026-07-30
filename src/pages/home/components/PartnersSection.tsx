@@ -33,15 +33,15 @@ export function PartnersSection() {
         <div className="mx-auto max-w-5xl">
           <Carousel
             items={partners}
-            itemsPerView={{ base: 2, md: 5 }}
+            itemsPerView={{ base: 2, sm: 3, md: 4, lg: 5 }}
             renderItem={(p) => {
               const img = (
-                <div className="flex h-35 w-35 items-center justify-center rounded-2xl border border-border bg-background p-3">
+                <div className="flex h-28 w-full items-center justify-center rounded-2xl border border-border bg-background p-4 sm:h-32 md:h-40 md:p-6">
                   <img
                     src={fileUrl(p.logo)}
                     alt={p.nome}
                     loading="lazy"
-                    className="max-h-28 w-auto rounded-xl object-contain"
+                    className="max-h-20 w-auto rounded-xl object-contain sm:max-h-24 md:max-h-28"
                   />
                 </div>
               );
