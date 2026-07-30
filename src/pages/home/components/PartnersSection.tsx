@@ -36,12 +36,12 @@ export function PartnersSection() {
             itemsPerView={{ base: 2, md: 5 }}
             renderItem={(p) => {
               const img = (
-                <div className="flex h-48 w-full items-center justify-center rounded-xl border border-border bg-background p-8">
+                <div className="flex h-35 w-35 items-center justify-center rounded-2xl border border-border bg-background p-3">
                   <img
                     src={fileUrl(p.logo)}
                     alt={p.nome}
                     loading="lazy"
-                    className="max-h-32 w-auto object-contain"
+                    className="max-h-28 w-auto rounded-xl object-contain"
                   />
                 </div>
               );

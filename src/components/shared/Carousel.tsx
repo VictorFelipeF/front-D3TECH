@@ -66,7 +66,7 @@ export function Carousel<T>({ items, renderItem, itemsPerView = { base: 1, md: 3
         onKeyDown={(e: React.KeyboardEvent) => handleKeyDown(e, "prev")}
         aria-label="Item anterior"
         className={cn(
-          "absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 rounded-full h-11 w-11 bg-background border border-border shadow-md flex items-center justify-center hover:bg-d3-purple hover:text-white transition-colors",
+          "absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 rounded-full h-11 w-11 bg-[#0a0a0a] border border-[#7c3aed]/40 text-[#a78bfa] shadow-md flex items-center justify-center hover:bg-[#7c3aed] hover:text-white transition-colors",
           !canGoPrev && "hidden"
         )}
       >
@@ -78,7 +78,7 @@ export function Carousel<T>({ items, renderItem, itemsPerView = { base: 1, md: 3
         onKeyDown={(e: React.KeyboardEvent) => handleKeyDown(e, "next")}
         aria-label="Próximo item"
         className={cn(
-          "absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 rounded-full h-11 w-11 bg-background border border-border shadow-md flex items-center justify-center hover:bg-d3-purple hover:text-white transition-colors",
+          "absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 rounded-full h-11 w-11 bg-[#0a0a0a] border border-[#7c3aed]/40 text-[#a78bfa] shadow-md flex items-center justify-center hover:bg-[#7c3aed] hover:text-white transition-colors",
           !canGoNext && "hidden"
         )}
       >
