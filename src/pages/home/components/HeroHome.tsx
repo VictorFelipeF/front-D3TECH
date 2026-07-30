@@ -34,8 +34,6 @@ export function HeroHome() {
       {/* Decorative gradient orbs */}
       <div className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-d3-purple/15 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-40 -left-32 h-[28rem] w-[28rem] rounded-full bg-d3-purple/10 blur-3xl" />
-      {/* Subtle bottom gradient to ease transition */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-d3-navy-dark/40" />
 
       <div className="container relative mx-auto grid grid-cols-1 items-center gap-12 px-4 py-28 text-left md:grid-cols-2 md:py-36">
         <div className="flex flex-col items-start">
