@@ -15,7 +15,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="relative bg-[#0a0a0a] text-white overflow-hidden">
+    <footer className="relative bg-[#0F046C] dark:bg-[#0a0a0a] text-white overflow-hidden">
       <div className="pointer-events-none absolute -top-40 left-1/3 w-[600px] h-[600px] bg-[#7c3aed]/8 rounded-full blur-[100px]" />
       <div className="pointer-events-none absolute -bottom-40 right-0 w-[500px] h-[500px] bg-[#4d1c99]/10 rounded-full blur-[100px]" />
 
@@ -44,7 +44,7 @@ export function Footer() {
         }}
       />
 
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#7c3aed]/40 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#a78bfa] dark:via-[#7c3aed]/40 to-transparent" />
 
       <div className="relative container mx-auto px-6 py-16">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-3">

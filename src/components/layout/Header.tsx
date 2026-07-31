@@ -21,7 +21,7 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/[0.03] bg-[#0a0a0a]/98 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 w-full border-b border-d3-purple/10 dark:border-white/[0.03] bg-[#0F046C]/98 dark:bg-[#0a0a0a]/98 backdrop-blur-xl">
       <div className="pointer-events-none absolute -top-24 left-1/4 w-72 h-72 bg-[#7c3aed]/15 rounded-full blur-[80px]" />
       <div className="pointer-events-none absolute -top-24 right-1/4 w-72 h-72 bg-[#4d1c99]/15 rounded-full blur-[80px]" />
 
@@ -123,7 +123,7 @@ export function Header() {
       </div>
 
       {isOpen && (
-        <div className="md:hidden border-t border-white/[0.03] bg-[#0a0a0a] relative overflow-hidden">
+        <div className="md:hidden border-t border-d3-purple/10 dark:border-white/[0.03] bg-[#2e1065] dark:bg-[#0a0a0a] relative overflow-hidden">
           <div className="pointer-events-none absolute -top-10 right-10 w-40 h-40 bg-[#7c3aed]/15 rounded-full blur-[80px]" />
           <nav className="relative flex flex-col px-4 py-4 space-y-0.5">
             {!isAdminArea && navLinks.map((link) => (
