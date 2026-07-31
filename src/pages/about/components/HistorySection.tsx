@@ -25,17 +25,17 @@ export function HistorySection() {
         </p>
       </div>
 
-      {/* Imagens Placeholder */}
+      {/* Imagens */}
       <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <div
-          className="aspect-video w-full overflow-hidden rounded-2xl bg-gradient-to-br from-d3-navy/5 to-d3-purple/10 ring-1 ring-border"
-          role="img"
-          aria-label="Imagem institucional da D3TEC"
+        <img
+          src="/foto1History.jpeg"
+          alt="D3TEC História 1"
+          className="relative z-10 w-full rounded-lg object-cover"
         />
-        <div
-          className="aspect-video w-full overflow-hidden rounded-2xl bg-gradient-to-br from-d3-navy/5 to-d3-purple/10 ring-1 ring-border"
-          role="img"
-          aria-label="Imagem institucional da D3TEC"
+        <img
+          src="/foto2History.jpeg"
+          alt="D3TEC História 2"
+          className="relative z-10 w-full rounded-lg object-cover"
         />
       </div>
     </section>
