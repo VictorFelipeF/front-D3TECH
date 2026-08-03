@@ -37,7 +37,7 @@ export function ServicesSection() {
       )}
 
       <div className="mt-12 flex justify-center">
-        <CTAButton to="/servicos" variant="outline">
+        <CTAButton to="/servicos" variant="primary">
           Ver todos os serviços
         </CTAButton>
       </div>
