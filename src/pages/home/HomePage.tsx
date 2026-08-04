@@ -2,6 +2,7 @@ import { HeroHome } from "./components/HeroHome";
 import { IndicadoresSection } from "./components/IndicadoresSection";
 import { PartnersSection } from "./components/PartnersSection";
 import { AboutSection } from "./components/AboutSection";
+import { ServicesSection } from "./components/ServicesSection";
 
 export default function HomePage() {
   return (
@@ -10,6 +11,7 @@ export default function HomePage() {
       <IndicadoresSection />
       <PartnersSection />
       <AboutSection />
+      <ServicesSection />
     </div>
   );
 }
