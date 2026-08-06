@@ -2,12 +2,13 @@ import { createContext, useContext, useState, useEffect, useCallback, type React
 import { http, getToken, clearTokens } from "@/services/api";
 import { logout as apiLogout } from "@/services/auth.service";
 
-type User = { name: string; email: string };
+type User = { name: string; email: string; role: string };
 
 type AuthContextType = {
   user: User | null;
   loading: boolean;
   isAuthenticated: boolean;
+  isAdmin: boolean;
   fetchUser: () => Promise<void>;
   logout: () => Promise<void>;
 };
@@ -51,6 +52,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user,
         loading,
         isAuthenticated: !!user,
+        isAdmin: user?.role === "ADMIN",
         fetchUser,
         logout,
       }}

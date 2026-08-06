@@ -24,6 +24,8 @@ const AdminServicesPage = lazy(() => import("@/pages/services/AdminServicesPage"
 const AdminPartnersPage = lazy(() => import("@/pages/partners/AdminPartnersPage"));
 const AdminIndicadoresPage = lazy(() => import("@/pages/indicadores/AdminIndicadoresPage"));
 const AdminMembersPage = lazy(() => import("@/pages/members/AdminMembersPage"));
+const MembersPage = lazy(() => import("@/pages/members/MembersPage"));
+const AdminUsersPage = lazy(() => import("@/pages/users/AdminUsersPage"));
 
 
 function App() {
@@ -40,6 +42,7 @@ function App() {
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/politica-de-privacidade" element={<PrivacyPolicyPage />} />
+            <Route path="/equipe" element={<MembersPage />} />
           </Route>
 
           <Route path="/admin" element={<LoginPage />} />
@@ -56,6 +59,7 @@ function App() {
                 <Route path="/admin/partners" element={<AdminPartnersPage />} />
                 <Route path="/admin/indicadores" element={<AdminIndicadoresPage />} />
               <Route path="/admin/members" element={<AdminMembersPage />} />
+              <Route path="/admin/users" element={<AdminUsersPage />} />
               </Route>
             </Route>
           </Routes>
