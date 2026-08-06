@@ -1,8 +1,18 @@
 import { http } from "./api";
 
-export async function updateProfilePicture(url: string) {
-  const res = await http.patch("/users/me/profile-picture", {
-    profilePictureUrl: url,
-  });
-  return res.data;
+export type UserBackend = {
+  id: number;
+  nome: string;
+  email: string;
+  emailVerified: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export async function getAllUsers() {
+  return (await http.get<UserBackend[]>("/admin/users")).data;
+}
+
+export async function deleteUser(id: number) {
+  await http.delete(`/admin/users/${id}`);
 }

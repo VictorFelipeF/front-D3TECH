@@ -27,8 +27,8 @@ export default function AdminIndicadoresPage() {
     try {
       if (editing) { await updateIndicador(editing.id, d); toast.success("Atualizado!"); }
       else { await createIndicador(d); toast.success("Criado!"); }
+      setModalOpen(false); setEditing(null); await load(page);
     } catch { toast.error("Erro ao salvar."); }
-    setModalOpen(false); setEditing(null); await load(page);
   }
 
   async function confirmDelete() {

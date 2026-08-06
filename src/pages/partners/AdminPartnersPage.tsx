@@ -38,9 +38,9 @@ export default function AdminPartnersPage() {
     try {
       if (editing) { await updatePartner(editing.id, data); toast.success("Parceiro atualizado!"); }
       else { await createPartner(data); toast.success("Parceiro criado!"); }
+      setModalOpen(false); setEditing(null);
+      await load(page);
     } catch { toast.error("Erro ao salvar."); }
-    setModalOpen(false); setEditing(null);
-    await load(page);
   }
 
   async function confirmDelete() {

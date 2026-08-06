@@ -57,12 +57,12 @@ export default function AdminBlogPage() {
         await createPost(data);
         toast.success("Post criado com sucesso!");
       }
+      setModalOpen(false);
+      setEditingPost(null);
+      await carregarPosts(page);
     } catch {
       toast.error("Erro ao salvar post.");
     }
-    setModalOpen(false);
-    setEditingPost(null);
-    await carregarPosts(page);
   }
 
   async function confirmDelete() {
