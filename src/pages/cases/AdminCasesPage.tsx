@@ -40,12 +40,12 @@ export default function AdminCasesPage() {
         await createCase(data);
         toast.success("Case criado com sucesso!");
       }
+      setModalOpen(false);
+      setEditingCase(null);
+      await carregarCases(page);
     } catch {
       toast.error("Erro ao salvar case.");
     }
-    setModalOpen(false);
-    setEditingCase(null);
-    await carregarCases(page);
   }
 
   async function confirmDelete() {
