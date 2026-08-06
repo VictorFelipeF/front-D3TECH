@@ -23,6 +23,7 @@ const AdminContactsPage = lazy(() => import("@/pages/contact/AdminContactsPage")
 const AdminServicesPage = lazy(() => import("@/pages/services/AdminServicesPage"));
 const AdminPartnersPage = lazy(() => import("@/pages/partners/AdminPartnersPage"));
 const AdminIndicadoresPage = lazy(() => import("@/pages/indicadores/AdminIndicadoresPage"));
+const AdminMembersPage = lazy(() => import("@/pages/members/AdminMembersPage"));
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
                 <Route path="/admin/services" element={<AdminServicesPage />} />
                 <Route path="/admin/partners" element={<AdminPartnersPage />} />
                 <Route path="/admin/indicadores" element={<AdminIndicadoresPage />} />
+              <Route path="/admin/members" element={<AdminMembersPage />} />
               </Route>
             </Route>
           </Routes>

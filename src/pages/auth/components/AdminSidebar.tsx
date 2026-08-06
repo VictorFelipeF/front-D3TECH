@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { LayoutDashboard, Pencil, Star, ExternalLink, Mail, Briefcase, Building2, BarChart3 } from "lucide-react";
+import { LayoutDashboard, Pencil, Star, ExternalLink, Mail, Briefcase, Building2, BarChart3, Users } from "lucide-react";
 
 export function AdminSidebar() {
   const navigate = useNavigate();
@@ -9,6 +9,7 @@ export function AdminSidebar() {
     { to: "/admin/blog", label: "Blog", icon: Pencil },
     { to: "/admin/cases", label: "Cases de Sucesso", icon: Star },
     { to: "/admin/services", label: "Servicos", icon: Briefcase },
+    { to: "/admin/members", label: "Membros", icon: Users },
     { to: "/admin/partners", label: "Parceiros", icon: Building2 },
     { to: "/admin/indicadores", label: "Indicadores", icon: BarChart3 },
     { to: "/admin/contacts", label: "Contatos", icon: Mail },
