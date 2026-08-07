@@ -31,39 +31,40 @@ const AdminUsersPage = lazy(() => import("@/pages/users/AdminUsersPage"));
 function App() {
   return (
     <BrowserRouter>
-      <Suspense fallback={<PageLoader />}>
-        <Routes>
-          <Route element={<PageLayout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/sobre-nos" element={<AboutPage />} />
-            <Route path="/servicos" element={<ServicesPage />} />
-            <Route path="/contato" element={<ContactPage />} />
-            <Route path="/cases" element={<CasesPage />} />
-            <Route path="/blog" element={<BlogPage />} />
-            <Route path="/blog/:slug" element={<BlogPostPage />} />
-            <Route path="/politica-de-privacidade" element={<PrivacyPolicyPage />} />
-            <Route path="/equipe" element={<MembersPage />} />
-          </Route>
-
-          <Route path="/admin" element={<LoginPage />} />
-          <Route path="/admin/login" element={<Navigate to="/admin" replace />} />
-          <Route path="/login" element={<Navigate to="/admin" replace />} />
-
-            <Route element={<ProtectedRoute />}>
-              <Route element={<AdminLayout />}>
-                <Route path="/admin/home" element={<AdminHomePage />} />
-                <Route path="/admin/blog" element={<AdminBlogPage />} />
-                <Route path="/admin/cases" element={<AdminCasesPage />} />
-                <Route path="/admin/contacts" element={<AdminContactsPage />} />
-                <Route path="/admin/services" element={<AdminServicesPage />} />
-                <Route path="/admin/partners" element={<AdminPartnersPage />} />
-                <Route path="/admin/indicadores" element={<AdminIndicadoresPage />} />
-              <Route path="/admin/members" element={<AdminMembersPage />} />
-              <Route path="/admin/users" element={<AdminUsersPage />} />
-              </Route>
+      <ScrollToTop />
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route element={<PageLayout />}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/sobre-nos" element={<AboutPage />} />
+              <Route path="/servicos" element={<ServicesPage />} />
+              <Route path="/contato" element={<ContactPage />} />
+              <Route path="/cases" element={<CasesPage />} />
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/blog/:slug" element={<BlogPostPage />} />
+              <Route path="/politica-de-privacidade" element={<PrivacyPolicyPage />} />
+              <Route path="/equipe" element={<MembersPage />} />
             </Route>
-          </Routes>
-        </Suspense>
+
+            <Route path="/admin" element={<LoginPage />} />
+            <Route path="/admin/login" element={<Navigate to="/admin" replace />} />
+            <Route path="/login" element={<Navigate to="/admin" replace />} />
+
+              <Route element={<ProtectedRoute />}>
+                <Route element={<AdminLayout />}>
+                  <Route path="/admin/home" element={<AdminHomePage />} />
+                  <Route path="/admin/blog" element={<AdminBlogPage />} />
+                  <Route path="/admin/cases" element={<AdminCasesPage />} />
+                  <Route path="/admin/contacts" element={<AdminContactsPage />} />
+                  <Route path="/admin/services" element={<AdminServicesPage />} />
+                  <Route path="/admin/partners" element={<AdminPartnersPage />} />
+                  <Route path="/admin/indicadores" element={<AdminIndicadoresPage />} />
+                <Route path="/admin/members" element={<AdminMembersPage />} />
+                <Route path="/admin/users" element={<AdminUsersPage />} />
+                </Route>
+              </Route>
+            </Routes>
+          </Suspense>
     </BrowserRouter>
   );
 }
