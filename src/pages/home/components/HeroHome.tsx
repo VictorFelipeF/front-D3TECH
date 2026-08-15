@@ -43,7 +43,7 @@ export function HeroHome() {
           </h1>
 
           <p className="mb-10 max-w-xl text-base leading-relaxed text-white/70 md:text-lg">
-            Somos a D3TECH — uma equipe que une engenharia, design e visão
+            Somos a D3TEC — uma equipe que une engenharia, design e visão
             acadêmica para desenvolver sistemas, sites e automações sob medida
             que fazem o seu negócio crescer com confiança.
           </p>

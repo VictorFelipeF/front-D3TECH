@@ -25,7 +25,7 @@ export function AboutSection() {
           />
 
           <p className="mb-4 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            A D3TECH nasceu da universidade com um propósito: transformar
+            A D3TEC nasceu da universidade com um propósito: transformar
             conhecimento técnico em soluções digitais que geram resultado
             real. Hoje somos uma equipe multidisciplinar que une engenharia de
             software, design e automação.
@@ -37,7 +37,7 @@ export function AboutSection() {
           </p>
 
           <CTAButton to="/sobre-nos" variant="primary">
-            Conhecer a D3TECH
+            Conhecer a D3TEC
           </CTAButton>
         </div>
       </div>

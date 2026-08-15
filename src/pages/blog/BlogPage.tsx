@@ -81,7 +81,7 @@ export default function BlogPage() {
         <div className="mb-8">
           <p className="text-sm font-semibold text-d3-purple uppercase tracking-wider mb-2">Blog</p>
           <h1 className="text-3xl md:text-4xl font-bold text-d3-navy dark:text-white">Publicações</h1>
-          <p className="text-gray-400 dark:text-gray-500 mt-2">Artigos, novidades e conhecimento da D3TECH</p>
+          <p className="text-gray-400 dark:text-gray-500 mt-2">Artigos, novidades e conhecimento da D3TEC</p>
         </div>
 
         {/* Filtros full-width */}

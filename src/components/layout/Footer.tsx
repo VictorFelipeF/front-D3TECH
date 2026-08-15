@@ -94,7 +94,7 @@ export function Footer() {
                 <span className="flex items-center justify-center w-8 h-8 bg-white/5 border border-[#7c3aed]/30 group-hover:border-[#7c3aed] group-hover:bg-[#7c3aed]/15 transition-colors">
                   <Mail className="h-3.5 w-3.5 text-[#a78bfa]" />
                 </span>
-                contato@d3tech.com.br
+                contato@d3tec.com.br
               </a>
               <a
                 href="tel:+5500000000000"
@@ -110,7 +110,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 pt-6 border-t border-white/[0.04] flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="text-xs text-white/30">&copy; {currentYear} D3TECH. Todos os direitos reservados.</p>
+          <p className="text-xs text-white/30">&copy; {currentYear} D3TEC. Todos os direitos reservados.</p>
           <p className="text-[10px] text-white/20 tracking-wide">Tecnologia que transforma.</p>
         </div>
       </div>
